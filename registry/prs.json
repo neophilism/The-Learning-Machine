@@ -266,9 +266,9 @@
         "Valid unusual solutions are not rejected to force an approved answer",
         "Noncanonical answer fixtures pass"
       ],
-      "status": "in_progress",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 9,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/9",
       "merged_commit": null,
       "verification_evidence": []
     },
