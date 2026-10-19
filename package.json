@@ -1,15 +1,21 @@
 {
-  "name": "the-learning-machine-foundation",
+  "name": "the-learning-machine",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.1.0",
   "type": "module",
+  "packageManager": "pnpm@11.25.0",
   "engines": {
-    "node": ">=22.16.0"
+    "node": ">=24 <25"
   },
   "scripts": {
+    "check:foundation": "node scripts/check-registry.mjs && node --test tests/*.test.mjs",
+    "typecheck": "pnpm --filter @learning-machine/web typecheck",
+    "build": "pnpm --filter @learning-machine/web build",
+    "check": "pnpm check:foundation && pnpm typecheck && pnpm build",
+    "dev": "pnpm --filter @learning-machine/web dev",
+    "preview": "pnpm --filter @learning-machine/web preview",
     "test": "node --test tests/*.test.mjs",
     "registry:check": "node scripts/check-registry.mjs",
-    "check": "npm run registry:check && npm test",
     "demo": "node --input-type=module -e \"import {runFoundationDemonstration} from './src/learning.mjs'; console.log(JSON.stringify(runFoundationDemonstration(),null,2))\""
   }
 }
