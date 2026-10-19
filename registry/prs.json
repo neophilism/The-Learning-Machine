@@ -89,9 +89,9 @@
         "Basic encounter-hypothesis-prediction-observation cycle runs; no future features marked done",
         "Node tests and roadmap validation prove real executable foundation"
       ],
-      "status": "in_progress",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 1,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/1",
       "merged_commit": null,
       "verification_evidence": []
     },
