@@ -7,6 +7,7 @@ const titles:Record<string,string>={encounter:'Encounter',hypothesis:'Hypothesis
 export default function Discovery({compiled}:{compiled:CompiledLearningModule}) {
  const [session,setSession]=useState<LearningSession>(()=>createLearningSession(compiled));
  const [draft,setDraft]=useState('');const [error,setError]=useState('');
+ const [alternatives,setAlternatives]=useState<string[]>([]);
  const [hydrated,setHydrated]=useState(false);useEffect(()=>setHydrated(true),[]);
  const active=compiled.nodes.find(n=>n.id===session.nodeId);
  if(!active)return <p role="alert">The lesson node is unavailable.</p>;
@@ -18,7 +19,10 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
  }
  function advance() {
   const actions:LearningAction[]=[];
-  if(reasoning.has(session.stage)){if(draft.trim())actions.push({type:'ANSWER',text:draft});else actions.push({type:'SKIP'});}
+  if(reasoning.has(session.stage)){
+   const answer=session.stage==='hypothesis'?[...alternatives,...(draft.trim()?[draft.trim()]:[])].join('\n— Alternative approach —\n'):draft.trim();
+   if(answer)actions.push({type:'ANSWER',text:answer});else actions.push({type:'SKIP'});
+  }
   else if(draft.trim())actions.push({type:'ANSWER',text:draft});
   actions.push({type:'NEXT'});act(actions);
  }
@@ -34,6 +38,11 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
   {session.stage==='reflection'&&<p className="status-note">Selective masking usually requires locating the symbol, but blurring everything does not require identifying it. Different methods have different information requirements.</p>}
   {session.complete&&<p className="status-note" role="status">You completed the learning journey. Your reasoning matters—not which political position you take.</p>}
   {reasoning.has(session.stage)&&!session.complete&&<label htmlFor="reasoning" className="response-label">Your reasoning (optional; you may skip)<textarea id="reasoning" className="response" rows={4} maxLength={10000} value={draft} onChange={e=>setDraft(e.target.value)} placeholder="What do you think, and why?"/></label>}
+  {session.stage==='hypothesis'&&!session.complete&&<section aria-label="Alternative approaches">
+    <p className="status-note">There may be several workable solutions. Record distinct approaches before making your prediction; no answer is graded for agreeing with the proposed law.</p>
+    {alternatives.length>0&&<ol aria-label="Your proposed approaches">{alternatives.map((approach,i)=><li key={i}>{approach} <button type="button" className="action" disabled={!hydrated} onClick={()=>setAlternatives(old=>old.filter((_,j)=>j!==i))} aria-label={'Remove approach '+(i+1)}>Remove</button></li>)}</ol>}
+    <button type="button" className="action" disabled={!hydrated||!draft.trim()||alternatives.length>=10} onClick={()=>{const text=draft.trim();if(!text)return; if(alternatives.some(x=>x.toLowerCase()===text.toLowerCase())){setError('This approach is already recorded. Try a different one.');return;}setAlternatives(old=>[...old,text]);setDraft('');setError('');}}>Record this approach and try another</button>
+   </section>}
   {error&&<p role="alert" className="error">{error}</p>}
   <div className="controls">
    {!session.complete&&routes.some(r=>r.when==='always')&&<button className="action action-primary" disabled={!hydrated} onClick={advance}>Continue{draft.trim()?' with your answer':''}</button>}
