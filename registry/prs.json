@@ -89,11 +89,14 @@
         "Basic encounter-hypothesis-prediction-observation cycle runs; no future features marked done",
         "Node tests and roadmap validation prove real executable foundation"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 1,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/1",
-      "merged_commit": null,
-      "verification_evidence": []
+      "merged_commit": "bf9c10e9f8d553a164b493920c2e5a85aeaeeca0",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39289389096",
+        "https://github.com/neophilism/The-Learning-Machine/pull/1"
+      ]
     },
     {
       "id": "TLM-002",
@@ -107,11 +110,13 @@
         "Clean frozen install, typecheck and production preview succeed",
         "CI builds from empty checkout"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 2,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/2",
       "merged_commit": null,
-      "verification_evidence": []
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39294060320"
+      ]
     },
     {
       "id": "TLM-003",
