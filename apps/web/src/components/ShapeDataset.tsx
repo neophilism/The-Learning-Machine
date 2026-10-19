@@ -30,7 +30,7 @@ export default function ShapeDatasetLab(){
   try{setDataset(d=>relabelShapeExample(d,id,value));setError('');}
   catch(e){setError(e instanceof Error?e.message:'Invalid class label');}
  }
- const filled=pixels.reduce((n,p)=>n+p,0),counts=shapeCounts(dataset);
+ const filled=pixels.reduce<number>((n,p)=>n+p,0),counts=shapeCounts(dataset);
  return <section className="learning-card drawing-lab" aria-label="Create local training examples">
   <h2>Create examples for a future classifier</h2>
   <p>Draw a simple shape, assign it a label, and save it as a training example. Create examples for at least two different labels to prepare for a classification experiment. Everything remains on this device, in this page, until you reset or leave.</p>
@@ -65,7 +65,7 @@ export default function ShapeDatasetLab(){
     {counts.length>0&&<p>Classes: {counts.map(c=>c.label+' ('+c.count+')').join(', ')}</p>}
     <ol aria-label="Saved training examples">{dataset.examples.map(ex=><li key={ex.id}>
      <label htmlFor={'label-'+ex.id}>{ex.id}: <input id={'label-'+ex.id} type="text" maxLength={40} defaultValue={ex.label} onBlur={e=>relabel(ex.id,e.target.value)} aria-label={'Change label of '+ex.id}/></label>
-     {' '}{ex.pixels.reduce((n,p)=>n+p,0)} marked cells.{' '}
+     {' '}{ex.pixels.reduce<number>((n,p)=>n+p,0)} marked cells.{' '}
      <button type="button" className="action" onClick={()=>setDataset(d=>removeShapeExample(d,ex.id))}>Remove {ex.id}</button>
     </li>)}</ol>
     {dataset.examples.length>0&&<p className="status-note">You have created real labeled examples. No model has been trained yet; the next laboratory step is an actual train/test split.</p>}
