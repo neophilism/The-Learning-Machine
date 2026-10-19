@@ -65,6 +65,7 @@ export function transitionLearningSession(compiled,s,action){
   case 'OBSERVE':{
     if(!['experiment','observation'].includes(s.stage))throw new RangeError('Observations require an experimental or observation stage');
     const observation=validateObservation(action.observation);
+    if(s.observations.some(o=>o.experimentId===observation.experimentId&&o.runId===observation.runId))throw new RangeError('Duplicate experiment observation run');
     return commit(s,action,{observations:[...s.observations,observation]});
   }
   case 'BACK':{
