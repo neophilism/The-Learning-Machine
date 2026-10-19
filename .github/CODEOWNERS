@@ -1,2 +1,3 @@
-# Ownership reference only; no separate mandatory review gate is configured.
-* @neophilism
+# No blanket CODEOWNERS assignment. The owner has authorized CI-gated AI review and autonomous merging.
+# Do not automatically request @neophilism to review routine PRs or Dependabot updates.
+# Add scoped ownership rules only when an explicit separate reviewer policy is authorized.
