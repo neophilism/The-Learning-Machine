@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {compileLearningModule} from '@learning-machine/content';
 import {createLearningSession,transitionLearningSession,replayLearningActions} from '../src/engine.mjs';
 const module=compileLearningModule({schemaVersion:'1.0.0',id:'prediction-fixture',title:'Predictions before observations',startNodeId:'e',concepts:['reason'],nodes:[
-{id:'e',stage:'encounter',prompt:'Encounter',edges:[{to:'h'}]},
+{id:'e',stage:'encounter',prompt:'Encounter',concepts:['reason'],edges:[{to:'h'}]},
 {id:'h',stage:'hypothesis',prompt:'Hypothesize',edges:[{to:'p'}]},
 {id:'p',stage:'prediction',prompt:'Predict',edges:[{to:'x'}]},
 {id:'x',stage:'experiment',prompt:'Experiment',accessibleAlternative:'Text experiment',edges:[{to:'o'}]},
