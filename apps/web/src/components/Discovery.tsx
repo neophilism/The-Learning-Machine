@@ -6,7 +6,7 @@ const reasoning=new Set(['hypothesis','prediction','observation','explanation','
 const titles:Record<string,string>={encounter:'Encounter',hypothesis:'Hypothesis',prediction:'Predict',experiment:'Experiment',observation:'Observe',explanation:'Explain',challenge:'Challenge',revision:'Revise',transfer:'Transfer',reflection:'Reflection',complete:'Complete'};
 export default function Discovery({compiled}:{compiled:CompiledLearningModule}) {
  const [session,setSession]=useState<LearningSession>(()=>createLearningSession(compiled));
- const [draft,setDraft]=useState('');const [error,setError]=useState('');
+ const [draft,setDraft]=useState('');const [error,setError]=useState('');const [hypothesisForPrediction,setHypothesisForPrediction]=useState('');
  const [hydrated,setHydrated]=useState(false);useEffect(()=>setHydrated(true),[]);
  const active=compiled.nodes.find(n=>n.id===session.nodeId);
  if(!active)return <p role="alert">The lesson node is unavailable.</p>;
@@ -23,6 +23,11 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
     actions.push({type:'ANSWER',text:draft});
     if(!session.hypotheses.some(h=>h.text.toLocaleLowerCase()===draft.trim().toLocaleLowerCase()))actions.push({type:'PROPOSE_HYPOTHESIS',text:draft});
    }else if(!session.hypotheses.length)actions.push({type:'SKIP'});
+  }else if(session.stage==='prediction'){
+   if(!session.predictions.some(p=>p.nodeId===session.nodeId)){
+    if(draft.trim())actions.push({type:'COMMIT_PREDICTION',text:draft,experimentId:'visual-masking-v1',...(hypothesisForPrediction?{hypothesisId:hypothesisForPrediction}:{})});
+    else actions.push({type:'SKIP'});
+   }
   }else if(reasoning.has(session.stage)){if(draft.trim())actions.push({type:'ANSWER',text:draft});else actions.push({type:'SKIP'});}
   else if(draft.trim())actions.push({type:'ANSWER',text:draft});
   actions.push({type:'NEXT'});act(actions);
@@ -42,10 +47,21 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
    <section className="option"><h3>Selective masking</h3><p>Recognize the target's location, then obscure that region.</p></section>
    <section className="option"><h3>Blanket masking</h3><p>Obscure every pixel without recognizing a target.</p></section>
   </div><p className="status-note" role="note">This comparison is an authored thought experiment, not an actual camera measurement. {active.accessibleAlternative}</p></>}
+  {session.stage==='prediction'&&!session.predictions.some(p=>p.nodeId===session.nodeId)&&session.hypotheses.length>0&&<label htmlFor="prediction-hypothesis" className="response-label">Which hypothesis are you testing?
+   <select id="prediction-hypothesis" value={hypothesisForPrediction} onChange={e=>setHypothesisForPrediction(e.target.value)}>
+    <option value="">A general prediction</option>
+    {session.hypotheses.map(h=><option key={h.id} value={h.id}>{h.text}</option>)}
+   </select>
+  </label>}
+  {session.predictions.length>0&&['prediction','experiment','observation','explanation','challenge','revision','transfer','reflection','complete'].includes(session.stage)&&<aside className="status-note" aria-label="Predictions committed before the experiment">
+   <strong>Committed before the experiment</strong>
+   <ol>{session.predictions.map(p=><li key={p.id}>{p.text} {p.hypothesisId&&<small>(testing hypothesis {p.hypothesisId})</small>}</li>)}</ol>
+   <p>Compare this prediction with what you observe. The original prediction cannot be silently rewritten.</p>
+  </aside>}
   {session.stage==='challenge'&&<p className="status-note">Challenge your hypothesis: can the goal be achieved without identifying a symbol?</p>}
   {session.stage==='reflection'&&<p className="status-note">Selective masking usually requires locating the symbol, but blurring everything does not require identifying it. Different methods have different information requirements.</p>}
   {session.complete&&<p className="status-note" role="status">You completed the learning journey. Your reasoning matters—not which political position you take.</p>}
-  {reasoning.has(session.stage)&&!session.complete&&<label htmlFor="reasoning" className="response-label">Your reasoning (optional; you may skip)<textarea id="reasoning" className="response" rows={4} maxLength={10000} value={draft} onChange={e=>setDraft(e.target.value)} placeholder="What do you think, and why?"/></label>}
+  {reasoning.has(session.stage)&&!session.complete&&!(session.stage==='prediction'&&session.predictions.some(p=>p.nodeId===session.nodeId))&&<label htmlFor="reasoning" className="response-label">Your reasoning (optional; you may skip)<textarea id="reasoning" className="response" rows={4} maxLength={10000} value={draft} onChange={e=>setDraft(e.target.value)} placeholder="What do you think, and why?"/></label>}
   {session.stage==='hypothesis'&&<div aria-label="Your proposed hypotheses" role="group">
    <button className="action" disabled={!hydrated} onClick={propose}>Add alternative hypothesis</button>
    {session.hypotheses.length>0&&<ol aria-label="Hypothesis alternatives">{session.hypotheses.map(h=><li key={h.id}>{h.text} <button className="action" disabled={!hydrated} aria-label={'Remove hypothesis '+h.id} onClick={()=>act([{type:'REMOVE_HYPOTHESIS',id:h.id}])}>Remove</button></li>)}</ol>}
@@ -53,7 +69,7 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
   </div>}
   {error&&<p role="alert" className="error">{error}</p>}
   <div className="controls">
-   {!session.complete&&routes.some(r=>r.when==='always')&&<button className="action action-primary" disabled={!hydrated} onClick={advance}>Continue{draft.trim()?' with your answer':''}</button>}
+   {!session.complete&&routes.some(r=>r.when==='always')&&<button className="action action-primary" disabled={!hydrated} onClick={advance}>{session.stage==='prediction'?(session.predictions.some(p=>p.nodeId===session.nodeId)?'Continue with committed prediction':(draft.trim()?'Commit prediction and continue':'Continue without prediction')):'Continue'}{session.stage!=='prediction'&&draft.trim()?' with your answer':''}</button>}
    {!session.complete&&routes.filter(r=>r.when==='alternative').map(r=><button key={r.to} className="action" disabled={!hydrated} onClick={()=>act([{type:'CHOOSE',to:r.to}])}>Explore alternative: {r.to}</button>)}
    {!session.complete&&routes.filter(r=>r.when==='retry').map(r=><button key={r.to} className="action" disabled={!hydrated} onClick={()=>act([{type:'RETRY',to:r.to}])}>Retry</button>)}
    <button className="action" onClick={()=>act([{type:'BACK'}])} disabled={!hydrated||!session.history.length}>Previous</button>
