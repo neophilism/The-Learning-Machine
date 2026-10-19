@@ -46,6 +46,12 @@
           "when": "has_hypothesis",
           "prompt": "Could a different method work without recognizing the symbol?"
         }
+      ],
+      "hints": [
+        "What is the precise outcome you want?",
+        "Could the entire frame be masked?",
+        "Would that preserve information viewers still need?",
+        "What new step is required to hide only selected pixels?"
       ]
     },
     {
@@ -67,6 +73,11 @@
           "when": "has_hypothesis",
           "prompt": "Which approach are you testing? What do you expect the computer to inspect and conceal?"
         }
+      ],
+      "hints": [
+        "Think about what you would count as a successful result.",
+        "How much of the picture should remain visible?",
+        "Can you measure the tradeoff between masked target and other pixels?"
       ]
     },
     {
@@ -108,6 +119,11 @@
           "when": "no_observation",
           "prompt": "What experiment would provide enough evidence to test your idea?"
         }
+      ],
+      "hints": [
+        "Inspect the computed observation rather than your initial assumption.",
+        "What does the number of target pixels masked tell you?",
+        "Did the method also hide pixels that were not the target?"
       ]
     },
     {
