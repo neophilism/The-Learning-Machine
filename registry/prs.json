@@ -152,11 +152,14 @@
         "Invalid edges, dead ends and inaccessible required routes are rejected",
         "Graph fixtures exercise branches, alternative endings and cycles"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 4,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/4",
-      "merged_commit": null,
-      "verification_evidence": []
+      "merged_commit": "8011ccb297ae3c8d5922fe6f41340d83730ea468",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39295203852",
+        "https://github.com/neophilism/The-Learning-Machine/pull/4"
+      ]
     },
     {
       "id": "TLM-005",
@@ -171,9 +174,9 @@
         "Only permitted transitions occur; direct answers remain accessible",
         "Table-driven transition and navigation tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 5,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/5",
       "merged_commit": null,
       "verification_evidence": []
     },
