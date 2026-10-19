@@ -266,11 +266,13 @@
         "Valid unusual solutions are not rejected to force an approved answer",
         "Noncanonical answer fixtures pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 9,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/9",
-      "merged_commit": null,
-      "verification_evidence": []
+      "merged_commit": "3b844033e3b340fc4dda22865155607d46dda2b7",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39298452158"
+      ]
     },
     {
       "id": "TLM-010",
