@@ -1,7 +1,8 @@
 import {useEffect,useRef,useState} from 'react';
 import {NOTE_NAMES,compileMelody,defaultMelody} from '../../../../packages/audio-lab/src/melody.mjs';
-type Note={pitch:string;beats:number};
-type Schedule={events:Array<{frequencyHz:number;startSeconds:number;durationSeconds:number}>;totalSeconds:number;tempo:number};
+type Pitch=(typeof NOTE_NAMES)[number];
+type Note={pitch:Pitch;beats:number};
+
 export default function AudioComposer(){
  const [notes,setNotes]=useState<Note[]>(()=>defaultMelody().map(n=>({...n})));
  const [tempo,setTempo]=useState(110);
@@ -9,7 +10,7 @@ export default function AudioComposer(){
  const [error,setError]=useState('');
  const audio=useRef<AudioContext|null>(null);
  const voices=useRef<Array<{osc:OscillatorNode;gain:GainNode}>>([]);
- const schedule=compileMelody(notes,tempo) as Schedule;
+ const schedule=compileMelody(notes,tempo);
  function stop(){
   for(const v of voices.current){try{v.osc.stop()}catch{}try{v.osc.disconnect();v.gain.disconnect()}catch{}}
   voices.current=[];setPlaying(false);
@@ -41,7 +42,7 @@ export default function AudioComposer(){
   <label htmlFor="tempo">Tempo: {tempo} beats per minute</label>
   <input id="tempo" type="range" min={45} max={220} value={tempo} onChange={e=>setTempo(Number(e.target.value))}/>
   <ol aria-label="Your melody">{notes.map((note,i)=><li key={i} style={{marginBottom:'0.75rem'}}>
-   <label>Note {i+1} <select aria-label={'Pitch for note '+(i+1)} value={note.pitch} onChange={e=>setNotes(old=>old.map((n,j)=>j===i?{...n,pitch:e.target.value}:n))}>{NOTE_NAMES.map(p=><option key={p} value={p}>{p}</option>)}</select></label>{' '}
+   <label>Note {i+1} <select aria-label={'Pitch for note '+(i+1)} value={note.pitch} onChange={e=>setNotes(old=>old.map((n,j)=>j===i?{...n,pitch:e.target.value as Pitch}:n))}>{NOTE_NAMES.map(p=><option key={p} value={p}>{p}</option>)}</select></label>{' '}
    <label>Beats <select aria-label={'Duration for note '+(i+1)} value={note.beats} onChange={e=>setNotes(old=>old.map((n,j)=>j===i?{...n,beats:Number(e.target.value)}:n))}>{[1,2,3,4].map(b=><option key={b} value={b}>{b}</option>)}</select></label>{' '}
    <button type="button" className="action" onClick={()=>setNotes(old=>old.filter((_,j)=>j!==i))}>Remove note {i+1}</button>
   </li>)}</ol>
