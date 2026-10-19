@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {STAGES, initialState, transition, runFoundationDemonstration} from '../src/learning.mjs';
+test('full Socratic cycle executes and records real choices',()=>{const s=runFoundationDemonstration(); assert.equal(s.stage,'complete');assert.equal(s.events.length,STAGES.length-1);assert.match(s.answers.revision,/Selective masking/i);});
+test('new learner begins at encounter',()=>assert.equal(initialState().stage,'encounter'));
+test('hypotheses require learner input',()=>{let s=transition(initialState(),{type:'ADVANCE'});assert.equal(s.stage,'hypothesis');assert.throws(()=>transition(s,{type:'ADVANCE',answer:'   '}),/Answer required/);});
+test('unusual hypotheses are accepted',()=>{let s=transition(initialState(),{type:'ADVANCE'});s=transition(s,{type:'ADVANCE',answer:'Blur the whole image instead'});assert.equal(s.answers.hypothesis,'Blur the whole image instead');});
+test('direct answer and reset are available',()=>{let s=transition(initialState(),{type:'DIRECT_ANSWER'});assert.equal(s.stage,'reflection');assert.equal(transition(s,{type:'RESET'}).stage,'encounter');});
+test('backward navigation does not erase reasoning',()=>{let s=transition(initialState(),{type:'ADVANCE'});s=transition(s,{type:'ADVANCE',answer:'Try a nonstandard solution'});const b=transition(s,{type:'BACK'});assert.equal(b.stage,'hypothesis');assert.equal(b.answers.hypothesis,'Try a nonstandard solution');});
+test('unknown actions and invalid states fail closed',()=>{assert.throws(()=>transition(initialState(),{type:'RUN_CODE'}));assert.throws(()=>transition({stage:'bad'},{type:'RESET'}));});
