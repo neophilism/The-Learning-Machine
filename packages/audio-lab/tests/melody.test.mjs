@@ -1,0 +1,6 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {compileMelody,validateMelody,defaultMelody} from '../src/melody.mjs';
+test('original notes schedule at actual audible pitches',()=>{const m=compileMelody(defaultMelody(),120);assert.equal(m.events.length,4);assert.ok(Math.abs(m.events[0].frequencyHz-261.625565)<0.001);assert.equal(m.events[1].startSeconds,0.5);assert.equal(m.totalSeconds,2.5);});
+test('tempo correctly changes timing and preserves frequencies',()=>{const slow=compileMelody(defaultMelody(),60),fast=compileMelody(defaultMelody(),120);assert.equal(slow.totalSeconds,2*fast.totalSeconds);assert.equal(slow.events[0].frequencyHz,fast.events[0].frequencyHz);});
+test('invalid pitches, lengths and beats reject',()=>{assert.throws(()=>validateMelody([{pitch:'Z9',beats:1}]),TypeError);assert.throws(()=>validateMelody([{pitch:'A4',beats:0}]),RangeError);assert.throws(()=>validateMelody(Array(33).fill({pitch:'C4',beats:1})),TypeError);});
+test('reject invalid tempo',()=>assert.throws(()=>compileMelody(defaultMelody(),0),RangeError));
+test('no audio asset is required, schedule is numeric and original',()=>assert.equal(compileMelody(defaultMelody()).origin,'locally-computed-original-notes'));
