@@ -1,3 +1,4 @@
+import MelodyInspector from './MelodyInspector.tsx';
 import {useEffect,useRef,useState} from 'react';
 import {NOTE_NAMES,compileMelody,defaultMelody} from '../../../../packages/audio-lab/src/melody.mjs';
 type Pitch=(typeof NOTE_NAMES)[number];
@@ -54,6 +55,7 @@ export default function AudioComposer(){
   </div>
   {error&&<p role="alert">{error}</p>}
   <p role="status">Total melody duration: {schedule.totalSeconds.toFixed(2)} seconds. {playing?'Playing audio.':'Stopped.'}</p>
+  <MelodyInspector notes={notes} tempo={tempo}/>
   <details><summary>Inspect exact note calculations</summary><ol>{schedule.events.map((n,i)=><li key={i}>{notes[i]?.pitch}: {n.frequencyHz.toFixed(2)} Hz, starts at {n.startSeconds.toFixed(2)} seconds, lasts {n.durationSeconds.toFixed(2)} seconds</li>)}</ol></details>
   <p className="status-note">These are newly synthesized sine tones. The sound is not a licensed recording, a copy of a song, or a machine-learning model. Later lessons will use original examples for analysis and learning.</p>
  </section>;
