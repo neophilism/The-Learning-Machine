@@ -98,6 +98,15 @@
               }
             }
           }
+        },
+        "hints": {
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1500
+          }
         }
       }
     },
