@@ -131,11 +131,14 @@
         "Malformed or unsupported versions fail closed",
         "Schema/property negative tests pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 3,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/3",
-      "merged_commit": null,
-      "verification_evidence": []
+      "merged_commit": "c3d9bb18a1c2ec3035b44239d3956b9cfda7a5c1",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39294751705",
+        "https://github.com/neophilism/The-Learning-Machine/pull/3"
+      ]
     },
     {
       "id": "TLM-004",
@@ -149,9 +152,9 @@
         "Invalid edges, dead ends and inaccessible required routes are rejected",
         "Graph fixtures exercise branches, alternative endings and cycles"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 4,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/4",
       "merged_commit": null,
       "verification_evidence": []
     },

@@ -1,0 +1,14 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {compileLearningModule,nextCandidates,LessonCompileError} from '../src/compiler.mjs';
+const intro=()=>({schemaVersion:'1.0.0',id:'lesson',title:'Real experiment',startNodeId:'start',concepts:['reasoning'],nodes:[{id:'start',stage:'encounter',prompt:'What happens?',concepts:['reasoning'],edges:[{to:'experiment'}]},{id:'experiment',stage:'experiment',prompt:'Try it',accessibleAlternative:'Keyboard-based equivalent',edges:[{to:'end'}]},{id:'end',stage:'complete',prompt:'Conclude',edges:[],terminal:true}]});
+test('compiles a valid end-to-end graph',()=>{const a=compileLearningModule(intro());assert.equal(a.nodes.length,3);assert.deepEqual(nextCandidates(a,'start'),[{to:'experiment',when:'always'}]);assert.equal(a.digest.length,64);});
+test('digest is independent of property insertion order',()=>{const a=intro(),b={nodes:a.nodes,concepts:a.concepts,startNodeId:a.startNodeId,title:a.title,id:a.id,schemaVersion:a.schemaVersion};assert.equal(compileLearningModule(a).digest,compileLearningModule(b).digest);});
+test('rejects missing graph destinations',()=>{const a=intro();a.nodes[0].edges=[{to:'missing'}];assert.throws(()=>compileLearningModule(a),/Unknown destination/);});
+test('rejects inaccessible experiment',()=>{const a=intro();delete a.nodes[1].accessibleAlternative;assert.throws(()=>compileLearningModule(a),/accessible alternative/);});
+test('rejects unreachable lesson content',()=>{const a=intro();a.nodes.push({id:'orphan',stage:'challenge',prompt:'Unused',edges:[{to:'end'}]});assert.throws(()=>compileLearningModule(a),/Unreachable/);});
+test('rejects dead-end nonterminal',()=>{const a=intro();a.nodes[1].edges=[];assert.throws(()=>compileLearningModule(a),/dead end/);});
+test('rejects closed loops without a terminal exit',()=>{const a=intro();a.nodes[1].edges=[{to:'experiment'}];assert.throws(()=>compileLearningModule(a),/Unreachable|Trapped/);});
+test('accepts cycle with an exit',()=>{const a=intro();a.nodes[1].edges=[{to:'experiment',when:'retry'},{to:'end',when:'always'}];assert.equal(compileLearningModule(a).nodes.length,3);});
+test('rejects duplicate edges and hidden undeclared concepts',()=>{const a=intro();a.nodes[0].edges.push({to:'experiment'});assert.throws(()=>compileLearningModule(a),/Duplicate/);const b=intro();b.nodes[0].concepts=['not-in-module'];assert.throws(()=>compileLearningModule(b),/Undeclared/);});
+test('rejects missing competency coverage',()=>{const a=intro();a.concepts.push('access');assert.throws(()=>compileLearningModule(a),/never taught/);});
+test('rejects lesson not beginning with encounter',()=>{const a=intro();a.nodes[0].stage='challenge';assert.throws(()=>compileLearningModule(a),/begin with encounter/);});
