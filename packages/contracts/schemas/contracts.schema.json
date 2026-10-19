@@ -62,6 +62,42 @@
         },
         "terminal": {
           "type": "boolean"
+        },
+        "questionVariants": {
+          "type": "array",
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "when",
+              "prompt"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "when": {
+                "enum": [
+                  "multiple_hypotheses",
+                  "has_hypothesis",
+                  "has_prediction",
+                  "computed_observation",
+                  "has_observation",
+                  "no_observation",
+                  "always"
+                ]
+              },
+              "prompt": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 12000
+              }
+            }
+          }
         }
       }
     },
