@@ -10,7 +10,7 @@ export function createLearningSession(compiled,sessionId='anonymous'){
  validModule(compiled);
  if(typeof sessionId!=='string'||!sessionId.trim()||sessionId.length>256)throw new TypeError('Invalid session ID');
  const start=node(compiled,compiled.startNodeId);
- return freeze({sessionId,lessonId:compiled.lessonId,releaseDigest:compiled.digest,nodeId:start.id,stage:start.stage,answers:{},observations:[],skipped:[],history:[],actions:[],complete:start.stage==='complete'});
+ return freeze({sessionId,lessonId:compiled.lessonId,releaseDigest:compiled.digest,nodeId:start.id,stage:start.stage,answers:{},hypotheses:[],observations:[],skipped:[],history:[],actions:[],complete:start.stage==='complete'});
 }
 function commit(s,action,update){
  const next=clone(s);next.actions.push(clone(action));Object.assign(next,update);return freeze(next);
@@ -29,6 +29,20 @@ export function transitionLearningSession(compiled,s,action){
  if(s.actions.length>=2000&&action.type!=='RESET')throw new RangeError('Session action budget exceeded');
  switch(action.type){
   case 'RESET':return createLearningSession(compiled,s.sessionId);
+  case 'PROPOSE_HYPOTHESIS': {
+    if(!['hypothesis','revision'].includes(s.stage))throw new RangeError('A hypothesis requires a hypothesis or revision stage');
+    if(typeof action.text!=='string'||!action.text.trim()||action.text.length>2000)throw new TypeError('A hypothesis must be a bounded nonempty string');
+    if(s.hypotheses.length>=20)throw new RangeError('Hypothesis count limit');
+    const statement=action.text.trim();
+    if(s.hypotheses.some(h=>h.text.toLocaleLowerCase()===statement.toLocaleLowerCase()))throw new RangeError('This hypothesis has already been proposed');
+    const id='h'+(s.actions.filter(a=>a.type==='PROPOSE_HYPOTHESIS').length+1);
+    return commit(s,action,{hypotheses:[...s.hypotheses,{id,text:statement,nodeId:s.nodeId}]});
+  }
+  case 'REMOVE_HYPOTHESIS': {
+    if(!['hypothesis','revision'].includes(s.stage))throw new RangeError('Hypotheses cannot be removed at this stage');
+    if(typeof action.id!=='string'||!s.hypotheses.some(h=>h.id===action.id))throw new RangeError('Unknown hypothesis');
+    return commit(s,action,{hypotheses:s.hypotheses.filter(h=>h.id!==action.id)});
+  }
   case 'ANSWER': {
     if(typeof action.text!=='string'||!action.text.trim()||action.text.length>10000)throw new TypeError('An answer must be a bounded nonempty string');
     const answers={...s.answers,[s.nodeId]:action.text.trim()};

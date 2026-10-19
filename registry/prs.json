@@ -244,11 +244,14 @@
         "Required jobs fail on actual defects and run against exact PR head",
         "Fresh-checkout CI and negative tests pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 8,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/8",
-      "merged_commit": null,
-      "verification_evidence": []
+      "merged_commit": "7be7c5cf28bb9f9b5379bcdac257f1b0cfa21733",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39298075673",
+        "https://github.com/neophilism/The-Learning-Machine/pull/8"
+      ]
     },
     {
       "id": "TLM-009",
@@ -263,7 +266,7 @@
         "Valid unusual solutions are not rejected to force an approved answer",
         "Noncanonical answer fixtures pass"
       ],
-      "status": "planned",
+      "status": "in_progress",
       "github_pr_number": null,
       "github_pr_url": null,
       "merged_commit": null,
