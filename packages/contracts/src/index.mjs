@@ -15,12 +15,22 @@ export function validateLearningModule(v){
  object(v,'module');version(v);keys(v,['schemaVersion','id','title','startNodeId','nodes','concepts'],'module');
  str(v.id,'id',128);str(v.title,'title');str(v.startNodeId,'startNodeId');strings(v.concepts,'concepts');list(v.nodes,'nodes',1,500);
  for(const n of v.nodes){
-   object(n,'node');keys(n,['id','stage','prompt','edges','concepts','accessibleAlternative','terminal'],'node');
+   object(n,'node');keys(n,['id','stage','prompt','edges','concepts','accessibleAlternative','terminal','questionVariants'],'node');
    str(n.id,'node.id',128);if(!STAGES.includes(n.stage))throw new TypeError('Invalid node stage');
    str(n.prompt,'node.prompt');list(n.edges,'node.edges',0,30);
    if(n.concepts!==undefined)strings(n.concepts,'node concepts');
    if(n.accessibleAlternative!==undefined&&typeof n.accessibleAlternative!=='string')throw new TypeError('Invalid accessible alternative');
    if(n.terminal!==undefined&&typeof n.terminal!=='boolean')throw new TypeError('Invalid terminal');
+   if(n.questionVariants!==undefined){
+     list(n.questionVariants,'questionVariants',0,12);
+     const ids=new Set();
+     for(const v of n.questionVariants){
+       object(v,'question variant');keys(v,['id','when','prompt'],'question variant');
+       str(v.id,'question variant id',128);str(v.prompt,'question variant prompt',12000);
+       if(!['multiple_hypotheses','has_hypothesis','has_prediction','computed_observation','has_observation','no_observation','always'].includes(v.when))throw new TypeError('Unsupported question condition');
+       if(ids.has(v.id))throw new TypeError('Duplicate question variant id');ids.add(v.id);
+     }
+   }
    for(const e of n.edges){object(e,'edge');keys(e,['to','when'],'edge');str(e.to,'edge.to',128);if(e.when!==undefined&&!['always','correct','retry','alternative','on_request'].includes(e.when))throw new TypeError('Invalid edge condition');}
  }
  duplicateIds(v.nodes,'node IDs');
