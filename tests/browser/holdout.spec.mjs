@@ -9,6 +9,7 @@ test('training and unseen test sets remain separate with reproducible membership
  }
  await expect(page.getByText('Examples saved: 4 / 64')).toBeVisible();
  await page.getByRole('button',{name:'Create held-out split'}).click();
+ console.log('SPLIT_DIAGNOSTIC',await page.getByRole('region',{name:'Held-out test split'}).innerText(),await page.getByText(/^Classes:/).allTextContents(),await page.getByRole('alert').allTextContents());
  await expect(page.getByText(/Ready for later classifier training/)).toBeVisible();
  await expect(page.getByText('2 training examples, 2 unseen test examples.',{exact:false})).toBeVisible();
  await page.getByText('Inspect separate example IDs').click();
