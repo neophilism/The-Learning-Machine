@@ -309,11 +309,13 @@
         "Failure and cancellation do not corrupt the learning state",
         "Timeout and retry integration tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 17,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/17",
+      "merged_commit": "1f51270c439d0b7d95811f0511a85267a5f0f58a",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39303410288"
+      ]
     },
     {
       "id": "TLM-012",
