@@ -18,9 +18,21 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
  }
  function advance() {
   const actions:LearningAction[]=[];
-  if(reasoning.has(session.stage)){if(draft.trim())actions.push({type:'ANSWER',text:draft});else actions.push({type:'SKIP'});}
+  if(session.stage==='hypothesis'){
+   if(draft.trim()){
+    actions.push({type:'ANSWER',text:draft});
+    if(!session.hypotheses.some(h=>h.text.toLocaleLowerCase()===draft.trim().toLocaleLowerCase()))actions.push({type:'PROPOSE_HYPOTHESIS',text:draft});
+   }else if(!session.hypotheses.length)actions.push({type:'SKIP'});
+  }else if(reasoning.has(session.stage)){if(draft.trim())actions.push({type:'ANSWER',text:draft});else actions.push({type:'SKIP'});}
   else if(draft.trim())actions.push({type:'ANSWER',text:draft});
   actions.push({type:'NEXT'});act(actions);
+ }
+ function propose(){
+  if(!draft.trim()){setError('Enter a hypothesis to add it.');return;}
+  try{
+   const next=transitionLearningSession(compiled,session,{type:'PROPOSE_HYPOTHESIS',text:draft});
+   setSession(next);setDraft('');setError('');
+  }catch(e){setError(e instanceof Error?e.message:'Cannot add hypothesis');}
  }
  return <section className="learning-card" aria-label="Interactive Socratic learning exercise" role="region">
   <div className="exercise-header"><span className="stage-label">{titles[session.stage]}</span><span className="stage-label">Step {index+1} / {compiled.nodes.length}</span></div>
@@ -34,6 +46,11 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
   {session.stage==='reflection'&&<p className="status-note">Selective masking usually requires locating the symbol, but blurring everything does not require identifying it. Different methods have different information requirements.</p>}
   {session.complete&&<p className="status-note" role="status">You completed the learning journey. Your reasoning matters—not which political position you take.</p>}
   {reasoning.has(session.stage)&&!session.complete&&<label htmlFor="reasoning" className="response-label">Your reasoning (optional; you may skip)<textarea id="reasoning" className="response" rows={4} maxLength={10000} value={draft} onChange={e=>setDraft(e.target.value)} placeholder="What do you think, and why?"/></label>}
+  {session.stage==='hypothesis'&&<div aria-label="Your proposed hypotheses" role="group">
+   <button className="action" disabled={!hydrated} onClick={propose}>Add alternative hypothesis</button>
+   {session.hypotheses.length>0&&<ol aria-label="Hypothesis alternatives">{session.hypotheses.map(h=><li key={h.id}>{h.text} <button className="action" disabled={!hydrated} aria-label={'Remove hypothesis '+h.id} onClick={()=>act([{type:'REMOVE_HYPOTHESIS',id:h.id}])}>Remove</button></li>)}</ol>}
+   <p className="lesson-data">You can propose several different solutions. None is graded for agreement with the bill.</p>
+  </div>}
   {error&&<p role="alert" className="error">{error}</p>}
   <div className="controls">
    {!session.complete&&routes.some(r=>r.when==='always')&&<button className="action action-primary" disabled={!hydrated} onClick={advance}>Continue{draft.trim()?' with your answer':''}</button>}

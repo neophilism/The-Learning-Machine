@@ -1,0 +1,12 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {compileLearningModule} from '@learning-machine/content';
+import {createLearningSession,transitionLearningSession,replayLearningActions} from '../src/engine.mjs';
+const module=compileLearningModule({schemaVersion:'1.0.0',id:'h',title:'Open hypotheses',startNodeId:'a',concepts:['reason'],nodes:[
+{id:'a',stage:'encounter',prompt:'Start',concepts:['reason'],edges:[{to:'b'}]},
+{id:'b',stage:'hypothesis',prompt:'Propose',edges:[{to:'c'}]},
+{id:'c',stage:'complete',prompt:'End',terminal:true,edges:[]}]});
+const enter=()=>transitionLearningSession(module,createLearningSession(module),{type:'NEXT'});
+test('accepts competing hypotheses without grading political agreement',()=>{let s=enter();s=transitionLearningSession(module,s,{type:'PROPOSE_HYPOTHESIS',text:'Selective recognize-and-blur'});s=transitionLearningSession(module,s,{type:'PROPOSE_HYPOTHESIS',text:'Blanket blur the entire image'});assert.equal(s.hypotheses.length,2);assert.deepEqual(s.hypotheses.map(x=>x.id),['h1','h2']);assert.ok(Object.isFrozen(s.hypotheses));});
+test('rejects duplicate, unbounded and mistimed hypotheses',()=>{let s=enter();s=transitionLearningSession(module,s,{type:'PROPOSE_HYPOTHESIS',text:'Blur all'});assert.throws(()=>transitionLearningSession(module,s,{type:'PROPOSE_HYPOTHESIS',text:'blur ALL'}),/already/);assert.throws(()=>transitionLearningSession(module,s,{type:'PROPOSE_HYPOTHESIS',text:'x'.repeat(2001)}),/bounded/);assert.throws(()=>transitionLearningSession(module,createLearningSession(module),{type:'PROPOSE_HYPOTHESIS',text:'Unallowed now'}),/stage/);});
+test('removing one hypothesis preserves other reasoning',()=>{let s=enter();s=transitionLearningSession(module,s,{type:'PROPOSE_HYPOTHESIS',text:'Method one'});s=transitionLearningSession(module,s,{type:'PROPOSE_HYPOTHESIS',text:'Method two'});s=transitionLearningSession(module,s,{type:'REMOVE_HYPOTHESIS',id:'h1'});assert.deepEqual(s.hypotheses.map(h=>h.text),['Method two']);assert.throws(()=>transitionLearningSession(module,s,{type:'REMOVE_HYPOTHESIS',id:'fake'}),/Unknown/);});
+test('hypotheses survive navigation and deterministic replay',()=>{let s=enter();s=transitionLearningSession(module,s,{type:'PROPOSE_HYPOTHESIS',text:'Unusual new approach'});s=transitionLearningSession(module,s,{type:'NEXT'});s=transitionLearningSession(module,s,{type:'BACK'});assert.equal(s.hypotheses.length,1);assert.deepEqual(replayLearningActions(module,s.actions),s);});
