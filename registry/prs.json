@@ -110,12 +110,13 @@
         "Clean frozen install, typecheck and production preview succeed",
         "CI builds from empty checkout"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 2,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/2",
-      "merged_commit": null,
+      "merged_commit": "85fdb2680dc34af53f2421b10818ff1d3c9722c7",
       "verification_evidence": [
-        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39294060320"
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39294200581",
+        "https://github.com/neophilism/The-Learning-Machine/pull/2"
       ]
     },
     {
@@ -130,9 +131,9 @@
         "Malformed or unsupported versions fail closed",
         "Schema/property negative tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 3,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/3",
       "merged_commit": null,
       "verification_evidence": []
     },

@@ -1,0 +1,17 @@
+{
+  "name": "@learning-machine/contracts",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.mts",
+      "default": "./src/index.mjs"
+    },
+    "./schema": "./schemas/contracts.schema.json"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "typecheck": "tsc --noEmit --allowJs --checkJs false --module NodeNext --moduleResolution NodeNext src/index.mjs"
+  }
+}
