@@ -1,3 +1,5 @@
+import {stratifiedHoldout} from '../../../../packages/learning-lab/src/split.mjs';
+import type {HoldoutSplit} from '../../../../packages/learning-lab/src/split.mjs';
 import {useEffect,useRef,useState} from 'react';
 import {GRID_SIZE,blankDrawing,setDrawingCell,presetDrawing,createShapeDataset,addShapeExample,removeShapeExample,relabelShapeExample,shapeCounts} from '../../../../packages/learning-lab/src/dataset.mjs';
 import type {DrawingPixels} from '../../../../packages/learning-lab/src/dataset.mjs';
@@ -10,7 +12,11 @@ export default function ShapeDatasetLab(){
  const [brushRow,setBrushRow]=useState(8);const [brushCol,setBrushCol]=useState(8);
  const [error,setError]=useState('');
  const [hydrated,setHydrated]=useState(false);
+ const [split,setSplit]=useState<HoldoutSplit|null>(null);
+ const [splitSeed,setSplitSeed]=useState(42);
+ const [testFraction,setTestFraction]=useState(0.25);
  useEffect(()=>setHydrated(true),[]);
+ useEffect(()=>setSplit(null),[dataset]);
  const drawing=useRef(false);const canvas=useRef<HTMLCanvasElement|null>(null);
  useEffect(()=>{
   const c=canvas.current;if(!c)return;const ctx=c.getContext('2d');if(!ctx)return;
@@ -70,6 +76,30 @@ export default function ShapeDatasetLab(){
      {' '}{ex.pixels.reduce<number>((n,p)=>n+p,0)} marked cells.{' '}
      <button type="button" className="action" disabled={!hydrated} onClick={()=>setDataset(d=>removeShapeExample(d,ex.id))}>Remove {ex.id}</button>
     </li>)}</ol>
+    <section aria-label="Held-out test split" className="status-note">
+      <h3>Separate training data from unseen test data</h3>
+      <p>Choose a reproducible random seed. We hold out samples within each class, so a future model cannot learn from the very examples used to test it.</p>
+      <label htmlFor="holdout-seed">Random seed</label>{' '}
+      <input id="holdout-seed" type="number" min={0} max={2147483647} value={splitSeed} onChange={e=>{setSplitSeed(Number(e.target.value));setSplit(null)}}/>
+      <label htmlFor="holdout-fraction">Test fraction</label>{' '}
+      <select id="holdout-fraction" value={testFraction} onChange={e=>{setTestFraction(Number(e.target.value));setSplit(null)}}>
+       <option value={0.2}>20%</option><option value={0.25}>25%</option><option value={0.33}>33%</option><option value={0.5}>50%</option>
+      </select>
+      <div className="controls"><button type="button" className="action" disabled={!hydrated} onClick={()=>{
+       try{setSplit(stratifiedHoldout(dataset,{seed:splitSeed,testFraction}));setError('')}
+       catch(e){setError(e instanceof Error?e.message:'Could not split data')}
+      }}>Create held-out split</button></div>
+      {split&&<>
+       <p role="status">{split.ready?'Ready for later classifier training':'More examples needed to produce a useful held-out test.'} {split.trainIds.length} training examples, {split.testIds.length} unseen test examples.</p>
+       <ul>{split.classes.map(c=><li key={c.label}>{c.label}: {c.train} train, {c.test} test.</li>)}</ul>
+       {split.warnings.length>0&&<ul aria-label="Split warnings">{split.warnings.map(w=><li key={w}>{w}</li>)}</ul>}
+       <details><summary>Inspect separate example IDs</summary>
+        <p>Training IDs: {split.trainIds.join(', ')||'none'}</p><p>Held-out IDs: {split.testIds.join(', ')||'none'}</p>
+        <p>Seed {split.seed}; algorithm {split.algorithm}; no example appears in both groups.</p>
+       </details>
+      </>}
+      <p>This is a dataset split only. No model is trained by this action.</p>
+    </section>
     {dataset.examples.length>0&&<p className="status-note">You have created real labeled examples. No model has been trained yet; the next laboratory step is an actual train/test split.</p>}
    </div>
   </div>
