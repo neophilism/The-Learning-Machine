@@ -43,8 +43,8 @@ export function compileLearningModule(raw) {
  for(const concept of lesson.concepts)if(!covered.has(concept))throw new LessonCompileError('Required concept never taught: '+concept);
  const digest=createHash('sha256').update(stableJson(lesson)).digest('hex');
  const compiled={schemaVersion:lesson.schemaVersion,lessonId:lesson.id,digest,startNodeId:lesson.startNodeId,concepts:[...lesson.concepts],terminalNodeIds:terminals,nodes:lesson.nodes.map(n=>({...n,edges:n.edges.map(e=>({...e,when:e.when||'always'}))}))};
- Object.freeze(compiled.nodes);Object.freeze(compiled.concepts);Object.freeze(compiled.terminalNodeIds);
- return Object.freeze(compiled);
+ const deepFreeze=v=>{if(v&&typeof v==='object'){for(const x of Object.values(v))deepFreeze(x);Object.freeze(v)}return v};
+ return deepFreeze(compiled);
 }
 export function nextCandidates(compiled,nodeId){
  const node=compiled.nodes.find(n=>n.id===nodeId);
