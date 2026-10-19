@@ -9,8 +9,14 @@ const deps={
  experiments:new Set(['@learning-machine/contracts'])
 };
 export function findForbiddenImports(text,allowed){
- const matches=[...text.matchAll(/\bfrom\s*['"]([^'"]+)['"]|\bimport\s*\(\s*['"]([^'"]+)['"]\s*\)/g)];
- return matches.map(x=>x[1]||x[2]).filter(x=>!x.startsWith('.')&&!allowed.has(x));
+ const staticNames=text.split('\n').flatMap(line=>{
+  const statement=line.trimStart();
+  if(!/^(?:import|export)\b/.test(statement))return [];
+  const m=statement.match(/\bfrom\s*['"]([^'"]+)['"]/)||statement.match(/^import\s*['"]([^'"]+)['"]/);
+  return m?[m[1]]:[];
+ });
+ const dynamicNames=[...text.matchAll(/\bimport\s*\(\s*['"]([^'"]+)['"]\s*\)/g)].map(x=>x[1]);
+ return [...staticNames,...dynamicNames].filter(x=>!x.startsWith('.')&&!allowed.has(x));
 }
 export function checkBoundaries(){
  const failures=[];
