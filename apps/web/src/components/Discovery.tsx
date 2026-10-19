@@ -1,3 +1,4 @@
+import EvidencePanel from './EvidencePanel.tsx';
 import {useEffect,useRef,useState} from 'react';
 import {createExperimentRunner,syntheticMaskExperiment} from '../../../../packages/experiments/src/runtime.mjs';
 import type {MaskMethod,RunResult} from '../../../../packages/experiments/src/runtime.mjs';
@@ -98,6 +99,7 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
     </div>}
     {experimentResult&&experimentResult.status!=='completed'&&<p role="alert">Experiment {experimentResult.status}. {experimentResult.status==='failed'?experimentResult.error:'You can retry.'}</p>}
    </fieldset>}
+  {session.stage==='observation'&&<EvidencePanel session={session} experimentId="synthetic-masking-v1"/>}
   {session.stage==='challenge'&&<p className="status-note">Challenge your hypothesis: can the goal be achieved without identifying a symbol?</p>}
   {session.stage==='reflection'&&<p className="status-note">Selective masking usually requires locating the symbol, but blurring everything does not require identifying it. Different methods have different information requirements.</p>}
   {session.complete&&<p className="status-note" role="status">You completed the learning journey. Your reasoning matters—not which political position you take.</p>}
