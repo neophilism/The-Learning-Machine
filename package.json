@@ -11,11 +11,12 @@
     "check:foundation": "node scripts/check-registry.mjs && node --test tests/*.test.mjs packages/*/tests/*.test.mjs",
     "typecheck": "pnpm --filter @learning-machine/web typecheck",
     "build": "pnpm --filter @learning-machine/web build",
-    "check": "pnpm check:foundation && pnpm typecheck && pnpm build",
+    "check": "pnpm check:foundation && pnpm typecheck && pnpm build && pnpm content:check",
     "dev": "pnpm --filter @learning-machine/web dev",
     "preview": "pnpm --filter @learning-machine/web preview",
     "test": "node --test tests/*.test.mjs",
     "registry:check": "node scripts/check-registry.mjs",
-    "demo": "node --input-type=module -e \"import {runFoundationDemonstration} from './src/learning.mjs'; console.log(JSON.stringify(runFoundationDemonstration(),null,2))\""
+    "demo": "node --input-type=module -e \"import {runFoundationDemonstration} from './src/learning.mjs'; console.log(JSON.stringify(runFoundationDemonstration(),null,2))\"",
+    "content:check": "node scripts/check-content.mjs"
   }
 }

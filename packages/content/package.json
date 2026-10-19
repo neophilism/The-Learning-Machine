@@ -1,0 +1,12 @@
+{
+  "name": "@learning-machine/content",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/compiler.mjs"
+  },
+  "dependencies": {
+    "@learning-machine/contracts": "workspace:*"
+  }
+}

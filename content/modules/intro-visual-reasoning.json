@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "intro-visual-reasoning",
+  "title": "Try before you decide",
+  "startNodeId": "n1",
+  "concepts": [
+    "reasoning",
+    "technical-necessity"
+  ],
+  "nodes": [
+    {
+      "id": "n1",
+      "stage": "encounter",
+      "prompt": "What might a camera need to do before selectively hiding a symbol?",
+      "concepts": [
+        "reasoning"
+      ],
+      "edges": [
+        {
+          "to": "n2",
+          "when": "always"
+        }
+      ]
+    },
+    {
+      "id": "n2",
+      "stage": "hypothesis",
+      "prompt": "Propose your own approach, including one that avoids recognizing the symbol.",
+      "concepts": [
+        "reasoning"
+      ],
+      "edges": [
+        {
+          "to": "n3",
+          "when": "always"
+        }
+      ]
+    },
+    {
+      "id": "n3",
+      "stage": "prediction",
+      "prompt": "What information will your approach need?",
+      "concepts": [
+        "technical-necessity"
+      ],
+      "edges": [
+        {
+          "to": "n4",
+          "when": "always"
+        }
+      ]
+    },
+    {
+      "id": "n4",
+      "stage": "experiment",
+      "prompt": "Compare selective identification with blurring every pixel.",
+      "concepts": [
+        "technical-necessity"
+      ],
+      "edges": [
+        {
+          "to": "n5",
+          "when": "always"
+        }
+      ],
+      "accessibleAlternative": "Use the keyboard to select known inputs, compare rule effects, and read equivalent detailed pixel-operation steps."
+    },
+    {
+      "id": "n5",
+      "stage": "observation",
+      "prompt": "What actually changed between these approaches?",
+      "concepts": [
+        "technical-necessity"
+      ],
+      "edges": [
+        {
+          "to": "n6",
+          "when": "always"
+        }
+      ]
+    },
+    {
+      "id": "n6",
+      "stage": "explanation",
+      "prompt": "Explain the difference without treating all masking as recognition.",
+      "concepts": [
+        "reasoning"
+      ],
+      "edges": [
+        {
+          "to": "n7",
+          "when": "always"
+        }
+      ]
+    },
+    {
+      "id": "n7",
+      "stage": "challenge",
+      "prompt": "What would happen if the symbol were absent or unfamiliar?",
+      "concepts": [
+        "reasoning"
+      ],
+      "edges": [
+        {
+          "to": "n8",
+          "when": "always"
+        }
+      ]
+    },
+    {
+      "id": "n8",
+      "stage": "revision",
+      "prompt": "Revise or defend your idea in light of the counterexample.",
+      "concepts": [
+        "reasoning"
+      ],
+      "edges": [
+        {
+          "to": "n9",
+          "when": "always"
+        }
+      ]
+    },
+    {
+      "id": "n9",
+      "stage": "transfer",
+      "prompt": "Apply your idea to live audio filtering.",
+      "concepts": [
+        "technical-necessity"
+      ],
+      "edges": [
+        {
+          "to": "n10",
+          "when": "always"
+        }
+      ]
+    },
+    {
+      "id": "n10",
+      "stage": "reflection",
+      "prompt": "Summarize the limits of your conclusion.",
+      "concepts": [
+        "reasoning"
+      ],
+      "edges": [
+        {
+          "to": "n11",
+          "when": "always"
+        }
+      ]
+    },
+    {
+      "id": "n11",
+      "stage": "complete",
+      "prompt": "Consider the idea you independently discovered.",
+      "concepts": [],
+      "edges": [],
+      "terminal": true
+    }
+  ]
+}
