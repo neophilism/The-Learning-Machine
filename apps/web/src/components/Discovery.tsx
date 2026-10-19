@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect,useState} from 'react';
 import type {CompiledLearningModule} from '@learning-machine/content';
 import {createLearningSession,transitionLearningSession,availableRoutes} from '@learning-machine/socratic';
 import type {LearningSession,LearningAction} from '@learning-machine/socratic';
@@ -7,6 +7,7 @@ const titles:Record<string,string>={encounter:'Encounter',hypothesis:'Hypothesis
 export default function Discovery({compiled}:{compiled:CompiledLearningModule}) {
  const [session,setSession]=useState<LearningSession>(()=>createLearningSession(compiled));
  const [draft,setDraft]=useState('');const [error,setError]=useState('');
+ const [hydrated,setHydrated]=useState(false);useEffect(()=>setHydrated(true),[]);
  const active=compiled.nodes.find(n=>n.id===session.nodeId);
  if(!active)return <p role="alert">The lesson node is unavailable.</p>;
  const index=compiled.nodes.findIndex(n=>n.id===session.nodeId);
@@ -35,12 +36,12 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
   {reasoning.has(session.stage)&&!session.complete&&<label htmlFor="reasoning" className="response-label">Your reasoning (optional; you may skip)<textarea id="reasoning" className="response" rows={4} maxLength={10000} value={draft} onChange={e=>setDraft(e.target.value)} placeholder="What do you think, and why?"/></label>}
   {error&&<p role="alert" className="error">{error}</p>}
   <div className="controls">
-   {!session.complete&&routes.some(r=>r.when==='always')&&<button className="action action-primary" onClick={advance}>Continue{draft.trim()?' with your answer':''}</button>}
-   {!session.complete&&routes.filter(r=>r.when==='alternative').map(r=><button key={r.to} className="action" onClick={()=>act([{type:'CHOOSE',to:r.to}])}>Explore alternative: {r.to}</button>)}
-   {!session.complete&&routes.filter(r=>r.when==='retry').map(r=><button key={r.to} className="action" onClick={()=>act([{type:'RETRY',to:r.to}])}>Retry</button>)}
-   <button className="action" onClick={()=>act([{type:'BACK'}])} disabled={!session.history.length}>Previous</button>
-   {!session.complete&&session.stage!=='reflection'&&<button className="action" onClick={()=>act([{type:'REQUEST_EXPLANATION'}])}>See direct explanation</button>}
-   <button className="action" onClick={()=>act([{type:'RESET'}])}>Restart</button>
+   {!session.complete&&routes.some(r=>r.when==='always')&&<button className="action action-primary" disabled={!hydrated} onClick={advance}>Continue{draft.trim()?' with your answer':''}</button>}
+   {!session.complete&&routes.filter(r=>r.when==='alternative').map(r=><button key={r.to} className="action" disabled={!hydrated} onClick={()=>act([{type:'CHOOSE',to:r.to}])}>Explore alternative: {r.to}</button>)}
+   {!session.complete&&routes.filter(r=>r.when==='retry').map(r=><button key={r.to} className="action" disabled={!hydrated} onClick={()=>act([{type:'RETRY',to:r.to}])}>Retry</button>)}
+   <button className="action" onClick={()=>act([{type:'BACK'}])} disabled={!hydrated||!session.history.length}>Previous</button>
+   {!session.complete&&session.stage!=='reflection'&&<button className="action" disabled={!hydrated} onClick={()=>act([{type:'REQUEST_EXPLANATION'}])}>See direct explanation</button>}
+   <button className="action" disabled={!hydrated} onClick={()=>act([{type:'RESET'}])}>Restart</button>
   </div>
   <div className="lesson-data"><span aria-live="polite">Actions: {session.actions.length}</span><span>Answers: {Object.keys(session.answers).length}</span><span>Skipped: {session.skipped.length}</span><span>No login or media upload</span></div>
   <details><summary>Review your hypotheses</summary><ol>{session.actions.filter(a=>a.type==='ANSWER').map((a,i)=><li key={i}>{a.type==='ANSWER'?a.text:''}</li>)}</ol><p>Answers remain in this page's local runtime until you restart.</p></details>
