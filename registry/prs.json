@@ -584,11 +584,13 @@
         "Learner can add/edit/remove examples without sending them remotely",
         "Local-only input and mutation tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 19,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/19",
+      "merged_commit": "5dc8d1ba156e9e7b5a8a80b72fd80cacfbfd7e94",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39305097378"
+      ]
     },
     {
       "id": "TLM-026",
