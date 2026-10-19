@@ -890,11 +890,13 @@
         "Default material has documented original-media provenance",
         "Offline render and asset-rights checks pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 12,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/12",
+      "merged_commit": "e0d76bf482ffb0c1484f5738f59976ea59f5b8b2",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39298988741"
+      ]
     },
     {
       "id": "TLM-042",
