@@ -174,11 +174,14 @@
         "Only permitted transitions occur; direct answers remain accessible",
         "Table-driven transition and navigation tests pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 5,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/5",
-      "merged_commit": null,
-      "verification_evidence": []
+      "merged_commit": "6e36fbc51617975af0bbff360844c7cc85ab843c",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39295607409",
+        "https://github.com/neophilism/The-Learning-Machine/pull/5"
+      ]
     },
     {
       "id": "TLM-006",
@@ -193,9 +196,9 @@
         "Deterministic experiments replay and cannot relabel simulated values as measured",
         "Golden replay and trace validation pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 6,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/6",
       "merged_commit": null,
       "verification_evidence": []
     },
