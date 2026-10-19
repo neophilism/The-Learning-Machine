@@ -330,11 +330,13 @@
         "Measured, computed, simulated and unknown are visibly distinct",
         "Mislabelled evidence and unknown-value tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 18,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/18",
+      "merged_commit": "455c6534a6c7e640abfc3aac13a34239aa829524",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39304057045"
+      ]
     },
     {
       "id": "TLM-013",
