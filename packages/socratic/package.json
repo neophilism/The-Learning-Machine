@@ -1,0 +1,13 @@
+{
+  "name": "@learning-machine/socratic",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/engine.mjs"
+  },
+  "dependencies": {
+    "@learning-machine/contracts": "workspace:*",
+    "@learning-machine/content": "workspace:*"
+  }
+}

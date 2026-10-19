@@ -41,6 +41,15 @@ importers:
         specifier: workspace:*
         version: link:../contracts
 
+  packages/socratic:
+    dependencies:
+      '@learning-machine/content':
+        specifier: workspace:*
+        version: link:../content
+      '@learning-machine/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+
 packages:
 
   '@astrojs/compiler-binding-android-arm64@0.5.2':
