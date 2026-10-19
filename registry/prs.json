@@ -266,11 +266,13 @@
         "Valid unusual solutions are not rejected to force an approved answer",
         "Noncanonical answer fixtures pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 9,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/9",
-      "merged_commit": null,
-      "verification_evidence": []
+      "merged_commit": "3b844033e3b340fc4dda22865155607d46dda2b7",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39298452158"
+      ]
     },
     {
       "id": "TLM-010",
@@ -910,11 +912,13 @@
         "Visuals and narration agree with underlying signals",
         "Reference signal tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 13,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/13",
+      "merged_commit": "b4b0e03e5b4e6b905a839f2a844b9bc4e13748bf",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39299413234"
+      ]
     },
     {
       "id": "TLM-043",
@@ -1048,7 +1052,7 @@
         "Every actual legal claim has authority, limitations and date",
         "Citation and quote integrity checks pass"
       ],
-      "status": "planned",
+      "status": "in_progress",
       "github_pr_number": null,
       "github_pr_url": null,
       "merged_commit": null,
