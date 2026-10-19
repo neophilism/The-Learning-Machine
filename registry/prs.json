@@ -352,11 +352,13 @@
         "Different learner approaches elicit meaningfully different questions",
         "Branching dialogue fixtures pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 20,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/20",
+      "merged_commit": "056b2bd49ad45d3a754a80ee250e8657a57ba7a0",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39305002208"
+      ]
     },
     {
       "id": "TLM-014",
