@@ -218,12 +218,13 @@
         "Keyboard-only visitor can complete and reset a miniature lesson",
         "Playwright desktop/mobile accessibility smoke passes"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 7,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/7",
-      "merged_commit": null,
+      "merged_commit": "4eb9f75bc34ed496a9f79e0be2e8d426c050348c",
       "verification_evidence": [
-        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39297238361"
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39297448911",
+        "https://github.com/neophilism/The-Learning-Machine/pull/7"
       ]
     },
     {
@@ -243,7 +244,7 @@
         "Required jobs fail on actual defects and run against exact PR head",
         "Fresh-checkout CI and negative tests pass"
       ],
-      "status": "planned",
+      "status": "in_progress",
       "github_pr_number": null,
       "github_pr_url": null,
       "merged_commit": null,

@@ -11,7 +11,7 @@
     "check:foundation": "node scripts/check-registry.mjs && node --test tests/*.test.mjs packages/*/tests/*.test.mjs",
     "typecheck": "pnpm --filter @learning-machine/web typecheck",
     "build": "pnpm --filter @learning-machine/web build",
-    "check": "pnpm check:foundation && pnpm typecheck && pnpm build && pnpm content:check && pnpm web:smoke",
+    "check": "pnpm check:foundation && pnpm typecheck && pnpm build && pnpm content:check && pnpm web:smoke && pnpm check:boundaries && pnpm scan:secrets",
     "dev": "pnpm --filter @learning-machine/web dev",
     "preview": "pnpm --filter @learning-machine/web preview",
     "test": "node --test tests/*.test.mjs",
@@ -19,7 +19,10 @@
     "demo": "node --input-type=module -e \"import {runFoundationDemonstration} from './src/learning.mjs'; console.log(JSON.stringify(runFoundationDemonstration(),null,2))\"",
     "content:check": "node scripts/check-content.mjs",
     "test:browser": "playwright test",
-    "web:smoke": "node scripts/check-web-shell.mjs"
+    "web:smoke": "node scripts/check-web-shell.mjs",
+    "check:boundaries": "node scripts/check-boundaries.mjs",
+    "scan:secrets": "node scripts/scan-secrets.mjs",
+    "ready": "node scripts/ready-work.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1"
