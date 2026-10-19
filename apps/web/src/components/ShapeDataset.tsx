@@ -1,3 +1,5 @@
+import {trainLinearClassifier} from '../../../../packages/learning-lab/src/classifier.mjs';
+import type {LinearModel} from '../../../../packages/learning-lab/src/classifier.mjs';
 import {stratifiedHoldout} from '../../../../packages/learning-lab/src/split.mjs';
 import type {HoldoutSplit} from '../../../../packages/learning-lab/src/split.mjs';
 import {useEffect,useRef,useState} from 'react';
@@ -13,10 +15,12 @@ export default function ShapeDatasetLab(){
  const [error,setError]=useState('');
  const [hydrated,setHydrated]=useState(false);
  const [split,setSplit]=useState<HoldoutSplit|null>(null);
+ const [model,setModel]=useState<LinearModel|null>(null);
  const [splitSeed,setSplitSeed]=useState(42);
  const [testFraction,setTestFraction]=useState(0.25);
  useEffect(()=>setHydrated(true),[]);
  useEffect(()=>setSplit(null),[dataset]);
+ useEffect(()=>setModel(null),[split,dataset]);
  const drawing=useRef(false);const canvas=useRef<HTMLCanvasElement|null>(null);
  useEffect(()=>{
   const c=canvas.current;if(!c)return;const ctx=c.getContext('2d');if(!ctx)return;
@@ -98,7 +102,21 @@ export default function ShapeDatasetLab(){
         <p>Seed {split.seed}; algorithm {split.algorithm}; no example appears in both groups.</p>
        </details>
       </>}
-      <p>This is a dataset split only. No model is trained by this action.</p>
+      {split?.ready&&<section aria-label="Train a real linear classifier">
+       <h3>Train a classifier on your examples</h3>
+       <p>Train a small multinomial logistic classifier locally. Its numerical weights change with your labeled training drawings. Held-out test examples are excluded from the training loop.</p>
+       <button type="button" className="action action-primary" disabled={!hydrated} onClick={()=>{
+        try{setModel(trainLinearClassifier(dataset,split,{epochs:60,learningRate:0.06}));setError('')}
+        catch(e){setError(e instanceof Error?e.message:'Training failed')}
+       }}>Train local classifier</button>
+       {model&&<div role="status">
+        <p><strong>Classifier trained on {model.trainingExampleIds.length} examples.</strong> {model.heldOutExampleCount} examples remained unseen during training.</p>
+        <p>Initial cross-entropy loss {model.initialTrainingLoss.toFixed(4)}; final training loss {model.history.at(-1)?.loss.toFixed(4)}. Training accuracy {((model.history.at(-1)?.trainingAccuracy??0)*100).toFixed(1)}%.</p>
+        <p>Algorithm {model.algorithm}. {model.epochs} epochs of numerical parameter updates across {model.labels.length} classes.</p>
+        <p>These are training metrics, not held-out test accuracy. A classifier may memorize its inputs, so future tests will challenge generalization.</p>
+       </div>}
+      </section>}
+      <p>{split?.ready?'You may train this real local model.':'Create a valid split before training a model.'}</p>
     </section>
     {dataset.examples.length>0&&<p className="status-note">You have created real labeled examples. No model has been trained yet; the next laboratory step is an actual train/test split.</p>}
    </div>
