@@ -1,3 +1,4 @@
+import {selectSocraticQuestion} from '../../../../packages/socratic/src/questions.mjs';
 import EvidencePanel from './EvidencePanel.tsx';
 import {useEffect,useRef,useState} from 'react';
 import {createExperimentRunner,syntheticMaskExperiment} from '../../../../packages/experiments/src/runtime.mjs';
@@ -33,6 +34,7 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
   }
  }
  const active=compiled.nodes.find(n=>n.id===session.nodeId);
+ const selectedQuestion=selectSocraticQuestion(compiled,session);
  if(!active)return <p role="alert">The lesson node is unavailable.</p>;
  const index=compiled.nodes.findIndex(n=>n.id===session.nodeId);
  const routes=availableRoutes(compiled,session);
@@ -68,7 +70,7 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
  return <section className="learning-card" aria-label="Interactive Socratic learning exercise" role="region">
   <div className="exercise-header"><span className="stage-label">{titles[session.stage]}</span><span className="stage-label">Step {index+1} / {compiled.nodes.length}</span></div>
   <div className="progress" role="progressbar" aria-label="Learning journey progress" aria-valuenow={Math.round((index+1)/compiled.nodes.length*100)} aria-valuemin={0} aria-valuemax={100}><div className="progress-fill" style={{width:(index+1)/compiled.nodes.length*100+'%'}}/></div>
-  <h2>{active.prompt}</h2>
+  <h2>{selectedQuestion.text}</h2>
   {session.stage==='experiment'&&<><div className="comparison" aria-label="Illustrative masking alternatives">
    <section className="option"><h3>Selective masking</h3><p>Recognize the target's location, then obscure that region.</p></section>
    <section className="option"><h3>Blanket masking</h3><p>Obscure every pixel without recognizing a target.</p></section>
