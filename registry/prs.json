@@ -935,11 +935,13 @@
         "Controlled tones produce expected numerical features",
         "Signal boundary and pitch/rhythm fixture tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 16,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/16",
+      "merged_commit": "2527ab8117897558a360696fafe07aa394925006",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39302593254"
+      ]
     },
     {
       "id": "TLM-044",
