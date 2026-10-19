@@ -1,0 +1,38 @@
+---
+import Discovery from '../components/Discovery.tsx';
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Investigate how people and machines learn through questions, predictions and experiments." />
+  <title>The Learning Machine — Investigate. Experiment. Discover.</title>
+  <style is:global>
+    :root{font-family:system-ui, -apple-system, sans-serif;color:#192b38;background:#f8fafc}
+    *{box-sizing:border-box}
+    body{margin:0}
+    button,input,textarea{font:inherit}
+    button{cursor:pointer}
+    :focus-visible{outline:3px solid #0069d2;outline-offset:4px}
+    a{color:#0c5687}
+    .shell{max-width:72rem;margin:0 auto;padding:1.5rem}
+    header{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+    .eyebrow{color:#47687c;letter-spacing:.12em;font-size:.75rem;text-transform:uppercase;font-weight:700}
+    h1{font-size:clamp(2.1rem,5vw,4rem);line-height:1.1;max-width:18ch}
+    .lede{color:#425b6c;max-width:64ch;line-height:1.7}
+    main{display:grid;grid-template-columns:minmax(0,1fr);gap:2rem;margin-top:2rem}
+    footer{margin:4rem 0 1rem;color:#466273;font-size:.85rem}
+  </style>
+</head>
+<body>
+<div class="shell">
+<header><strong>The Learning Machine</strong><span class="eyebrow">Socratic Laboratory</span></header>
+<main>
+<section aria-labelledby="intro-title"><p class="eyebrow">Discover through experiment</p><h1 id="intro-title">What must a machine do before it can learn?</h1><p class="lede">Investigate a problem. Make your own prediction. Compare what happened with what you expected. A correct answer is not a political opinion, and you can always ask for the explanation directly.</p></section>
+<Discovery client:load />
+</main>
+<footer>Independent educational demonstration. This is an early executable foundation, not a legal opinion or a complete experiment.</footer>
+</div>
+</body>
+</html>
