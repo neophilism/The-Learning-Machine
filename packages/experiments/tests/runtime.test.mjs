@@ -1,13 +1,42 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {canonicalExperimentInput,createExperimentRun,appendExperimentObservation,seededRandom,sealExperimentRun,compareExperimentRuns} from '../src/runtime.mjs';
-const definition={schemaVersion:'1.0.0',id:'symbol-finder',version:'1',title:'Detect symbol',capabilities:['canvas','worker'],timeoutMs:5000};
-test('canonicalizes object key order',()=>assert.equal(canonicalExperimentInput({b:2,a:1}),canonicalExperimentInput({a:1,b:2})));
-test('input cycles, functions and nonfinite numbers reject',()=>{const cycle={};cycle.self=cycle;assert.throws(()=>canonicalExperimentInput(cycle),/Cyclic/);assert.throws(()=>canonicalExperimentInput({fn:()=>3}));assert.throws(()=>canonicalExperimentInput({x:Infinity}));});
-test('rejects objects with unsafe prototype keys',()=>{const a=JSON.parse('{"__proto__":1}');assert.throws(()=>canonicalExperimentInput(a),/Unsafe/);});
-test('createRun is stable and bounded, no wall clock dependencies',async()=>{const a=await createExperimentRun(definition,{b:2,a:1},{seed:7}),b=await createExperimentRun(definition,{a:1,b:2},{seed:7});assert.equal(a.runId,b.runId);assert.equal(a.status,'running');assert.ok(Object.isFrozen(a.input));});
-test('seeded random draws are reproducible but namespace isolated',()=>{const a=seededRandom(100,'a'),b=seededRandom(100,'a'),c=seededRandom(100,'b');assert.deepEqual(Array.from({length:6},()=>a()),Array.from({length:6},()=>b()));assert.notEqual(c(),seededRandom(100,'a')());});
-test('observation rejects fabricated missing source and mismatched run id',async()=>{const r=await createExperimentRun(definition,{x:1});const o={schemaVersion:'1.0.0',experimentId:'symbol-finder',runId:r.runId,kind:'measured',description:'Actual pixel count',value:12,sourceId:'canvas'};assert.throws(()=>appendExperimentObservation(r,{...o,sourceId:undefined}));assert.throws(()=>appendExperimentObservation(r,{...o,runId:'elsewhere'}));const b=appendExperimentObservation(r,o);assert.equal(b.observations[0].value,12);assert.equal(r.observations.length,0);});
-test('sealing blocks additional observations and records content digest',async()=>{const r=await createExperimentRun(definition,{x:1});const done=await sealExperimentRun(r);assert.equal(done.status,'completed');assert.match(done.sealDigest,/^[a-f0-9]{64}$/);assert.throws(()=>appendExperimentObservation(done,{schemaVersion:'1.0.0',experimentId:definition.id,runId:r.runId,kind:'computed',description:'Nope'}));});
-test('matching replay traces compare but different outcomes do not',async()=>{const a=await createExperimentRun(definition,{x:1});const x=appendExperimentObservation(a,{schemaVersion:'1.0.0',experimentId:definition.id,runId:a.runId,kind:'computed',description:'Count',value:2});const y=appendExperimentObservation(a,{schemaVersion:'1.0.0',experimentId:definition.id,runId:a.runId,kind:'computed',description:'Count',value:3});assert.equal(compareExperimentRuns(x,x).sameResults,true);assert.equal(compareExperimentRuns(x,y).sameResults,false);assert.equal(compareExperimentRuns(x,await createExperimentRun(definition,{x:2})).comparable,false);});
-test('a different engine version never looks like a comparable replay',async()=>{const a=await createExperimentRun(definition,{},{}),b=await createExperimentRun(definition,{}, {engineVersion:'2.0.0'});assert.equal(compareExperimentRuns(a,b).comparable,false);});
-test('unknown final status and invalid random seed reject',async()=>{const r=await createExperimentRun(definition,{});await assert.rejects(()=>sealExperimentRun(r,'invented'));assert.throws(()=>seededRandom(-1));});
+import {createExperimentRunner,maskSyntheticFrame,syntheticMaskExperiment} from '../src/runtime.mjs';
+const input=method=>({width:48,height:28,method,target:{x:12,y:8,width:10,height:7}});
+test('actual synthetic pixel processing distinguishes three methods',()=>{
+ const sel=maskSyntheticFrame(input('selective')),all=maskSyntheticFrame(input('blanket')),known=maskSyntheticFrame(input('known-position'));
+ assert.equal(sel.metrics.targetPixelsMasked,70);assert.equal(sel.metrics.otherPixelsMasked,0);
+ assert.equal(sel.metrics.recognitionPixelReads,48*28);assert.equal(known.metrics.recognitionPixelReads,0);
+ assert.equal(all.metrics.maskedPixels,48*28);assert.equal(all.metrics.otherPixelsMasked,48*28-70);
+ assert.notDeepEqual(sel.output,sel.original);
+});
+test('runner executes real computation with validated bound source and unique run identifiers',async()=>{
+ const runner=createExperimentRunner();let a=await runner.run('synthetic-masking-v1',input('selective'));
+ assert.equal(a.status,'completed');assert.equal(a.observation.kind,'computed');assert.equal(a.observation.value,70);
+ assert.equal(a.observation.experimentId,'synthetic-masking-v1');assert.equal(a.metrics.recognitionPerformed,true);
+ let b=await runner.run('synthetic-masking-v1',input('blanket'));assert.equal(b.status,'completed');assert.notEqual(a.runId,b.runId);
+});
+test('malformed pixel targets and unknown registered experiments fail closed',async()=>{
+ assert.throws(()=>maskSyntheticFrame({...input('selective'),target:{x:50,y:5,width:7,height:7}}),RangeError);
+ assert.throws(()=>maskSyntheticFrame(input('undocumented')),TypeError);
+ await assert.rejects(()=>createExperimentRunner().run('not-registered',input('blanket')),RangeError);
+});
+test('cancellation prevents a late uncooperative result replacing a newer run',async()=>{
+ const slow={manifest:{schemaVersion:'1.0.0',id:'slow',version:'1.0',title:'Test slow experiment',capabilities:['keyboard'],timeoutMs:1000},validateInput:x=>x,
+  async execute(input,{runId}){await new Promise(resolve=>setTimeout(resolve,input.delay));return {observation:{schemaVersion:'1.0.0',experimentId:'slow',runId,kind:'computed',description:'Finished'}};}};
+ const runner=createExperimentRunner([slow]);
+ const first=runner.run('slow',{delay:100});
+ const second=runner.run('slow',{delay:1});
+ const [a,b]=await Promise.all([first,second]);
+ assert.equal(a.status,'cancelled');assert.equal(b.status,'completed');
+});
+test('timeout and manual cancellation do not leave an accepted result',async()=>{
+ const slow={manifest:{schemaVersion:'1.0.0',id:'slow',version:'1.0',title:'Test slow experiment',capabilities:['keyboard'],timeoutMs:10},validateInput:x=>x,
+  async execute(input,{runId}){await new Promise(resolve=>setTimeout(resolve,50));return {observation:{schemaVersion:'1.0.0',experimentId:'slow',runId,kind:'computed',description:'Finished'}};}};
+ const runner=createExperimentRunner([slow]);
+ const first=await runner.run('slow',{});assert.equal(first.status,'timed_out');
+ const pending=runner.run('slow',{});assert.equal(runner.cancel(),true);assert.equal((await pending).status,'cancelled');
+});
+test('invalid experimental results cannot masquerade as valid observations',async()=>{
+ const broken={...syntheticMaskExperiment,execute:async()=>({observation:{schemaVersion:'1.0.0',experimentId:'wrong',runId:'wrong',kind:'computed',description:'Forged'}})};
+ const runner=createExperimentRunner([broken]);const r=await runner.run('synthetic-masking-v1',input('selective'));
+ assert.equal(r.status,'failed');assert.match(r.error,/unexpected run/);
+});
