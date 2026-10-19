@@ -1,38 +1,26 @@
 ---
+import {compileLearningModule} from '@learning-machine/content';
+import lesson from '../../../../content/modules/intro-visual-reasoning.json';
 import Discovery from '../components/Discovery.tsx';
+import '../styles/global.css';
+const compiled=compileLearningModule(lesson);
 ---
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Investigate how people and machines learn through questions, predictions and experiments." />
-  <title>The Learning Machine — Investigate. Experiment. Discover.</title>
-  <style is:global>
-    :root{font-family:system-ui, -apple-system, sans-serif;color:#192b38;background:#f8fafc}
-    *{box-sizing:border-box}
-    body{margin:0}
-    button,input,textarea{font:inherit}
-    button{cursor:pointer}
-    :focus-visible{outline:3px solid #0069d2;outline-offset:4px}
-    a{color:#0c5687}
-    .shell{max-width:72rem;margin:0 auto;padding:1.5rem}
-    header{display:flex;justify-content:space-between;align-items:center;gap:1rem}
-    .eyebrow{color:#47687c;letter-spacing:.12em;font-size:.75rem;text-transform:uppercase;font-weight:700}
-    h1{font-size:clamp(2.1rem,5vw,4rem);line-height:1.1;max-width:18ch}
-    .lede{color:#425b6c;max-width:64ch;line-height:1.7}
-    main{display:grid;grid-template-columns:minmax(0,1fr);gap:2rem;margin-top:2rem}
-    footer{margin:4rem 0 1rem;color:#466273;font-size:.85rem}
-  </style>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="description" content="Learn by hypothesizing, experimenting, observing and revising your understanding."/>
+<title>The Learning Machine — Learn Through Discovery</title>
 </head>
-<body>
-<div class="shell">
-<header><strong>The Learning Machine</strong><span class="eyebrow">Socratic Laboratory</span></header>
-<main>
-<section aria-labelledby="intro-title"><p class="eyebrow">Discover through experiment</p><h1 id="intro-title">What must a machine do before it can learn?</h1><p class="lede">Investigate a problem. Make your own prediction. Compare what happened with what you expected. A correct answer is not a political opinion, and you can always ask for the explanation directly.</p></section>
-<Discovery client:load />
+<body><div class="shell">
+<header class="site-header"><a class="brand" href="/" aria-label="The Learning Machine homepage"><span class="brand-mark" aria-hidden="true">◉</span> The Learning Machine</a><span class="site-label">An experimental classroom</span></header>
+<main id="main-content">
+<section class="intro" aria-labelledby="intro-title"><p class="eyebrow">Experience, experiment, discover</p>
+<h1 id="intro-title">Learning begins with a question, not an answer.</h1>
+<p class="lede">Try your own solution. Predict what will happen. Explore alternatives and change your mind—or explain why you wouldn't. There is no political agreement score.</p></section>
+<Discovery client:load compiled={compiled}/>
+<section class="about" aria-labelledby="about-title"><h2 id="about-title">What is this?</h2>
+<p>A Socratic environment for exploring questions behind the proposed Right to Learn and Ephemeral Processing Act. This introductory lesson is a reasoning exercise. Actual camera, audio, machine-learning and legal experiments remain under development; no illustrative comparison here is presented as a physical measurement.</p></section>
 </main>
-<footer>Independent educational demonstration. This is an early executable foundation, not a legal opinion or a complete experiment.</footer>
-</div>
-</body>
-</html>
+<footer>Independent educational work. No account or personal-data submission required.</footer>
+</div></body></html>

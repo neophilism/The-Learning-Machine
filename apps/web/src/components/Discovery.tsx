@@ -1,44 +1,48 @@
 import {useState} from 'react';
-import {initialState,transition} from '../../../../src/learning.mjs';
-
-const prompts: Record<string,string>={
- encounter:'Consider a camera that must obscure a fictional symbol before displaying a live image. How might it do that?',
- hypothesis:'What approach would you try? Your solution may be completely different from automatic recognition.',
- prediction:'What do you expect your approach to require from the camera?',
- experiment:'Experiment planning: compare selectively hiding a symbol with blurring an entire image. What would you test?',
- observation:'What did you notice about the information needed by your proposed method?',
- explanation:'Why do selective recognition and blanket masking differ?',
- challenge:'Could another approach avoid recognizing the symbol entirely?',
- revision:'Revise or defend your explanation using the counterexample.',
- transfer:'Apply your reasoning to censoring speech or translating audio.',
- reflection:'What insight did you discover? This foundation lesson is a demonstration of the learning cycle.',
- complete:'You have completed the introductory reasoning cycle.'
-};
-
-export default function Discovery(){
- const [state,setState]=useState(initialState());
- const [answer,setAnswer]=useState('');
- const [error,setError]=useState('');
- const required=new Set(['hypothesis','prediction','observation','explanation','revision','transfer']);
- function act(type: 'ADVANCE'|'BACK'|'RESET'|'DIRECT_ANSWER'){
-   try {
-     setState((previous)=>transition(previous,{type,answer}));
-     setAnswer('');setError('');
-   } catch(e) {setError(e instanceof Error?e.message:'An unexpected error occurred');}
+import type {CompiledLearningModule} from '@learning-machine/content';
+import {createLearningSession,transitionLearningSession,availableRoutes} from '@learning-machine/socratic';
+import type {LearningSession,LearningAction} from '@learning-machine/socratic';
+const reasoning=new Set(['hypothesis','prediction','observation','explanation','revision','transfer']);
+const titles:Record<string,string>={encounter:'Encounter',hypothesis:'Hypothesis',prediction:'Predict',experiment:'Experiment',observation:'Observe',explanation:'Explain',challenge:'Challenge',revision:'Revise',transfer:'Transfer',reflection:'Reflection',complete:'Complete'};
+export default function Discovery({compiled}:{compiled:CompiledLearningModule}) {
+ const [session,setSession]=useState<LearningSession>(()=>createLearningSession(compiled));
+ const [draft,setDraft]=useState('');const [error,setError]=useState('');
+ const active=compiled.nodes.find(n=>n.id===session.nodeId);
+ if(!active)return <p role="alert">The lesson node is unavailable.</p>;
+ const index=compiled.nodes.findIndex(n=>n.id===session.nodeId);
+ const routes=availableRoutes(compiled,session);
+ function act(actions:LearningAction[]) {
+  try{let next=session;for(const action of actions)next=transitionLearningSession(compiled,next,action);
+  setSession(next);setDraft(next.answers[next.nodeId]||'');setError('');}catch(e){setError(e instanceof Error?e.message:'Action unavailable')}
  }
- return <section aria-label="Interactive learning exercise" style={{background:'#fff',border:'1px solid #d6e2ed',borderRadius:'18px',padding:'clamp(1rem,3vw,2rem)',boxShadow:'0 10px 28px #173d5810'}}>
-   <p style={{color:'#467084',textTransform:'uppercase',letterSpacing:'.12em',fontSize:'.72rem'}}>Foundation exercise • {state.stage}</p>
-   <h2 style={{marginTop:0,fontSize:'1.3rem'}}>{prompts[state.stage]}</h2>
-   {state.stage==='experiment'&&<p role="note" style={{background:'#eaf3fb',padding:'1rem',borderRadius:'.8rem'}}>This first release demonstrates the Socratic process. A real camera and classification experiment is implemented in later roadmap units; no measurement is claimed here.</p>}
-   {required.has(state.stage)&&<label style={{display:'block'}}>Your reasoning<textarea value={answer} onChange={e=>setAnswer(e.target.value)} rows={3} style={{display:'block',width:'100%',padding:'.75rem',marginTop:'.5rem',borderRadius:'.5rem',border:'1px solid #a2b4c0'}}/></label>}
-   {error&&<p role="alert" style={{color:'#9d2630'}}>{error}</p>}
-   <div style={{display:'flex',flexWrap:'wrap',gap:'.65rem',marginTop:'1.25rem'}}>
-      {state.stage!=='complete'&&<button onClick={()=>act('ADVANCE')} style={{background:'#143f62',color:'#fff',padding:'.7rem 1.2rem',borderRadius:'.5rem',border:0}}>Continue</button>}
-      <button onClick={()=>act('BACK')} disabled={state.stage==='encounter'}>Previous step</button>
-      <button onClick={()=>act('DIRECT_ANSWER')}>See direct explanation</button>
-      <button onClick={()=>act('RESET')}>Start again</button>
-   </div>
-   {state.stage==='reflection'&&<p>Selective masking generally requires identifying the target. Blanket masking does not. Different solutions have different technical and legal implications; this exercise does not determine the lawfulness of any specific use.</p>}
-   <p aria-live="polite" style={{color:'#577181',fontSize:'.85rem',marginBottom:0}}>Steps recorded locally in this page: {state.events.length}. No account required.</p>
+ function advance() {
+  const actions:LearningAction[]=[];
+  if(reasoning.has(session.stage)){if(draft.trim())actions.push({type:'ANSWER',text:draft});else actions.push({type:'SKIP'});}
+  else if(draft.trim())actions.push({type:'ANSWER',text:draft});
+  actions.push({type:'NEXT'});act(actions);
+ }
+ return <section className="learning-card" aria-label="Interactive Socratic learning exercise" role="region">
+  <div className="exercise-header"><span className="stage-label">{titles[session.stage]}</span><span className="stage-label">Step {index+1} / {compiled.nodes.length}</span></div>
+  <div className="progress" role="progressbar" aria-label="Learning journey progress" aria-valuenow={Math.round((index+1)/compiled.nodes.length*100)} aria-valuemin={0} aria-valuemax={100}><div className="progress-fill" style={{width:(index+1)/compiled.nodes.length*100+'%'}}/></div>
+  <h2>{active.prompt}</h2>
+  {session.stage==='experiment'&&<><div className="comparison" aria-label="Illustrative masking alternatives">
+   <section className="option"><h3>Selective masking</h3><p>Recognize the target's location, then obscure that region.</p></section>
+   <section className="option"><h3>Blanket masking</h3><p>Obscure every pixel without recognizing a target.</p></section>
+  </div><p className="status-note" role="note">This comparison is an authored thought experiment, not an actual camera measurement. {active.accessibleAlternative}</p></>}
+  {session.stage==='challenge'&&<p className="status-note">Challenge your hypothesis: can the goal be achieved without identifying a symbol?</p>}
+  {session.stage==='reflection'&&<p className="status-note">Selective masking usually requires locating the symbol, but blurring everything does not require identifying it. Different methods have different information requirements.</p>}
+  {session.complete&&<p className="status-note" role="status">You completed the learning journey. Your reasoning matters—not which political position you take.</p>}
+  {reasoning.has(session.stage)&&!session.complete&&<label htmlFor="reasoning" className="response-label">Your reasoning (optional; you may skip)<textarea id="reasoning" className="response" rows={4} maxLength={10000} value={draft} onChange={e=>setDraft(e.target.value)} placeholder="What do you think, and why?"/></label>}
+  {error&&<p role="alert" className="error">{error}</p>}
+  <div className="controls">
+   {!session.complete&&routes.some(r=>r.when==='always')&&<button className="action action-primary" onClick={advance}>Continue{draft.trim()?' with your answer':''}</button>}
+   {!session.complete&&routes.filter(r=>r.when==='alternative').map(r=><button key={r.to} className="action" onClick={()=>act([{type:'CHOOSE',to:r.to}])}>Explore alternative: {r.to}</button>)}
+   {!session.complete&&routes.filter(r=>r.when==='retry').map(r=><button key={r.to} className="action" onClick={()=>act([{type:'RETRY',to:r.to}])}>Retry</button>)}
+   <button className="action" onClick={()=>act([{type:'BACK'}])} disabled={!session.history.length}>Previous</button>
+   {!session.complete&&session.stage!=='reflection'&&<button className="action" onClick={()=>act([{type:'REQUEST_EXPLANATION'}])}>See direct explanation</button>}
+   <button className="action" onClick={()=>act([{type:'RESET'}])}>Restart</button>
+  </div>
+  <div className="lesson-data"><span aria-live="polite">Actions: {session.actions.length}</span><span>Answers: {Object.keys(session.answers).length}</span><span>Skipped: {session.skipped.length}</span><span>No login or media upload</span></div>
+  <details><summary>Review your hypotheses</summary><ol>{session.actions.filter(a=>a.type==='ANSWER').map((a,i)=><li key={i}>{a.type==='ANSWER'?a.text:''}</li>)}</ol><p>Answers remain in this page's local runtime until you restart.</p></details>
  </section>;
 }
