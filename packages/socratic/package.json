@@ -4,7 +4,10 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/engine.mjs"
+    ".": {
+      "types": "./src/engine.d.mts",
+      "default": "./src/engine.mjs"
+    }
   },
   "dependencies": {
     "@learning-machine/contracts": "workspace:*",

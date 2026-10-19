@@ -196,11 +196,14 @@
         "Deterministic experiments replay and cannot relabel simulated values as measured",
         "Golden replay and trace validation pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 6,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/6",
-      "merged_commit": null,
-      "verification_evidence": []
+      "merged_commit": "78920a77cc9053b1642b3f5a67d3ca86212e0700",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39295989726",
+        "https://github.com/neophilism/The-Learning-Machine/pull/6"
+      ]
     },
     {
       "id": "TLM-007",
@@ -215,11 +218,13 @@
         "Keyboard-only visitor can complete and reset a miniature lesson",
         "Playwright desktop/mobile accessibility smoke passes"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 7,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/7",
       "merged_commit": null,
-      "verification_evidence": []
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39297238361"
+      ]
     },
     {
       "id": "TLM-008",

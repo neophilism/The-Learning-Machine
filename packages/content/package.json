@@ -4,7 +4,10 @@
   "version": "0.1.0",
   "type": "module",
   "exports": {
-    ".": "./src/compiler.mjs"
+    ".": {
+      "types": "./src/compiler.d.mts",
+      "default": "./src/compiler.mjs"
+    }
   },
   "dependencies": {
     "@learning-machine/contracts": "workspace:*"
