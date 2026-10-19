@@ -17,7 +17,7 @@ test('direct explanation remains available after using hints',()=>{
  s=transitionLearningSession(c,s,{type:'REQUEST_EXPLANATION'});assert.equal(s.stage,'reflection');
 });
 test('unauthored hints cannot be invented',()=>{
- const c=compileLearningModule(content());let s=transitionLearningSession(c,createLearningSession(c),{type:'NEXT'});
+ const c=compileLearningModule(content());let s=transitionLearningSession(c,createLearningSession(c),{type:'REQUEST_EXPLANATION'});
  assert.throws(()=>transitionLearningSession(c,s,{type:'REQUEST_HINT'}),/No authored hint/);
 });
 test('hint count and text are bounded in the lesson contract',()=>{
