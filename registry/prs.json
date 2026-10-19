@@ -244,9 +244,9 @@
         "Required jobs fail on actual defects and run against exact PR head",
         "Fresh-checkout CI and negative tests pass"
       ],
-      "status": "in_progress",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 8,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/8",
       "merged_commit": null,
       "verification_evidence": []
     },
