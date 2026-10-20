@@ -576,12 +576,14 @@
         "No capture without permission and no frame upload",
         "Denied/revoked permission and network tests pass"
       ],
-      "status": "in_progress",
+      "status": "merged",
       "github_pr_number": 32,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/32",
-      "merged_commit": null,
+      "merged_commit": "2005fd3179920265d2cfc360b798156d4c861dca",
       "verification_evidence": [
-        "Local camera-session unit tests pass 4/4; exact-head hosted repository and browser validation pending."
+        "Exact-head workspace-and-foundation run 39397011091 passed for 7ccf2cca2c62a5af6831a5d0844df9acfaae3a51: frozen install, 148 Node tests, strict TypeScript, production build, repository checks and all 36 desktop/mobile Chromium cases.",
+        "Merged-main workspace-and-foundation run 39397248362 passed for 2005fd3179920265d2cfc360b798156d4c861dca.",
+        "https://github.com/neophilism/The-Learning-Machine/pull/32"
       ]
     },
     {
