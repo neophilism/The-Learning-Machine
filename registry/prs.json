@@ -460,11 +460,13 @@
         "Displayed processing steps match executed pixel operations",
         "Reference frame calculations pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_progress",
+      "github_pr_number": 27,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/27",
       "merged_commit": null,
-      "verification_evidence": []
+      "verification_evidence": [
+        "Local TLM-018 reference-frame tests passed 4/4 before hosted validation."
+      ]
     },
     {
       "id": "TLM-019",
