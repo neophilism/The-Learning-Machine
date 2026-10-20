@@ -11,6 +11,8 @@ const titles:Record<string,string>={encounter:'Encounter',hypothesis:'Hypothesis
 export default function Discovery({compiled}:{compiled:CompiledLearningModule}) {
  const [session,setSession]=useState<LearningSession>(()=>createLearningSession(compiled));
  const [draft,setDraft]=useState('');const [error,setError]=useState('');const [hypothesisForPrediction,setHypothesisForPrediction]=useState('');
+ const [revisionPosition,setRevisionPosition]=useState<'revised'|'defended'>('revised');const [testIdea,setTestIdea]=useState('');
+ const [novelContext,setNovelContext]=useState('Live audio filtering');const [alternativeOutcome,setAlternativeOutcome]=useState('');
  const [hydrated,setHydrated]=useState(false);useEffect(()=>setHydrated(true),[]);
  const runner=useRef(createExperimentRunner([syntheticMaskExperiment]));
  const requestToken=useRef(0);
@@ -56,6 +58,12 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
     if(draft.trim())actions.push({type:'COMMIT_PREDICTION',text:draft,experimentId:'visual-masking-v1',...(hypothesisForPrediction?{hypothesisId:hypothesisForPrediction}:{})});
     else actions.push({type:'SKIP'});
    }
+  }else if(session.stage==='revision'){
+   if(!draft.trim()||!testIdea.trim()){setError('Explain whether you revised or defended the idea and name a test that could challenge it.');return;}
+   actions.push({type:'RECORD_REVISION',position:revisionPosition,reasoning:draft,testIdea,...(session.hypotheses.at(-1)?{hypothesisId:session.hypotheses.at(-1)?.id}:{})});
+  }else if(session.stage==='transfer'){
+   if(!novelContext.trim()||!draft.trim()||!alternativeOutcome.trim()){setError('Describe the novel context, your predicted outcome, and a plausible alternative outcome.');return;}
+   actions.push({type:'RECORD_TRANSFER',novelContext,predictedOutcome:draft,alternativeOutcome});
   }else if(reasoning.has(session.stage)){if(draft.trim())actions.push({type:'ANSWER',text:draft});else actions.push({type:'SKIP'});}
   else if(draft.trim())actions.push({type:'ANSWER',text:draft});
   if(session.stage==='experiment'&&!session.observations.some(o=>o.experimentId==='synthetic-masking-v1')){setError('Choose a method and run the actual local experiment before proceeding. You may also request a direct explanation.');return;}
@@ -108,6 +116,9 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
    </fieldset>}
   {session.stage==='observation'&&<EvidencePanel session={session} experimentId="synthetic-masking-v1"/>}
   {session.stage==='challenge'&&selectedCounterexample&&<aside className="status-note" aria-label="Counterexample for your hypothesis"><strong>Counterexample for hypothesis {selectedCounterexample.hypothesisId}</strong><p>{selectedCounterexample.prompt}</p><p><strong>Competing approach:</strong> {selectedCounterexample.competingApproach}</p><p>This authored challenge tests a technical assumption. It does not score your political view or require agreement.</p></aside>}
+  {session.stage==='revision'&&<fieldset aria-label="Revision evidence"><legend>How did the counterexample affect your view?</legend><label htmlFor="revision-position">Your response<select id="revision-position" value={revisionPosition} onChange={e=>setRevisionPosition(e.target.value as 'revised'|'defended')}><option value="revised">I revised the idea</option><option value="defended">I defended the idea with reasons</option></select></label><label htmlFor="test-idea">A test that could challenge your view<input id="test-idea" maxLength={2000} value={testIdea} onChange={e=>setTestIdea(e.target.value)}/></label></fieldset>}
+  {session.stage==='transfer'&&<fieldset aria-label="Novel transfer evidence"><legend>Test the idea in a new setting</legend><label htmlFor="novel-context">Novel context<input id="novel-context" maxLength={3000} value={novelContext} onChange={e=>setNovelContext(e.target.value)}/></label><label htmlFor="alternative-outcome">A plausible different outcome<input id="alternative-outcome" maxLength={3000} value={alternativeOutcome} onChange={e=>setAlternativeOutcome(e.target.value)}/></label></fieldset>}
+  {session.complete&&session.revisions.length>0&&session.transfers.length>0&&<aside className="status-note" aria-label="Your reasoning evidence"><strong>Your reasoning evidence</strong><p>You {session.revisions.at(-1)?.position} your earlier idea and proposed this test: {session.revisions.at(-1)?.testIdea}</p><p>For {session.transfers.at(-1)?.novelContext}, you predicted: {session.transfers.at(-1)?.predictedOutcome}</p><p>Alternative outcome considered: {session.transfers.at(-1)?.alternativeOutcome}</p></aside>}
   {session.stage==='reflection'&&<p className="status-note">Selective masking usually requires locating the symbol, but blurring everything does not require identifying it. Different methods have different information requirements.</p>}
   {session.complete&&<p className="status-note" role="status">You completed the learning journey. Your reasoning matters—not which political position you take.</p>}
   {reasoning.has(session.stage)&&!session.complete&&!(session.stage==='prediction'&&session.predictions.some(p=>p.nodeId===session.nodeId))&&<label htmlFor="reasoning" className="response-label">Your reasoning (optional; you may skip)<textarea id="reasoning" className="response" rows={4} maxLength={10000} value={draft} onChange={e=>setDraft(e.target.value)} placeholder="What do you think, and why?"/></label>}
