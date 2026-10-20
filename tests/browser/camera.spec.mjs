@@ -12,5 +12,5 @@ test('local capture emits no network request and revocation stops the session',a
  await page.goto('/vision');const uploads=[];page.on('request',request=>{if(!['GET','HEAD'].includes(request.method()))uploads.push(`${request.method()} ${request.url()}`)});
  await page.getByRole('button',{name:'Start local camera'}).click();await expect(page.locator('[data-camera-state="active"]')).toContainText('Nothing is uploaded');
  await page.getByRole('button',{name:'Capture one local frame'}).click();await expect(page.getByText(/Local frame 320 by 180, digest/)).toBeVisible();expect(uploads).toEqual([]);
- await page.evaluate(()=>window.__cameraStream.getVideoTracks()[0].dispatchEvent(new Event('ended')));await expect(page.locator('[data-camera-state="revoked"]')).toContainText('Camera access ended');
+ await page.evaluate(()=>setTimeout(()=>window.__cameraStream.getVideoTracks()[0].dispatchEvent(new Event('ended')),0));await expect(page.locator('[data-camera-state="revoked"]')).toContainText('Camera access ended');
 });
