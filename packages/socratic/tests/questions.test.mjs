@@ -79,7 +79,7 @@ test('counterexamples fail closed outside challenge nodes, for unknown hypothese
 });
 test('malformed or unbounded authored counterexamples fail content validation',()=>{
  const malformed=counterexampleFixture();malformed.nodes[4].counterexamples[0].triggerTerms=['political position'];
- assert.throws(()=>compileLearningModule(malformed),/contract validation/);
+ assert.throws(()=>compileLearningModule(malformed),/trigger term/);
  const sparse=counterexampleFixture();sparse.nodes[4].counterexamples=[sparse.nodes[4].counterexamples[0]];
- assert.throws(()=>compileLearningModule(sparse),/contract validation/);
+ assert.throws(()=>compileLearningModule(sparse),/bounded array/);
 });
