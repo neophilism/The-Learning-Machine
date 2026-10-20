@@ -415,11 +415,14 @@
         "Reasoned disagreement can complete an experience",
         "Transfer and alternative-outcome E2E passes"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 25,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/25",
+      "merged_commit": "a1535fb57288af439959a0a96b04198a5e9e6a76",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39384984445",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39385161188"
+      ]
     },
     {
       "id": "TLM-017",
