@@ -530,12 +530,14 @@
         "Metrics change accurately as frames and thresholds change",
         "Edge-case accuracy fixtures pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 30,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/30",
-      "merged_commit": null,
+      "merged_commit": "523d6e94de9b8f2d38ae086f664c72287c1c9cc9",
       "verification_evidence": [
-        "Focused confusion, denominator, uncertainty and fail-closed fixtures added; exact-head hosted validation pending."
+        "Exact-head workspace-and-foundation run 39393060348 passed for fdf92376e9c25468f21053ddd28cde6b249379e2: frozen install, full repository checks/build, and complete desktop/mobile Chromium suite.",
+        "Merged-main workspace-and-foundation run 39393273408 passed for 523d6e94de9b8f2d38ae086f664c72287c1c9cc9.",
+        "https://github.com/neophilism/The-Learning-Machine/pull/30"
       ]
     },
     {
@@ -552,11 +554,13 @@
         "Stale frame results cannot appear after reset",
         "Race and timeout stress tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_progress",
+      "github_pr_number": 31,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/31",
       "merged_commit": null,
-      "verification_evidence": []
+      "verification_evidence": [
+        "Local worker-controller race, reset, timeout and failure suite passes 4/4; exact-head hosted repository and browser validation pending."
+      ]
     },
     {
       "id": "TLM-023",
