@@ -1,4 +1,4 @@
-import {selectSocraticQuestion} from '../../../../packages/socratic/src/questions.mjs';
+import {selectCounterexample,selectSocraticQuestion} from '../../../../packages/socratic/src/questions.mjs';
 import EvidencePanel from './EvidencePanel.tsx';
 import {useEffect,useRef,useState} from 'react';
 import {createExperimentRunner,syntheticMaskExperiment} from '../../../../packages/experiments/src/runtime.mjs';
@@ -35,6 +35,7 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
  }
  const active=compiled.nodes.find(n=>n.id===session.nodeId);
  const selectedQuestion=selectSocraticQuestion(compiled,session);
+ const selectedCounterexample=session.stage==='challenge'&&session.hypotheses.length?selectCounterexample(compiled,session):null;
  if(!active)return <p role="alert">The lesson node is unavailable.</p>;
  const index=compiled.nodes.findIndex(n=>n.id===session.nodeId);
  const routes=availableRoutes(compiled,session);
@@ -106,7 +107,7 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
     {experimentResult&&experimentResult.status!=='completed'&&<p role="alert">Experiment {experimentResult.status}. {experimentResult.status==='failed'?experimentResult.error:'You can retry.'}</p>}
    </fieldset>}
   {session.stage==='observation'&&<EvidencePanel session={session} experimentId="synthetic-masking-v1"/>}
-  {session.stage==='challenge'&&<p className="status-note">Challenge your hypothesis: can the goal be achieved without identifying a symbol?</p>}
+  {session.stage==='challenge'&&selectedCounterexample&&<aside className="status-note" aria-label="Counterexample for your hypothesis"><strong>Counterexample for hypothesis {selectedCounterexample.hypothesisId}</strong><p>{selectedCounterexample.prompt}</p><p><strong>Competing approach:</strong> {selectedCounterexample.competingApproach}</p><p>This authored challenge tests a technical assumption. It does not score your political view or require agreement.</p></aside>}
   {session.stage==='reflection'&&<p className="status-note">Selective masking usually requires locating the symbol, but blurring everything does not require identifying it. Different methods have different information requirements.</p>}
   {session.complete&&<p className="status-note" role="status">You completed the learning journey. Your reasoning matters—not which political position you take.</p>}
   {reasoning.has(session.stage)&&!session.complete&&!(session.stage==='prediction'&&session.predictions.some(p=>p.nodeId===session.nodeId))&&<label htmlFor="reasoning" className="response-label">Your reasoning (optional; you may skip)<textarea id="reasoning" className="response" rows={4} maxLength={10000} value={draft} onChange={e=>setDraft(e.target.value)} placeholder="What do you think, and why?"/></label>}
