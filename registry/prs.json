@@ -576,11 +576,13 @@
         "No capture without permission and no frame upload",
         "Denied/revoked permission and network tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_progress",
+      "github_pr_number": 32,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/32",
       "merged_commit": null,
-      "verification_evidence": []
+      "verification_evidence": [
+        "Local camera-session unit tests pass 4/4; exact-head hosted repository and browser validation pending."
+      ]
     },
     {
       "id": "TLM-024",
