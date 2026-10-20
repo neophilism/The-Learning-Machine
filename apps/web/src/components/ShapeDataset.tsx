@@ -1,4 +1,4 @@
-import {trainLinearClassifier} from '../../../../packages/learning-lab/src/classifier.mjs';
+import {trainLinearClassifier,classifyDrawing,evaluateHoldout} from '../../../../packages/learning-lab/src/classifier.mjs';
 import type {LinearModel} from '../../../../packages/learning-lab/src/classifier.mjs';
 import {stratifiedHoldout} from '../../../../packages/learning-lab/src/split.mjs';
 import type {HoldoutSplit} from '../../../../packages/learning-lab/src/split.mjs';
@@ -15,11 +15,11 @@ export default function ShapeDatasetLab(){
  const [error,setError]=useState('');
  const [hydrated,setHydrated]=useState(false);
  const [split,setSplit]=useState<HoldoutSplit|null>(null);
- const [model,setModel]=useState<LinearModel|null>(null);
+ const [model,setModel]=useState<LinearModel|null>(null);\n const [prediction,setPrediction]=useState<ReturnType<typeof classifyDrawing>|null>(null);
  const [splitSeed,setSplitSeed]=useState(42);
  const [testFraction,setTestFraction]=useState(0.25);
  useEffect(()=>setHydrated(true),[]);
- useEffect(()=>setModel(null),[split,dataset]);
+ useEffect(()=>{setModel(null);setPrediction(null)},[split,dataset]);\n useEffect(()=>setPrediction(null),[pixels,model]);
  const drawing=useRef(false);const canvas=useRef<HTMLCanvasElement|null>(null);
  useEffect(()=>{
   const c=canvas.current;if(!c)return;const ctx=c.getContext('2d');if(!ctx)return;
@@ -41,7 +41,7 @@ export default function ShapeDatasetLab(){
   try{setSplit(null);setDataset(d=>relabelShapeExample(d,id,value));setError('');}
   catch(e){setError(e instanceof Error?e.message:'Invalid class label');}
  }
- const filled=pixels.reduce<number>((n,p)=>n+p,0),counts=shapeCounts(dataset);
+ const filled=pixels.reduce<number>((n,p)=>n+p,0),counts=shapeCounts(dataset);\n const holdoutReport=model&&split?evaluateHoldout(model,dataset,split):null;
  return <section className="learning-card drawing-lab" aria-label="Create local training examples">
   <h2>Create examples for a future classifier</h2>
   <p>Draw a simple shape, assign it a label, and save it as a training example. Create examples for at least two different labels to prepare for a classification experiment. Everything remains on this device, in this page, until you reset or leave.</p>
@@ -114,6 +114,23 @@ export default function ShapeDatasetLab(){
         <p>Algorithm {model.algorithm}. {model.epochs} epochs of numerical parameter updates across {model.labels.length} classes.</p>
         <p>These are training metrics, not held-out test accuracy. A classifier may memorize its inputs, so future tests will challenge generalization.</p>
        </div>}
+       {holdoutReport&&<div className="status-note" aria-label="Held-out inference results">
+        <p><strong>Held-out check:</strong> {holdoutReport.correctCount} of {holdoutReport.exampleCount} unseen examples matched their labels ({(holdoutReport.accuracy*100).toFixed(1)}%).</p>
+        <ul>{holdoutReport.predictions.map(result=><li key={result.id}>{result.id}: actual {result.actualLabel}; predicted {result.predictedLabel}; top score {(result.confidence*100).toFixed(1)}%.</li>)}</ul>
+       </div>}
+       {model&&<section aria-label="Predict a new drawing" className="status-note">
+        <h3>Try an unseen drawing</h3>
+        <p>Change or clear the drawing without saving it, then calculate scores from the learned parameters. The current drawing is not added to training automatically.</p>
+        <button type="button" className="action" disabled={!hydrated} onClick={()=>{
+         try{setPrediction(classifyDrawing(model,pixels));setError('')}
+         catch(e){setError(e instanceof Error?e.message:'Inference failed')}
+        }}>Predict current drawing</button>
+        {prediction&&<div role="status">
+         <p><strong>Predicted class: {prediction.predictedLabel}</strong>; top score {(prediction.confidence*100).toFixed(1)}%.</p>
+         <ul aria-label="Calculated class scores">{prediction.classScores.map(score=><li key={score.label}>{score.label}: {(score.probability*100).toFixed(1)}%</li>)}</ul>
+         <p>These relative model scores are calculated from this drawing and the learned weights. They are not calibrated certainty, proof of meaning, or evidence that the model will generalize beyond examples like this small local dataset.</p>
+        </div>}
+       </section>}
       </section>}
       <p>{split?.ready?'You may train this real local model.':'Create a valid split before training a model.'}</p>
     </section>
