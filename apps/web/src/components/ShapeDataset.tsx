@@ -15,11 +15,13 @@ export default function ShapeDatasetLab(){
  const [error,setError]=useState('');
  const [hydrated,setHydrated]=useState(false);
  const [split,setSplit]=useState<HoldoutSplit|null>(null);
- const [model,setModel]=useState<LinearModel|null>(null);\n const [prediction,setPrediction]=useState<ReturnType<typeof classifyDrawing>|null>(null);
+ const [model,setModel]=useState<LinearModel|null>(null);
+ const [prediction,setPrediction]=useState<ReturnType<typeof classifyDrawing>|null>(null);
  const [splitSeed,setSplitSeed]=useState(42);
  const [testFraction,setTestFraction]=useState(0.25);
  useEffect(()=>setHydrated(true),[]);
- useEffect(()=>{setModel(null);setPrediction(null)},[split,dataset]);\n useEffect(()=>setPrediction(null),[pixels,model]);
+ useEffect(()=>{setModel(null);setPrediction(null)},[split,dataset]);
+ useEffect(()=>setPrediction(null),[pixels,model]);
  const drawing=useRef(false);const canvas=useRef<HTMLCanvasElement|null>(null);
  useEffect(()=>{
   const c=canvas.current;if(!c)return;const ctx=c.getContext('2d');if(!ctx)return;
@@ -41,7 +43,8 @@ export default function ShapeDatasetLab(){
   try{setSplit(null);setDataset(d=>relabelShapeExample(d,id,value));setError('');}
   catch(e){setError(e instanceof Error?e.message:'Invalid class label');}
  }
- const filled=pixels.reduce<number>((n,p)=>n+p,0),counts=shapeCounts(dataset);\n const holdoutReport=model&&split?evaluateHoldout(model,dataset,split):null;
+ const filled=pixels.reduce<number>((n,p)=>n+p,0),counts=shapeCounts(dataset);
+ const holdoutReport=model&&split?evaluateHoldout(model,dataset,split):null;
  return <section className="learning-card drawing-lab" aria-label="Create local training examples">
   <h2>Create examples for a future classifier</h2>
   <p>Draw a simple shape, assign it a label, and save it as a training example. Create examples for at least two different labels to prepare for a classification experiment. Everything remains on this device, in this page, until you reset or leave.</p>
