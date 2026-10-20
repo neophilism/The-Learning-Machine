@@ -691,11 +691,13 @@
         "New predictions are calculated rather than scripted",
         "Holdout inference fixtures pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 34,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/34",
       "merged_commit": null,
-      "verification_evidence": []
+      "verification_evidence": [
+        "Held-out and fresh-drawing parameter-derived inference, score/limitation display, focused fixtures and browser-local coverage are in PR #34; exact-head hosted validation pending."
+      ]
     },
     {
       "id": "TLM-029",

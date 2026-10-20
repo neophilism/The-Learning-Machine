@@ -64,3 +64,23 @@ export function classifyDrawing(model,pixels){
  const winner=p.indexOf(Math.max(...p));
  return Object.freeze({predictedLabel:model.labels[winner],confidence:p[winner],classScores:Object.freeze(model.labels.map((label,i)=>Object.freeze({label,probability:p[i]}))),origin:'computed-from-learned-parameters'});
 }
+
+export function evaluateHoldout(model,dataset,split){
+ validateHoldout(split,dataset);
+ if(!split.ready||split.testIds.length===0)throw new RangeError('A ready split with held-out examples is required');
+ if(!model||!Array.isArray(model.trainingExampleIds))throw new TypeError('Invalid trained classifier');
+ const trained=new Set(model.trainingExampleIds),expected=new Set(split.trainIds);
+ if(trained.size!==expected.size||[...expected].some(id=>!trained.has(id)))throw new TypeError('Classifier was not trained on this split');
+ const examples=new Map(dataset.examples.map(example=>[example.id,example]));
+ let correctCount=0;
+ const predictions=split.testIds.map(id=>{
+  const example=examples.get(id);
+  if(!example)throw new TypeError('Split references unknown examples');
+  const result=classifyDrawing(model,example.pixels),correct=result.predictedLabel===example.label;
+  if(correct)correctCount++;
+  return Object.freeze({id,actualLabel:example.label,predictedLabel:result.predictedLabel,confidence:result.confidence,classScores:result.classScores,correct,origin:result.origin});
+ });
+ return Object.freeze({algorithm:'heldout-inference-v1',exampleCount:predictions.length,correctCount,accuracy:correctCount/predictions.length,
+  predictions:Object.freeze(predictions),trainingExampleIds:Object.freeze([...model.trainingExampleIds]),
+  source:'computed from held-out browser-local examples excluded from training'});
+}
