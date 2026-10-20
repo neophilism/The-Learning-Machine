@@ -10,6 +10,7 @@ test('vision results come from latest worker request after reset',async({page})=
  await expect(pixels.locator('canvas')).toHaveAttribute('aria-label',/Worker-computed 24 by 16 pixel frame/);
  const threshold=recognizer.getByLabel('Minimum score');
  await threshold.press('End');await threshold.press('Home');await threshold.press('End');await threshold.press('ArrowLeft');
- await expect(recognizer.getByRole('status')).toContainText(/Worker result for target circle.*Minimum|Worker result for target circle/);
- await expect(recognizer.getByRole('status')).toContainText(/Recall 100% \(2\/2\)/);
+ const recognitionStatus=recognizer.locator('p[role="status"]');
+ await expect(recognitionStatus).toContainText('Worker result for target circle');
+ await expect(recognitionStatus).toContainText(/Recall 100% \(2\/2\)/);
 });
