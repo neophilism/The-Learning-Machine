@@ -608,7 +608,7 @@
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/33",
       "merged_commit": "5adf9cbf53d50c5d849e663e9bdff2e1c4dd7bfa",
       "verification_evidence": [
-        "Exact-head workspace-and-foundation run 39398542870 passed for 5a4425870ac845374f4a4946d669061e5458333f: frozen install, 148 Node tests, strict TypeScript, production build, repository checks and all 38 desktop/mobile Chromium cases.",
+        "Exact-head workspace-and-foundation run 39398542870 passed for 5a4425870ac845374f4a4946d669061e5458333f: frozen install, 148 Node tests, strict TypeScript, production build, content/boundary/secret/legal checks and all 38 desktop/mobile Chromium cases.",
         "Merged-main workspace-and-foundation run 39398816774 passed for 5adf9cbf53d50c5d849e663e9bdff2e1c4dd7bfa.",
         "https://github.com/neophilism/The-Learning-Machine/pull/33"
       ]
