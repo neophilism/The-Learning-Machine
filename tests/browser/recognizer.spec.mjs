@@ -1,13 +1,18 @@
 import {test,expect} from '@playwright/test';
 
-test('visitor sees real position-independent recognition and distractor rejection',async({page})=>{
+test('visitor sees computed confusion denominators and threshold uncertainty',async({page})=>{
  await page.goto('/vision');
  const region=page.getByRole('region',{name:'Run a selective icon recognizer'});
  await expect(region).toBeVisible();
  await region.getByLabel('Target shape').selectOption('circle');
- await page.getByRole('button',{name:'Add symbol'}).click();
- await expect(region.getByRole('status')).toContainText(/Precision 100%. Recall 100%./);
- const circleRows=region.getByRole('row').filter({hasText:'circle'});
- await expect(circleRows.first()).toContainText('yes');
- await expect(region.getByRole('table')).toContainText(/diamond|triangle|bar/);
+ await expect(region.getByRole('status')).toContainText(/Precision 100% \(2\/2\).*Recall 100% \(2\/2\).*False positives 0.*Missed targets 0/);
+ await region.getByLabel('Apply one deterministic pixel change per sample').check();
+ const threshold=region.getByLabel('Minimum score');
+ await threshold.press('End');
+ await threshold.press('ArrowLeft');
+ await expect(region.getByRole('status')).toContainText(/Precision not applicable \(0\/0\).*Recall 0% \(0\/2\).*Missed targets 2.*Near-threshold uncertain results 3/);
+ await threshold.press('ArrowLeft');
+ await threshold.press('ArrowLeft');
+ await expect(region.getByRole('status')).toContainText(/Recall 100% \(2\/2\).*Missed targets 0/);
+ await expect(region.getByRole('table')).toContainText('within 5 points of threshold');
 });
