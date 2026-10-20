@@ -15,3 +15,7 @@ A `correct`-gated branch is **not** authorized from a visitor's self-declared su
 ## Authored counterexamples (TLM-015)
 
 Challenge nodes may provide a bounded, validated set of concrete counterexamples. The deterministic selector matches only declared technical trigger terms in the learner's latest hypothesis and otherwise uses a neutral authored fallback. It returns the challenged hypothesis ID, matched terms, source and a competing technical approach. Political support or opposition is never a trigger, score or completion condition, so opposing positions receive the same fallback scrutiny when they make the same technical assumptions. Counterexamples remain authored content tied to the compiled release digest; the runtime does not invent facts or silently grade agreement.
+
+## Revision and transfer evidence (TLM-016)
+
+A learner cannot leave a revision stage until they explicitly record whether they revised or defended a known hypothesis, their reasoning, and a bounded test idea that could challenge it. Defending disagreement is a valid response and is never scored for political agreement. A transfer stage then requires a named novel context, the learner's predicted outcome, and a plausible alternative outcome. These immutable records retain the compiled release digest, link transfer to the latest revision, replay from the original actions, and appear in the completion summary. Missing, duplicate, mistimed, cross-hypothesis, or unbounded evidence fails closed.
