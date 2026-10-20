@@ -460,11 +460,14 @@
         "Displayed processing steps match executed pixel operations",
         "Reference frame calculations pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 27,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/27",
       "merged_commit": null,
-      "verification_evidence": []
+      "verification_evidence": [
+        "Local TLM-018 reference-frame tests passed 4/4.",
+        "Exact-head workspace-and-foundation run 39389128867 passed for 01c190a7b0204e48371a5cdcb5f84e50bbd5e3df: frozen install, 130/130 foundation tests, TypeScript, build, repository checks, and 26/26 desktop/mobile Chromium tests."
+      ]
     },
     {
       "id": "TLM-019",

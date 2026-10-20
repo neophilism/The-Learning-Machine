@@ -11,3 +11,7 @@ main{display:grid;grid-template-columns:1fr;gap:1.2rem}.intro{padding:2.1rem 0 .
 
 /* Deterministic TLM-017 Canvas/SVG scene inspection and native keyboard controls. */
 .vision-controls,.vision-lab fieldset{display:flex;align-items:center;gap:.65rem;flex-wrap:wrap}.vision-controls input,.vision-lab fieldset input,.vision-lab fieldset select{padding:.45rem;border:1px solid #89aabb;border-radius:.35rem;max-width:9rem}.vision-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.2rem 0}.vision-pair figure{margin:0}.vision-pair canvas,.vision-pair svg{display:block;width:100%;height:auto;border:1px solid #9cb4bf;background:#f7faf9}.vision-pair figcaption{font-size:.85rem;color:#486172;margin-top:.4rem}@media(max-width:720px){.vision-pair{grid-template-columns:1fr}}
+
+
+/* TLM-018 computed pixel buffer and digest trace. */
+.pixel-trace{margin-top:1.5rem;border-top:1px solid #d4e0e4;padding-top:1rem}.pixel-canvas{display:block;width:min(100%,480px);height:auto;aspect-ratio:3/2;border:1px solid #9cb4bf;image-rendering:pixelated;background:#fff;margin:1rem 0}.pixel-trace table{width:100%;border-collapse:collapse;font-size:.85rem}.pixel-trace th,.pixel-trace td{text-align:left;padding:.45rem;border-bottom:1px solid #d4e0e4}.pixel-trace code{font-size:.8rem}
