@@ -19,6 +19,7 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
  const [method,setMethod]=useState<MaskMethod>('selective');
  const [experimentStatus,setExperimentStatus]=useState<'idle'|'running'|'completed'|'failed'>('idle');
  const [experimentResult,setExperimentResult]=useState<RunResult|null>(null);
+ const [completedMethods,setCompletedMethods]=useState<ReadonlySet<MaskMethod>>(()=>new Set());
  useEffect(()=>()=>{requestToken.current++;runner.current.cancel('component-unmounted')},[]);
  async function runVisualExperiment(){
   const token=++requestToken.current;
@@ -28,6 +29,7 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
   setExperimentResult(result);
   setExperimentStatus(result.status==='completed'?'completed':'failed');
   if(result.status==='completed'){
+    setCompletedMethods(current=>new Set([...current,method]));
     setSession(previous=>{
       if(previous.stage!=='experiment')return previous;
       try{return transitionLearningSession(compiled,previous,{type:'OBSERVE',observation:result.observation})}
@@ -42,7 +44,7 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
  const index=compiled.nodes.findIndex(n=>n.id===session.nodeId);
  const routes=availableRoutes(compiled,session);
  function act(actions:LearningAction[]) {
-  requestToken.current++;runner.current.cancel('learner-navigation');setExperimentStatus('idle');setExperimentResult(null);
+  requestToken.current++;runner.current.cancel('learner-navigation');setExperimentStatus('idle');setExperimentResult(null);setCompletedMethods(new Set());
   try{let next=session;for(const action of actions)next=transitionLearningSession(compiled,next,action);
   setSession(next);setDraft(next.answers[next.nodeId]||'');setError('');}catch(e){setError(e instanceof Error?e.message:'Action unavailable')}
  }
@@ -66,7 +68,7 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
    actions.push({type:'RECORD_TRANSFER',novelContext,predictedOutcome:draft,alternativeOutcome});
   }else if(reasoning.has(session.stage)){if(draft.trim())actions.push({type:'ANSWER',text:draft});else actions.push({type:'SKIP'});}
   else if(draft.trim())actions.push({type:'ANSWER',text:draft});
-  if(session.stage==='experiment'&&!session.observations.some(o=>o.experimentId==='synthetic-masking-v1')){setError('Choose a method and run the actual local experiment before proceeding. You may also request a direct explanation.');return;}
+  if(session.stage==='experiment'&&(!completedMethods.has('selective')||![...completedMethods].some(value=>value!=='selective'))){setError('Compare selective masking with at least one non-recognition alternative before proceeding. You may also request a direct explanation.');return;}
   actions.push({type:'NEXT'});act(actions);
  }
  function propose(){
@@ -113,6 +115,7 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
       <p>Result from an original generated 64×36-pixel scene. This is a real, bounded pixel computation in your browser, not a recording or legal conclusion.</p>
     </div>}
     {experimentResult&&experimentResult.status!=='completed'&&<p role="alert">Experiment {experimentResult.status}. {experimentResult.status==='failed'?experimentResult.error:'You can retry.'}</p>}
+    <p className="status-note" role="status">Compared methods: {[...completedMethods].join(', ')||'none yet'}. To continue, run selective masking and either blanket masking or known coordinates against the same generated frame.</p>
    </fieldset>}
   {session.stage==='observation'&&<EvidencePanel session={session} experimentId="synthetic-masking-v1"/>}
   {session.stage==='challenge'&&selectedCounterexample&&<aside className="status-note" aria-label="Counterexample for your hypothesis"><strong>Counterexample for hypothesis {selectedCounterexample.hypothesisId}</strong><p>{selectedCounterexample.prompt}</p><p><strong>Competing approach:</strong> {selectedCounterexample.competingApproach}</p><p>This authored challenge tests a technical assumption. It does not score your political view or require agreement.</p></aside>}

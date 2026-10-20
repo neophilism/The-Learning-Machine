@@ -9,6 +9,10 @@ test('reasoned disagreement records revision, transfer and an alternative outcom
  await page.getByLabel('Masking method').selectOption('blanket');
  await page.getByRole('button',{name:'Run this experiment'}).click();
  await expect(page.getByText('Computed pixel result')).toBeVisible();
+ await page.getByLabel('Masking method').selectOption('selective');
+ await page.getByRole('button',{name:'Run this experiment'}).click();
+ await expect(page.getByText(/selective: concealed/)).toBeVisible();
+ await expect(page.getByText(/Compared methods: blanket, selective/)).toBeVisible();
  await page.getByRole('button',{name:'Continue'}).click();
  await page.getByRole('button',{name:'Continue'}).click();
  await page.getByRole('button',{name:'Continue'}).click();
