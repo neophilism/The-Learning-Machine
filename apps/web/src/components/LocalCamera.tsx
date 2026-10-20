@@ -21,7 +21,7 @@ export default function LocalCamera(){
   try{
    const opened=await requestLocalCamera(navigator.mediaDevices);
    if(id!==request.current){stopLocalCamera(opened);return}
-   stream.current=opened;unwatch.current=watchCameraRevocation(opened,()=>release('revoked','Camera access ended. No frame or recording was retained.'));
+   stream.current=opened;unwatch.current=watchCameraRevocation(opened,()=>queueMicrotask(()=>release('revoked','Camera access ended. No frame or recording was retained.')));
    if(video.current){video.current.srcObject=opened;void video.current.play().catch(()=>undefined)}
    setState('active');setMessage('Camera is on for local preview only. Nothing is uploaded or recorded.');
   }catch(reason){if(id!==request.current)return;const failure=publicError(reason);setState(failure.state);setMessage(failure.message)}
