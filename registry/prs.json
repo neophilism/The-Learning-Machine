@@ -393,11 +393,14 @@
         "Bill-supporting and bill-opposing hypotheses receive equally rigorous scrutiny",
         "Adversarial question selection fixtures pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 24,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/24",
+      "merged_commit": "03d3f23323aba6d4bc0e54da314f3b0a230ace8e",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39384194746",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39384389775"
+      ]
     },
     {
       "id": "TLM-016",
