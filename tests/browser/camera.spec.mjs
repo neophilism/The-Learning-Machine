@@ -8,7 +8,7 @@ test('camera permission is requested only after the explicit gesture and denial 
 });
 
 test('local capture emits no network request and revocation stops the session',async({page})=>{
- await page.addInitScript(()=>{Object.defineProperty(navigator,'mediaDevices',{configurable:true,value:{getUserMedia:async()=>{const canvas=document.createElement('canvas');canvas.width=320;canvas.height=180;const stream=canvas.captureStream();window.__cameraStream=stream;return stream}}})});
+ await page.addInitScript(()=>{class Track extends EventTarget{stop(){this.stopped=true}}const track=new Track(),stream={getTracks:()=>[track],getVideoTracks:()=>[track]};window.__cameraStream=stream;Object.defineProperty(navigator,'mediaDevices',{configurable:true,value:{getUserMedia:async()=>stream}});Object.defineProperty(HTMLMediaElement.prototype,'srcObject',{configurable:true,get(){return this.__localStream??null},set(value){this.__localStream=value}});HTMLMediaElement.prototype.play=async()=>{};Object.defineProperty(HTMLVideoElement.prototype,'videoWidth',{configurable:true,get:()=>320});Object.defineProperty(HTMLVideoElement.prototype,'videoHeight',{configurable:true,get:()=>180});CanvasRenderingContext2D.prototype.drawImage=()=>{}});
  await page.goto('/vision');const uploads=[];page.on('request',request=>{if(!['GET','HEAD'].includes(request.method()))uploads.push(`${request.method()} ${request.url()}`)});
  await page.getByRole('button',{name:'Start local camera'}).click();await expect(page.locator('[data-camera-state="active"]')).toContainText('Nothing is uploaded');
  await page.getByRole('button',{name:'Capture one local frame'}).click();await expect(page.getByText(/Local frame 320 by 180, digest/)).toBeVisible();expect(uploads).toEqual([]);
