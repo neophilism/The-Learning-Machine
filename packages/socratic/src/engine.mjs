@@ -10,7 +10,7 @@ export function createLearningSession(compiled,sessionId='anonymous'){
  validModule(compiled);
  if(typeof sessionId!=='string'||!sessionId.trim()||sessionId.length>256)throw new TypeError('Invalid session ID');
  const start=node(compiled,compiled.startNodeId);
- return freeze({sessionId,lessonId:compiled.lessonId,releaseDigest:compiled.digest,nodeId:start.id,stage:start.stage,answers:{},hypotheses:[],predictions:[],observations:[],hints:{},skipped:[],history:[],actions:[],complete:start.stage==='complete'});
+ return freeze({sessionId,lessonId:compiled.lessonId,releaseDigest:compiled.digest,nodeId:start.id,stage:start.stage,answers:{},hypotheses:[],predictions:[],observations:[],revisions:[],transfers:[],hints:{},skipped:[],history:[],actions:[],complete:start.stage==='complete'});
 }
 function commit(s,action,update){
  const next=clone(s);next.actions.push(clone(action));Object.assign(next,update);return freeze(next);
@@ -53,6 +53,24 @@ export function transitionLearningSession(compiled,s,action){
     const prediction=Object.freeze({id:'p'+(s.predictions.length+1),nodeId:s.nodeId,hypothesisId:action.hypothesisId??null,experimentId:action.experimentId,text:action.text.trim(),releaseDigest:s.releaseDigest});
     return commit(s,action,{predictions:[...s.predictions,prediction]});
   }
+  case 'RECORD_REVISION':{
+    if(s.stage!=='revision')throw new RangeError('Revision evidence requires the revision stage');
+    if(s.revisions.some(r=>r.nodeId===s.nodeId))throw new RangeError('Revision evidence is already recorded');
+    if(!['revised','defended'].includes(action.position))throw new TypeError('Revision position must be revised or defended');
+    if(typeof action.reasoning!=='string'||!action.reasoning.trim()||action.reasoning.length>4000)throw new TypeError('Revision reasoning must be bounded and nonempty');
+    if(typeof action.testIdea!=='string'||!action.testIdea.trim()||action.testIdea.length>2000)throw new TypeError('A bounded test idea is required');
+    if(action.hypothesisId!==undefined&&(typeof action.hypothesisId!=='string'||!s.hypotheses.some(h=>h.id===action.hypothesisId)))throw new RangeError('Unknown revised hypothesis');
+    const revision=Object.freeze({id:'r'+(s.revisions.length+1),nodeId:s.nodeId,hypothesisId:action.hypothesisId??null,position:action.position,reasoning:action.reasoning.trim(),testIdea:action.testIdea.trim(),releaseDigest:s.releaseDigest});
+    return commit(s,action,{revisions:[...s.revisions,revision]});
+  }
+  case 'RECORD_TRANSFER':{
+    if(s.stage!=='transfer')throw new RangeError('Transfer evidence requires the transfer stage');
+    if(!s.revisions.length)throw new RangeError('Transfer requires prior revision evidence');
+    if(s.transfers.some(t=>t.nodeId===s.nodeId))throw new RangeError('Transfer evidence is already recorded');
+    for(const key of ['novelContext','predictedOutcome','alternativeOutcome'])if(typeof action[key]!=='string'||!action[key].trim()||action[key].length>3000)throw new TypeError('Transfer '+key+' must be bounded and nonempty');
+    const transfer=Object.freeze({id:'t'+(s.transfers.length+1),nodeId:s.nodeId,novelContext:action.novelContext.trim(),predictedOutcome:action.predictedOutcome.trim(),alternativeOutcome:action.alternativeOutcome.trim(),revisionId:s.revisions.at(-1).id,releaseDigest:s.releaseDigest});
+    return commit(s,action,{transfers:[...s.transfers,transfer]});
+  }
   case 'REQUEST_HINT':{
     if(s.complete)throw new RangeError('Completed experiences have no further hints');
     const authored=node(compiled,s.nodeId).hints||[];
@@ -91,6 +109,8 @@ export function transitionLearningSession(compiled,s,action){
   case 'NEXT':case 'CHOOSE':case 'RETRY':{
     if(s.complete)throw new RangeError('Experience is already complete');
     if(s.stage==='prediction'&&action.type==='NEXT'&&!s.predictions.some(p=>p.nodeId===s.nodeId)&&!s.skipped.includes(s.nodeId))throw new RangeError('Commit or explicitly skip the prediction before proceeding to the experiment');
+    if(s.stage==='revision'&&action.type==='NEXT'&&!s.revisions.some(r=>r.nodeId===s.nodeId))throw new RangeError('Record a reasoned revision or defense and a test idea before transfer');
+    if(s.stage==='transfer'&&action.type==='NEXT'&&!s.transfers.some(t=>t.nodeId===s.nodeId))throw new RangeError('Record a novel-context prediction and alternative outcome before reflection');
     const candidates=node(compiled,s.nodeId).edges.filter(e=>edgeAllowed(e,action.type));
     const edge=action.to!==undefined?candidates.find(e=>e.to===action.to):candidates.length===1?candidates[0]:undefined;
     if(!edge)throw new RangeError('No permitted unambiguous route for '+action.type);

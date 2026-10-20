@@ -1,0 +1,28 @@
+import {test,expect} from '@playwright/test';
+test('reasoned disagreement records revision, transfer and an alternative outcome',async({page})=>{
+ await page.goto('/');
+ await page.getByRole('button',{name:'Continue'}).click();
+ await page.getByLabel(/Your reasoning/).fill('I disagree: blur every pixel without identifying a symbol.');
+ await page.getByRole('button',{name:'Continue with your answer'}).click();
+ await page.getByLabel(/Your reasoning/).fill('Blanket masking will hide the target and unrelated pixels.');
+ await page.getByRole('button',{name:'Commit prediction and continue'}).click();
+ await page.getByLabel('Masking method').selectOption('blanket');
+ await page.getByRole('button',{name:'Run this experiment'}).click();
+ await expect(page.getByText('Computed pixel result')).toBeVisible();
+ await page.getByRole('button',{name:'Continue'}).click();
+ await page.getByRole('button',{name:'Continue'}).click();
+ await page.getByRole('button',{name:'Continue'}).click();
+ await expect(page.getByRole('complementary',{name:'Counterexample for your hypothesis'})).toBeVisible();
+ await page.getByRole('button',{name:'Continue'}).click();
+ await page.getByLabel('Your response').selectOption('defended');
+ await page.getByLabel(/Your reasoning/).fill('I still defend blanket masking when preserving other pixels is unnecessary.');
+ await page.getByLabel(/test that could challenge/).fill('Add required safety text and measure whether it remains readable.');
+ await page.getByRole('button',{name:'Continue with your answer'}).click();
+ await page.getByLabel(/Your reasoning/).fill('Broad muting will remove both the target and nearby speech.');
+ await page.getByLabel(/plausible different outcome/).fill('A selective frequency filter could preserve nearby speech.');
+ await page.getByRole('button',{name:'Continue with your answer'}).click();
+ await page.getByRole('button',{name:'Continue'}).click();
+ await expect(page.getByText(/You completed the learning journey/)).toBeVisible();
+ await expect(page.getByRole('complementary',{name:'Your reasoning evidence'})).toContainText('defended');
+ await expect(page.getByRole('complementary',{name:'Your reasoning evidence'})).toContainText('selective frequency filter');
+});
