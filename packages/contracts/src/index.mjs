@@ -32,7 +32,7 @@ export function validateLearningModule(v){
        list(example.triggerTerms,'counterexample trigger terms',0,12);
        const terms=new Set();
        for(const term of example.triggerTerms){
-         if(typeof term!=='string'||!^[a-z0-9-]{2,40}$/.test(term))throw new TypeError('Invalid counterexample trigger term');
+         if(typeof term!=='string'||!/^[a-z0-9-]{2,40}$/.test(term))throw new TypeError('Invalid counterexample trigger term');
          if(terms.has(term))throw new TypeError('Duplicate counterexample trigger term');terms.add(term);
        }
        if(example.triggerTerms.length===0)fallbacks++;
