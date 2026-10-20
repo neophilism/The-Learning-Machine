@@ -15,13 +15,31 @@ export function validateLearningModule(v){
  object(v,'module');version(v);keys(v,['schemaVersion','id','title','startNodeId','nodes','concepts'],'module');
  str(v.id,'id',128);str(v.title,'title');str(v.startNodeId,'startNodeId');strings(v.concepts,'concepts');list(v.nodes,'nodes',1,500);
  for(const n of v.nodes){
-   object(n,'node');keys(n,['id','stage','prompt','edges','concepts','accessibleAlternative','terminal','questionVariants','hints'],'node');
+   object(n,'node');keys(n,['id','stage','prompt','edges','concepts','accessibleAlternative','terminal','questionVariants','hints','counterexamples'],'node');
    str(n.id,'node.id',128);if(!STAGES.includes(n.stage))throw new TypeError('Invalid node stage');
    str(n.prompt,'node.prompt');list(n.edges,'node.edges',0,30);
    if(n.concepts!==undefined)strings(n.concepts,'node concepts');
    if(n.accessibleAlternative!==undefined&&typeof n.accessibleAlternative!=='string')throw new TypeError('Invalid accessible alternative');
    if(n.terminal!==undefined&&typeof n.terminal!=='boolean')throw new TypeError('Invalid terminal');
    if(n.hints!==undefined){list(n.hints,'node hints',0,4);for(const hint of n.hints)str(hint,'authored hint',1500);}
+   if(n.counterexamples!==undefined){
+     if(n.stage!=='challenge')throw new TypeError('Counterexamples require a challenge node');
+     list(n.counterexamples,'counterexamples',2,12);
+     const ids=new Set();let fallbacks=0;
+     for(const example of n.counterexamples){
+       object(example,'counterexample');keys(example,['id','prompt','triggerTerms','competingApproach'],'counterexample');
+       str(example.id,'counterexample id',128);str(example.prompt,'counterexample prompt',2000);str(example.competingApproach,'competing approach',2000);
+       list(example.triggerTerms,'counterexample trigger terms',0,12);
+       const terms=new Set();
+       for(const term of example.triggerTerms){
+         if(typeof term!=='string'||!/^[a-z0-9-]{2,40}$/.test(term))throw new TypeError('Invalid counterexample trigger term');
+         if(terms.has(term))throw new TypeError('Duplicate counterexample trigger term');terms.add(term);
+       }
+       if(example.triggerTerms.length===0)fallbacks++;
+       if(ids.has(example.id))throw new TypeError('Duplicate counterexample id');ids.add(example.id);
+     }
+     if(fallbacks!==1)throw new TypeError('Exactly one neutral counterexample fallback is required');
+   }
 
    if(n.questionVariants!==undefined){
      list(n.questionVariants,'questionVariants',0,12);

@@ -159,6 +159,52 @@
           "when": "computed_observation",
           "prompt": "Suppose the target changed color or moved. Would your approach still work?"
         }
+      ],
+      "counterexamples": [
+        {
+          "id": "changed-appearance",
+          "prompt": "The target changes color and shape after training. Would a recognizer built around the familiar appearance still find it?",
+          "triggerTerms": [
+            "recognize",
+            "recognizing",
+            "identify",
+            "identifying",
+            "selective",
+            "target",
+            "symbol"
+          ],
+          "competingApproach": "Blanket masking still conceals the frame without identifying a symbol, though it also destroys unrelated information."
+        },
+        {
+          "id": "moved-target",
+          "prompt": "The target moves away from the expected coordinates. Would a fixed-position rule conceal the new location?",
+          "triggerTerms": [
+            "coordinate",
+            "coordinates",
+            "position",
+            "location",
+            "fixed"
+          ],
+          "competingApproach": "Selective recognition can follow a moved target, while fixed coordinates cannot."
+        },
+        {
+          "id": "overbroad-mask",
+          "prompt": "The viewer must still read an unrelated safety notice. Would concealing the whole frame also remove information that should remain visible?",
+          "triggerTerms": [
+            "everything",
+            "entire",
+            "all",
+            "blanket",
+            "blur"
+          ],
+          "competingApproach": "A selective method can preserve unrelated pixels, at the cost of locating the target."
+        },
+        {
+          "id": "absent-target",
+          "prompt": "The target is absent from the frame. Would this method alter useful information anyway?",
+          "triggerTerms": [],
+          "competingApproach": "Compare selective, blanket and known-position methods against the same absent-target frame."
+        }
       ]
     },
     {

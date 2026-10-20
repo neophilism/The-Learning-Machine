@@ -11,3 +11,7 @@ The runtime executes compiled module edges deterministically and does not ask a 
 - `REQUEST_EXPLANATION`: provides the authored on-request branch, or a reflection-stage fallback where authored.
 
 A `correct`-gated branch is **not** authorized from a visitor's self-declared success. Grounded experimental verification is added in a later unit. The engine never creates the results of experiments or changes the governing legal facts. The UI uses this runtime after subsequent integration work.
+
+## Authored counterexamples (TLM-015)
+
+Challenge nodes may provide a bounded, validated set of concrete counterexamples. The deterministic selector matches only declared technical trigger terms in the learner's latest hypothesis and otherwise uses a neutral authored fallback. It returns the challenged hypothesis ID, matched terms, source and a competing technical approach. Political support or opposition is never a trigger, score or completion condition, so opposing positions receive the same fallback scrutiny when they make the same technical assumptions. Counterexamples remain authored content tied to the compiled release digest; the runtime does not invent facts or silently grade agreement.
