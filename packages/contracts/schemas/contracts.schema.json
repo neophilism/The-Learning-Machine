@@ -107,6 +107,47 @@
             "minLength": 1,
             "maxLength": 1500
           }
+        },
+        "counterexamples": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "prompt",
+              "triggerTerms",
+              "competingApproach"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "prompt": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              },
+              "triggerTerms": {
+                "type": "array",
+                "maxItems": 12,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9-]{2,40}$"
+                }
+              },
+              "competingApproach": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              }
+            }
+          }
         }
       }
     },
