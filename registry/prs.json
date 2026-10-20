@@ -1072,11 +1072,14 @@
         "Every actual legal claim has authority, limitations and date",
         "Citation and quote integrity checks pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 14,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/14",
+      "merged_commit": "2e55e483ef8f704fccf15d9927e1e8aa6b2c67db",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39383633656",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39383847138"
+      ]
     },
     {
       "id": "TLM-050",
