@@ -630,11 +630,14 @@
         "Training changes predictions by actual computation",
         "Reference numeric update tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 22,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/22",
+      "merged_commit": "aa0f376ed2de3892eebc0061b9338073503c1740",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39383085702",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39383256679"
+      ]
     },
     {
       "id": "TLM-028",
