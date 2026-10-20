@@ -714,11 +714,15 @@
         "Displayed results match actual labeled predictions",
         "Imbalanced and empty-class tests pass"
       ],
-      "status": "in_progress",
+      "status": "merged",
       "github_pr_number": 35,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/35",
-      "merged_commit": null,
-      "verification_evidence": []
+      "merged_commit": "a68c73ad673a612e77fafbe13d61c6c4613d65db",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39402070543",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39402408485",
+        "https://github.com/neophilism/The-Learning-Machine/pull/35"
+      ]
     },
     {
       "id": "TLM-030",
