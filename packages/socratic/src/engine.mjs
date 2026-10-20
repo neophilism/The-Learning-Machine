@@ -10,7 +10,7 @@ export function createLearningSession(compiled,sessionId='anonymous'){
  validModule(compiled);
  if(typeof sessionId!=='string'||!sessionId.trim()||sessionId.length>256)throw new TypeError('Invalid session ID');
  const start=node(compiled,compiled.startNodeId);
- return freeze({sessionId,lessonId:compiled.lessonId,releaseDigest:compiled.digest,nodeId:start.id,stage:start.stage,answers:{},hypotheses:[],observations:[],skipped:[],history:[],actions:[],complete:start.stage==='complete'});
+ return freeze({sessionId,lessonId:compiled.lessonId,releaseDigest:compiled.digest,nodeId:start.id,stage:start.stage,answers:{},hypotheses:[],predictions:[],observations:[],hints:{},skipped:[],history:[],actions:[],complete:start.stage==='complete'});
 }
 function commit(s,action,update){
  const next=clone(s);next.actions.push(clone(action));Object.assign(next,update);return freeze(next);
@@ -43,6 +43,24 @@ export function transitionLearningSession(compiled,s,action){
     if(typeof action.id!=='string'||!s.hypotheses.some(h=>h.id===action.id))throw new RangeError('Unknown hypothesis');
     return commit(s,action,{hypotheses:s.hypotheses.filter(h=>h.id!==action.id)});
   }
+  case 'COMMIT_PREDICTION': {
+    if(s.stage!=='prediction')throw new RangeError('Predictions may only be committed at the prediction stage');
+    if(typeof action.text!=='string'||!action.text.trim()||action.text.length>2000)throw new TypeError('Prediction must be a bounded nonempty string');
+    if(typeof action.experimentId!=='string'||!/^[-a-z0-9_]{1,128}$/i.test(action.experimentId))throw new TypeError('Invalid experiment identifier');
+    if(action.hypothesisId!==undefined&&(typeof action.hypothesisId!=='string'||!s.hypotheses.some(h=>h.id===action.hypothesisId)))throw new RangeError('Unknown referenced hypothesis');
+    if(s.predictions.some(p=>p.nodeId===s.nodeId))throw new RangeError('This prediction is already committed; restart to make a new prediction');
+    if(s.observations.length)throw new RangeError('Cannot commit a prediction after observing experiment results');
+    const prediction=Object.freeze({id:'p'+(s.predictions.length+1),nodeId:s.nodeId,hypothesisId:action.hypothesisId??null,experimentId:action.experimentId,text:action.text.trim(),releaseDigest:s.releaseDigest});
+    return commit(s,action,{predictions:[...s.predictions,prediction]});
+  }
+  case 'REQUEST_HINT':{
+    if(s.complete)throw new RangeError('Completed experiences have no further hints');
+    const authored=node(compiled,s.nodeId).hints||[];
+    if(!authored.length)throw new RangeError('No authored hint is available at this stage');
+    const count=s.hints[s.nodeId]||0;
+    if(count>=authored.length)return s;
+    return commit(s,action,{hints:{...s.hints,[s.nodeId]:count+1}});
+  }
   case 'ANSWER': {
     if(typeof action.text!=='string'||!action.text.trim()||action.text.length>10000)throw new TypeError('An answer must be a bounded nonempty string');
     const answers={...s.answers,[s.nodeId]:action.text.trim()};
@@ -55,6 +73,7 @@ export function transitionLearningSession(compiled,s,action){
   case 'OBSERVE':{
     if(!['experiment','observation'].includes(s.stage))throw new RangeError('Observations require an experimental or observation stage');
     const observation=validateObservation(action.observation);
+    if(s.observations.some(o=>o.experimentId===observation.experimentId&&o.runId===observation.runId))throw new RangeError('Duplicate experiment observation run');
     return commit(s,action,{observations:[...s.observations,observation]});
   }
   case 'BACK':{
@@ -71,6 +90,7 @@ export function transitionLearningSession(compiled,s,action){
   }
   case 'NEXT':case 'CHOOSE':case 'RETRY':{
     if(s.complete)throw new RangeError('Experience is already complete');
+    if(s.stage==='prediction'&&action.type==='NEXT'&&!s.predictions.some(p=>p.nodeId===s.nodeId)&&!s.skipped.includes(s.nodeId))throw new RangeError('Commit or explicitly skip the prediction before proceeding to the experiment');
     const candidates=node(compiled,s.nodeId).edges.filter(e=>edgeAllowed(e,action.type));
     const edge=action.to!==undefined?candidates.find(e=>e.to===action.to):candidates.length===1?candidates[0]:undefined;
     if(!edge)throw new RangeError('No permitted unambiguous route for '+action.type);

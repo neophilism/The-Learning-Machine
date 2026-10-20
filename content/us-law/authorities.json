@@ -73,7 +73,7 @@
       "relevance": "Copyright owners have enumerated rights over reproduction, distribution, derivative works and specified performances and displays.",
       "scopeLimitations": "The rights are subject to Title 17 limitations and exceptions; they do not create a general property right in acquired knowledge.",
       "topics": [
-        "expression",
+        "ideas-expression",
         "licenses"
       ]
     },
@@ -488,10 +488,10 @@
     {
       "id": "thomson-ross",
       "kind": "precedent",
-      "citation": "No. 25-2153 (3d Cir. Sept. 30, 2026)",
+      "citation": "No. 25-2153 (3d Cir. Sept. 29, 2026)",
       "title": "Thomson Reuters v. ROSS Intelligence",
       "forum": "U.S. Court of Appeals, Third Circuit",
-      "issuedOn": "2026-09-30",
+      "issuedOn": "2026-09-29",
       "sourceUrl": "https://www.govinfo.gov/app/details/USCOURTS-ca3-25-02153/context",
       "sourceType": "official-court-docket",
       "researchStatus": "opinion_reviewed",

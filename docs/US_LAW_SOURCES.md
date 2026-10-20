@@ -21,7 +21,7 @@ The machine-readable U.S. source catalog is `content/us-law/authorities.json`. I
 - **Sony v. Connectix (9th Cir. 2000)** involved intermediate reverse-engineering copies needed to develop a separate emulator.
 - **TVEyes (2d Cir. 2018)** illustrates why commercial redistribution of accessible broadcast clips can fail fair-use analysis.
 - **Bartz and Kadrey (N.D. Cal. 2025)** were fact-specific district-court training rulings, not nationwide categorical AI exemptions.
-- **Thomson Reuters v. ROSS (3d Cir. Sept. 30, 2026)** is a precedential decision rejecting fair use for headnotes copied to create a competing legal search system, not a blanket adjudication of all generative models.
+- **Thomson Reuters v. ROSS (3d Cir. Sept. 29, 2026)** is a precedential decision rejecting fair use for headnotes copied to create a competing legal search system, not a blanket adjudication of all generative models.
 
 ## Validation and future integration
 

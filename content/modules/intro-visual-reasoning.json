@@ -34,6 +34,24 @@
           "to": "n3",
           "when": "always"
         }
+      ],
+      "questionVariants": [
+        {
+          "id": "hypothesis-alternatives",
+          "when": "multiple_hypotheses",
+          "prompt": "You have several possible approaches. Which tradeoff would distinguish them?"
+        },
+        {
+          "id": "hypothesis-next-idea",
+          "when": "has_hypothesis",
+          "prompt": "Could a different method work without recognizing the symbol?"
+        }
+      ],
+      "hints": [
+        "What is the precise outcome you want?",
+        "Could the entire frame be masked?",
+        "Would that preserve information viewers still need?",
+        "What new step is required to hide only selected pixels?"
       ]
     },
     {
@@ -48,6 +66,18 @@
           "to": "n4",
           "when": "always"
         }
+      ],
+      "questionVariants": [
+        {
+          "id": "prediction-for-hypothesis",
+          "when": "has_hypothesis",
+          "prompt": "Which approach are you testing? What do you expect the computer to inspect and conceal?"
+        }
+      ],
+      "hints": [
+        "Think about what you would count as a successful result.",
+        "How much of the picture should remain visible?",
+        "Can you measure the tradeoff between masked target and other pixels?"
       ]
     },
     {
@@ -77,6 +107,23 @@
           "to": "n6",
           "when": "always"
         }
+      ],
+      "questionVariants": [
+        {
+          "id": "observation-real",
+          "when": "computed_observation",
+          "prompt": "Compare the computed pixel changes with your prediction. What was actually inspected?"
+        },
+        {
+          "id": "observation-pending",
+          "when": "no_observation",
+          "prompt": "What experiment would provide enough evidence to test your idea?"
+        }
+      ],
+      "hints": [
+        "Inspect the computed observation rather than your initial assumption.",
+        "What does the number of target pixels masked tell you?",
+        "Did the method also hide pixels that were not the target?"
       ]
     },
     {
@@ -104,6 +151,13 @@
         {
           "to": "n8",
           "when": "always"
+        }
+      ],
+      "questionVariants": [
+        {
+          "id": "challenge-tested",
+          "when": "computed_observation",
+          "prompt": "Suppose the target changed color or moved. Would your approach still work?"
         }
       ]
     },

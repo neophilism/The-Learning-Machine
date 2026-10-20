@@ -287,11 +287,13 @@
         "Prediction appears beside actual observation after execution",
         "Leakage and edit/reset tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 15,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/15",
+      "merged_commit": "457b8c8ad80eaa6504fdaf98e1caa3103a696868",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39302222199"
+      ]
     },
     {
       "id": "TLM-011",
@@ -307,11 +309,13 @@
         "Failure and cancellation do not corrupt the learning state",
         "Timeout and retry integration tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 17,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/17",
+      "merged_commit": "1f51270c439d0b7d95811f0511a85267a5f0f58a",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39303410288"
+      ]
     },
     {
       "id": "TLM-012",
@@ -326,11 +330,13 @@
         "Measured, computed, simulated and unknown are visibly distinct",
         "Mislabelled evidence and unknown-value tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 18,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/18",
+      "merged_commit": "455c6534a6c7e640abfc3aac13a34239aa829524",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39304057045"
+      ]
     },
     {
       "id": "TLM-013",
@@ -346,11 +352,13 @@
         "Different learner approaches elicit meaningfully different questions",
         "Branching dialogue fixtures pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 20,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/20",
+      "merged_commit": "056b2bd49ad45d3a754a80ee250e8657a57ba7a0",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39305002208"
+      ]
     },
     {
       "id": "TLM-014",
@@ -364,11 +372,13 @@
         "Visitor can skip or seek help without punitive scoring",
         "Hint-level and bypass tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 23,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/23",
+      "merged_commit": "5cdd8058be9b7ba8c797c853a446a40a6f2ac109",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39306750243"
+      ]
     },
     {
       "id": "TLM-015",
@@ -576,11 +586,13 @@
         "Learner can add/edit/remove examples without sending them remotely",
         "Local-only input and mutation tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 19,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/19",
+      "merged_commit": "5dc8d1ba156e9e7b5a8a80b72fd80cacfbfd7e94",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39305097378"
+      ]
     },
     {
       "id": "TLM-026",
@@ -595,11 +607,14 @@
         "Holdout examples do not leak into training",
         "Partition property tests and seed replay pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 21,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/21",
+      "merged_commit": "69cf895021b8c722dffb068b4aa96bb829800e87",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39382215960",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39382473295"
+      ]
     },
     {
       "id": "TLM-027",
@@ -615,11 +630,14 @@
         "Training changes predictions by actual computation",
         "Reference numeric update tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 22,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/22",
+      "merged_commit": "aa0f376ed2de3892eebc0061b9338073503c1740",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39383085702",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39383256679"
+      ]
     },
     {
       "id": "TLM-028",
@@ -933,11 +951,13 @@
         "Controlled tones produce expected numerical features",
         "Signal boundary and pitch/rhythm fixture tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 16,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/16",
+      "merged_commit": "2527ab8117897558a360696fafe07aa394925006",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39302593254"
+      ]
     },
     {
       "id": "TLM-044",
@@ -1052,7 +1072,7 @@
         "Every actual legal claim has authority, limitations and date",
         "Citation and quote integrity checks pass"
       ],
-      "status": "in_progress",
+      "status": "planned",
       "github_pr_number": null,
       "github_pr_url": null,
       "merged_commit": null,
