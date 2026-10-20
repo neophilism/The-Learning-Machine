@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {createShapeDataset,addShapeExample,presetDrawing} from '../src/dataset.mjs';
 import {stratifiedHoldout} from '../src/split.mjs';
-import {trainLinearClassifier,classifyDrawing} from '../src/classifier.mjs';
+import {trainLinearClassifier,classifyDrawing,evaluateHoldout} from '../src/classifier.mjs';
 function trainingData(){
  let d=createShapeDataset();for(let i=0;i<4;i++)d=addShapeExample(d,'Line',presetDrawing('horizontal'));
  for(let i=0;i<4;i++)d=addShapeExample(d,'Square',presetDrawing('square'));return d;
@@ -43,4 +43,24 @@ test('inadequate data and unsafe hyperparameters fail closed',()=>{
  assert.throws(()=>trainLinearClassifier(d,{...s,classes:s.classes.map((c,i)=>({...c,label:i?'Square':'Forged'}))}),/metadata/);
  let tiny=createShapeDataset();tiny=addShapeExample(tiny,'A',presetDrawing('square'));
  assert.throws(()=>trainLinearClassifier(tiny,stratifiedHoldout(tiny)),/two classes/);
+});
+
+test('held-out inference evaluates only examples excluded from training',()=>{
+ const d=trainingData(),s=stratifiedHoldout(d,{seed:19}),m=trainLinearClassifier(d,s);
+ const report=evaluateHoldout(m,d,s),training=new Set(m.trainingExampleIds);
+ assert.equal(report.exampleCount,s.testIds.length);
+ assert.equal(report.correctCount,report.exampleCount);
+ assert.equal(report.accuracy,1);
+ assert.deepEqual(report.predictions.map(p=>p.id),s.testIds);
+ assert.ok(report.predictions.every(p=>!training.has(p.id)&&p.origin==='computed-from-learned-parameters'));
+ assert.ok(report.predictions.every(p=>Math.abs(p.classScores.reduce((sum,x)=>sum+x.probability,0)-1)<1e-10));
+});
+test('new drawing scores come from learned parameters and matching split evidence is required',()=>{
+ const d=trainingData(),s=stratifiedHoldout(d,{seed:23}),m=trainLinearClassifier(d,s);
+ const line=classifyDrawing(m,presetDrawing('horizontal')),square=classifyDrawing(m,presetDrawing('square'));
+ assert.equal(line.predictedLabel,'Line');assert.equal(square.predictedLabel,'Square');
+ assert.notDeepEqual(line.classScores,square.classScores);
+ assert.throws(()=>evaluateHoldout(m,d,{...s,trainIds:s.trainIds.slice(1)}),/split|cover/i);
+ const other=trainLinearClassifier(d,stratifiedHoldout(d,{seed:24}));
+ assert.throws(()=>evaluateHoldout(other,d,s),/not trained on this split/);
 });
