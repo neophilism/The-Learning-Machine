@@ -603,11 +603,13 @@
         "Visitors discover differing information requirements, not forced conclusions",
         "Keyboard/mobile/adversarial journey tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 33,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/33",
       "merged_commit": null,
-      "verification_evidence": []
+      "verification_evidence": [
+        "Comparative selective/non-recognition journey, keyboard/mobile gate coverage and module documentation are in PR #33; exact-head hosted validation pending."
+      ]
     },
     {
       "id": "TLM-025",
