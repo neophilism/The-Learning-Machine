@@ -65,6 +65,23 @@ export function classifyDrawing(model,pixels){
  return Object.freeze({predictedLabel:model.labels[winner],confidence:p[winner],classScores:Object.freeze(model.labels.map((label,i)=>Object.freeze({label,probability:p[i]}))),origin:'computed-from-learned-parameters'});
 }
 
+export function summarizeClassificationMetrics(labels,predictions){
+ if(!Array.isArray(labels)||labels.length<2||labels.length>16||labels.some(label=>typeof label!=='string'||label.length===0)||new Set(labels).size!==labels.length)throw new TypeError('Metrics require 2–16 unique class labels');
+ if(!Array.isArray(predictions))throw new TypeError('Metrics require labeled predictions');
+ const index=new Map(labels.map((label,i)=>[label,i])),matrix=labels.map(()=>labels.map(()=>0));
+ for(const prediction of predictions){
+  const actual=index.get(prediction?.actualLabel),predicted=index.get(prediction?.predictedLabel);
+  if(actual===undefined||predicted===undefined)throw new TypeError('Prediction references an unknown class label');
+  matrix[actual][predicted]++;
+ }
+ const frozenMatrix=Object.freeze(matrix.map(row=>Object.freeze([...row])));
+ const perClass=Object.freeze(labels.map((label,i)=>{
+  const truePositive=matrix[i][i],actualCount=matrix[i].reduce((sum,count)=>sum+count,0),predictedCount=matrix.reduce((sum,row)=>sum+row[i],0);
+  return Object.freeze({label,truePositive,actualCount,predictedCount,precision:predictedCount===0?null:truePositive/predictedCount,recall:actualCount===0?null:truePositive/actualCount});
+ }));
+ return Object.freeze({algorithm:'confusion-matrix-v1',labels:Object.freeze([...labels]),matrix:frozenMatrix,perClass,exampleCount:predictions.length,source:'computed from actual and predicted labels for held-out examples'});
+}
+
 export function evaluateHoldout(model,dataset,split){
  validateHoldout(split,dataset);
  if(!split.ready||split.testIds.length===0)throw new RangeError('A ready split with held-out examples is required');
@@ -80,7 +97,8 @@ export function evaluateHoldout(model,dataset,split){
   if(correct)correctCount++;
   return Object.freeze({id,actualLabel:example.label,predictedLabel:result.predictedLabel,confidence:result.confidence,classScores:result.classScores,correct,origin:result.origin});
  });
+ const frozenPredictions=Object.freeze(predictions),metrics=summarizeClassificationMetrics(model.labels,frozenPredictions);
  return Object.freeze({algorithm:'heldout-inference-v1',exampleCount:predictions.length,correctCount,accuracy:correctCount/predictions.length,
-  predictions:Object.freeze(predictions),trainingExampleIds:Object.freeze([...model.trainingExampleIds]),
+  predictions:frozenPredictions,metrics,trainingExampleIds:Object.freeze([...model.trainingExampleIds]),
   source:'computed from held-out browser-local examples excluded from training'});
 }

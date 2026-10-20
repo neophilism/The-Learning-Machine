@@ -714,7 +714,7 @@
         "Displayed results match actual labeled predictions",
         "Imbalanced and empty-class tests pass"
       ],
-      "status": "planned",
+      "status": "in_progress",
       "github_pr_number": null,
       "github_pr_url": null,
       "merged_commit": null,

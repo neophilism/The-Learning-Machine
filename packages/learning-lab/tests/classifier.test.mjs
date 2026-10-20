@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {createShapeDataset,addShapeExample,presetDrawing} from '../src/dataset.mjs';
 import {stratifiedHoldout} from '../src/split.mjs';
-import {trainLinearClassifier,classifyDrawing,evaluateHoldout} from '../src/classifier.mjs';
+import {trainLinearClassifier,classifyDrawing,evaluateHoldout,summarizeClassificationMetrics} from '../src/classifier.mjs';
 function trainingData(){
  let d=createShapeDataset();for(let i=0;i<4;i++)d=addShapeExample(d,'Line',presetDrawing('horizontal'));
  for(let i=0;i<4;i++)d=addShapeExample(d,'Square',presetDrawing('square'));return d;
@@ -63,4 +63,19 @@ test('new drawing scores come from learned parameters and matching split evidenc
  assert.throws(()=>evaluateHoldout(m,d,{...s,trainIds:s.trainIds.slice(1)}),/split|cover/i);
  const mismatched={...m,trainingExampleIds:m.trainingExampleIds.slice(1)};
  assert.throws(()=>evaluateHoldout(mismatched,d,s),/not trained on this split/);
+});
+
+test('balanced metrics preserve imbalanced confusion counts and exact denominators',()=>{
+ const metrics=summarizeClassificationMetrics(['A','B','C'],[{actualLabel:'A',predictedLabel:'A'},{actualLabel:'A',predictedLabel:'A'},{actualLabel:'A',predictedLabel:'B'},{actualLabel:'B',predictedLabel:'A'},{actualLabel:'C',predictedLabel:'C'}]);
+ assert.deepEqual(metrics.matrix,[[2,1,0],[1,0,0],[0,0,1]]);
+ assert.deepEqual(metrics.perClass.map(x=>({label:x.label,tp:x.truePositive,actual:x.actualCount,predicted:x.predictedCount})),[{label:'A',tp:2,actual:3,predicted:3},{label:'B',tp:0,actual:1,predicted:1},{label:'C',tp:1,actual:1,predicted:1}]);
+ assert.equal(metrics.perClass[0].precision,2/3);assert.equal(metrics.perClass[0].recall,2/3);assert.equal(metrics.exampleCount,5);
+});
+test('balanced metrics report empty-class denominators without invented zero scores',()=>{
+ const metrics=summarizeClassificationMetrics(['A','B','C'],[{actualLabel:'A',predictedLabel:'A'},{actualLabel:'A',predictedLabel:'B'}]);
+ assert.deepEqual(metrics.matrix,[[1,1,0],[0,0,0],[0,0,0]]);
+ assert.equal(metrics.perClass[1].precision,0);assert.equal(metrics.perClass[1].recall,null);
+ assert.equal(metrics.perClass[2].precision,null);assert.equal(metrics.perClass[2].recall,null);
+ assert.throws(()=>summarizeClassificationMetrics(['A','B'],[{actualLabel:'A',predictedLabel:'C'}]),/unknown class/);
+ assert.throws(()=>summarizeClassificationMetrics(['A','A'],[]),/unique class/);
 });
