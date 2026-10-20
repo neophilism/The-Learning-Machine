@@ -61,6 +61,6 @@ test('new drawing scores come from learned parameters and matching split evidenc
  assert.equal(line.predictedLabel,'Line');assert.equal(square.predictedLabel,'Square');
  assert.notDeepEqual(line.classScores,square.classScores);
  assert.throws(()=>evaluateHoldout(m,d,{...s,trainIds:s.trainIds.slice(1)}),/split|cover/i);
- const other=trainLinearClassifier(d,stratifiedHoldout(d,{seed:24}));
- assert.throws(()=>evaluateHoldout(other,d,s),/not trained on this split/);
+ const mismatched={...m,trainingExampleIds:m.trainingExampleIds.slice(1)};
+ assert.throws(()=>evaluateHoldout(mismatched,d,s),/not trained on this split/);
 });
