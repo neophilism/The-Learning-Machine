@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {compileLearningModule} from '@learning-machine/content';
 import {createLearningSession,transitionLearningSession} from '../src/engine.mjs';
-import {selectSocraticQuestion} from '../src/questions.mjs';
+import {selectCounterexample,selectSocraticQuestion} from '../src/questions.mjs';
 const fixture=()=>({schemaVersion:'1.0.0',id:'context',title:'Contextual questions',startNodeId:'a',concepts:['reason'],nodes:[
 {id:'a',stage:'encounter',prompt:'What problem can you solve?',concepts:['reason'],edges:[{to:'h'}]},
 {id:'h',stage:'hypothesis',prompt:'What is your hypothesis?',questionVariants:[{id:'multiple',when:'multiple_hypotheses',prompt:'How do your different approaches compare?'},{id:'some',when:'has_hypothesis',prompt:'What new alternative could you try?'}],edges:[{to:'p'}]},
@@ -36,4 +36,50 @@ test('unknown or duplicate question conditions fail closed at source validation'
 test('another compiled lesson release cannot borrow the learner state',()=>{
  const a=compileLearningModule(fixture()),b=compileLearningModule({...fixture(),title:'Different release'});
  assert.throws(()=>selectSocraticQuestion(b,createLearningSession(a)),/release/);
+});
+
+const counterexampleFixture=()=>{
+ const f=fixture(),challenge=f.nodes[4];challenge.stage='challenge';challenge.counterexamples=[
+  {id:'moved',prompt:'The target moved.',triggerTerms:['fixed','position'],competingApproach:'Try a selective recognizer.'},
+  {id:'overbroad',prompt:'Useful information must remain visible.',triggerTerms:['blur','everything'],competingApproach:'Try a bounded mask.'},
+  {id:'neutral',prompt:'The target is absent.',triggerTerms:[],competingApproach:'Compare every method on the same absent-target frame.'}
+ ];return f;
+};
+function challengedSession(text){
+ const c=compileLearningModule(counterexampleFixture());let s=createLearningSession(c);
+ s=transitionLearningSession(c,s,{type:'NEXT'});
+ s=transitionLearningSession(c,s,{type:'PROPOSE_HYPOTHESIS',text});
+ s=transitionLearningSession(c,s,{type:'NEXT'});
+ s=transitionLearningSession(c,s,{type:'SKIP'});
+ s=transitionLearningSession(c,s,{type:'NEXT'});
+ s=transitionLearningSession(c,s,{type:'NEXT'});
+ return {c,s};
+}
+test('technical assumptions select a concrete authored counterexample and competing approach',()=>{
+ const {c,s}=challengedSession('Use one fixed position for the mask');
+ const result=selectCounterexample(c,s);
+ assert.equal(result.id,'moved');assert.deepEqual(result.matchedTerms,['fixed','position']);
+ assert.match(result.competingApproach,/selective/);assert.equal(result.source,'authored-lesson');
+});
+test('opposite political positions receive the same neutral scrutiny',()=>{
+ const support=challengedSession('I support the bill because creators deserve protection');
+ const oppose=challengedSession('I oppose the bill because students deserve access');
+ const a=selectCounterexample(support.c,support.s),b=selectCounterexample(oppose.c,oppose.s);
+ assert.equal(a.id,'neutral');assert.equal(b.id,'neutral');assert.equal(a.prompt,b.prompt);
+ assert.deepEqual(a.matchedTerms,[]);assert.deepEqual(b.matchedTerms,[]);
+});
+test('counterexamples fail closed outside challenge nodes, for unknown hypotheses, and without neutral fallback',()=>{
+ const {c,s}=challengedSession('Use fixed coordinates');
+ assert.throws(()=>selectCounterexample(c,s,'missing'),/known learner hypothesis/);
+ assert.throws(()=>selectCounterexample(c,{...s,nodeId:'a',stage:'encounter'}),/challenge node/);
+ const raw=counterexampleFixture();raw.nodes[4].counterexamples=raw.nodes[4].counterexamples.filter(x=>x.triggerTerms.length);
+ const noFallback=compileLearningModule(raw);
+ const mismatched={...s,releaseDigest:noFallback.digest};
+ assert.throws(()=>selectCounterexample(noFallback,mismatched),/neutral fallback/);
+});
+test('malformed or unbounded authored counterexamples fail content validation',()=>{
+ const malformed=counterexampleFixture();malformed.nodes[4].counterexamples[0].triggerTerms=['political position'];
+ assert.throws(()=>compileLearningModule(malformed),/contract validation/);
+ const sparse=counterexampleFixture();sparse.nodes[4].counterexamples=[sparse.nodes[4].counterexamples[0]];
+ assert.throws(()=>compileLearningModule(sparse),/contract validation/);
 });
