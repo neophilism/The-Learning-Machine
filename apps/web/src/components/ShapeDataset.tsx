@@ -114,7 +114,7 @@ export default function ShapeDatasetLab(){
         <p>Algorithm {model.algorithm}. {model.epochs} epochs of numerical parameter updates across {model.labels.length} classes.</p>
         <p>These are training metrics, not held-out test accuracy. A classifier may memorize its inputs, so future tests will challenge generalization.</p>
        </div>}
-       {holdoutReport&&<div className="status-note" aria-label="Held-out inference results">
+       {holdoutReport&&<div className="status-note" role="region" aria-label="Held-out inference results">
         <p><strong>Held-out check:</strong> {holdoutReport.correctCount} of {holdoutReport.exampleCount} unseen examples matched their labels ({(holdoutReport.accuracy*100).toFixed(1)}%).</p>
         <ul>{holdoutReport.predictions.map(result=><li key={result.id}>{result.id}: actual {result.actualLabel}; predicted {result.predictedLabel}; top score {(result.confidence*100).toFixed(1)}%.</li>)}</ul>
        </div>}
