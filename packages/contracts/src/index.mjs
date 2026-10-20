@@ -15,12 +15,14 @@ export function validateLearningModule(v){
  object(v,'module');version(v);keys(v,['schemaVersion','id','title','startNodeId','nodes','concepts'],'module');
  str(v.id,'id',128);str(v.title,'title');str(v.startNodeId,'startNodeId');strings(v.concepts,'concepts');list(v.nodes,'nodes',1,500);
  for(const n of v.nodes){
-   object(n,'node');keys(n,['id','stage','prompt','edges','concepts','accessibleAlternative','terminal','questionVariants'],'node');
+   object(n,'node');keys(n,['id','stage','prompt','edges','concepts','accessibleAlternative','terminal','questionVariants','hints'],'node');
    str(n.id,'node.id',128);if(!STAGES.includes(n.stage))throw new TypeError('Invalid node stage');
    str(n.prompt,'node.prompt');list(n.edges,'node.edges',0,30);
    if(n.concepts!==undefined)strings(n.concepts,'node concepts');
    if(n.accessibleAlternative!==undefined&&typeof n.accessibleAlternative!=='string')throw new TypeError('Invalid accessible alternative');
    if(n.terminal!==undefined&&typeof n.terminal!=='boolean')throw new TypeError('Invalid terminal');
+   if(n.hints!==undefined){list(n.hints,'node hints',0,4);for(const hint of n.hints)str(hint,'authored hint',1500);}
+
    if(n.questionVariants!==undefined){
      list(n.questionVariants,'questionVariants',0,12);
      const ids=new Set();
