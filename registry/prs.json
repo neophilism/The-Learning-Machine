@@ -483,11 +483,13 @@
         "Recognizer detects novel placements and rejects distractors",
         "Precision and recall golden fixtures pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 28,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/28",
       "merged_commit": null,
-      "verification_evidence": []
+      "verification_evidence": [
+        "Local TLM-019 golden recognizer tests passed 4/4."
+      ]
     },
     {
       "id": "TLM-020",

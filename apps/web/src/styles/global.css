@@ -15,3 +15,7 @@ main{display:grid;grid-template-columns:1fr;gap:1.2rem}.intro{padding:2.1rem 0 .
 
 /* TLM-018 computed pixel buffer and digest trace. */
 .pixel-trace{margin-top:1.5rem;border-top:1px solid #d4e0e4;padding-top:1rem}.pixel-canvas{display:block;width:min(100%,480px);height:auto;aspect-ratio:3/2;border:1px solid #9cb4bf;image-rendering:pixelated;background:#fff;margin:1rem 0}.pixel-trace table{width:100%;border-collapse:collapse;font-size:.85rem}.pixel-trace th,.pixel-trace td{text-align:left;padding:.45rem;border-bottom:1px solid #d4e0e4}.pixel-trace code{font-size:.8rem}
+
+
+/* TLM-019 position-independent synthetic icon recognition. */
+.icon-recognizer{margin-top:1.5rem;border-top:1px solid #d4e0e4;padding-top:1rem}.icon-recognizer table{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:1rem}.icon-recognizer th,.icon-recognizer td{text-align:left;padding:.45rem;border-bottom:1px solid #d4e0e4}.icon-recognizer select{padding:.45rem;border:1px solid #89aabb;border-radius:.35rem}
