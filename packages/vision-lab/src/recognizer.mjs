@@ -26,6 +26,14 @@ export function renderIconSample(kind,offsetX=2,offsetY=2){
  return freeze({width:SAMPLE_SIZE,height:SAMPLE_SIZE,pixels});
 }
 
+export function perturbIconSample(sample,changes=0){
+ assertSample(sample);
+ if(!Number.isInteger(changes)||changes<0||changes>16)throw new RangeError('changes must be an integer from 0 to 16');
+ const pixels=sample.pixels.slice();
+ for(let index=0;index<changes;index++){const position=(index*17+11)%pixels.length;pixels[position]=!pixels[position]}
+ return freeze({width:SAMPLE_SIZE,height:SAMPLE_SIZE,pixels});
+}
+
 function scoreWindow(sample,kind,offsetX,offsetY){
  const expected=template(kind);let intersection=0,union=0;
  for(let y=0;y<SAMPLE_SIZE;y++)for(let x=0;x<SAMPLE_SIZE;x++){
@@ -49,17 +57,20 @@ export function recognizeIcon(sample,{minimumScore=.9}={}){
  return freeze(best.score>=minimumScore?best:{kind:null,score:best.score,offsetX:null,offsetY:null});
 }
 
-export function evaluateTarget(fixtures,target,{minimumScore=.9}={}){
+export function evaluateTarget(fixtures,target,{minimumScore=.9,uncertaintyMargin=.05}={}){
  assertKind(target);if(!Array.isArray(fixtures)||fixtures.length===0)throw new TypeError('Fixtures must be a non-empty array');
- let truePositive=0,falsePositive=0,falseNegative=0,trueNegative=0;
+ if(typeof uncertaintyMargin!=='number'||!Number.isFinite(uncertaintyMargin)||uncertaintyMargin<0||uncertaintyMargin>1)throw new RangeError('uncertaintyMargin must be between 0 and 1');
+ let truePositive=0,falsePositive=0,falseNegative=0,trueNegative=0,uncertain=0;
  const results=fixtures.map((fixture,index)=>{
   if(!fixture||!SYMBOL_KINDS.includes(fixture.actual))throw new TypeError(`Invalid fixture at index ${index}`);
   const recognition=recognizeIcon(fixture.sample,{minimumScore});
-  const expected=fixture.actual===target,detected=recognition.kind===target;
+  const expected=fixture.actual===target,detected=recognition.kind===target,isUncertain=Math.abs(recognition.score-minimumScore)<=uncertaintyMargin;
   if(expected&&detected)truePositive++;else if(!expected&&detected)falsePositive++;else if(expected)falseNegative++;else trueNegative++;
-  return freeze({actual:fixture.actual,expected,detected,predicted:recognition.kind,score:recognition.score,offsetX:recognition.offsetX,offsetY:recognition.offsetY});
+  if(isUncertain)uncertain++;
+  return freeze({actual:fixture.actual,expected,detected,uncertain:isUncertain,predicted:recognition.kind,score:recognition.score,offsetX:recognition.offsetX,offsetY:recognition.offsetY});
  });
- const precision=truePositive+falsePositive===0?null:truePositive/(truePositive+falsePositive);
- const recall=truePositive+falseNegative===0?null:truePositive/(truePositive+falseNegative);
- return freeze({target,counts:{truePositive,falsePositive,falseNegative,trueNegative},precision,recall,results});
+ const precisionDenominator=truePositive+falsePositive,recallDenominator=truePositive+falseNegative;
+ const precision=precisionDenominator===0?null:truePositive/precisionDenominator;
+ const recall=recallDenominator===0?null:truePositive/recallDenominator;
+ return freeze({target,minimumScore,uncertaintyMargin,counts:{truePositive,falsePositive,falseNegative,trueNegative,uncertain},denominators:{precision:precisionDenominator,recall:recallDenominator},precision,recall,results});
 }
