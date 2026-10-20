@@ -506,12 +506,15 @@
         "Blanket masking works without recognizing the target",
         "Rendered pixel-output tests pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 29,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/29",
-      "merged_commit": null,
+      "merged_commit": "1bf010f8c6a219b751729dcc8d904257689a5f0c",
       "verification_evidence": [
-        "Local JavaScript syntax validation passed for the TLM-020 runtime and tests."
+        "Local JavaScript syntax validation passed for the TLM-020 runtime and tests.",
+        "Exact-head workspace-and-foundation run 39391642961 passed for 42c059ff2e8ac74d32cbfeae086e64a6812b16f4: frozen install, repository checks/build, and full desktop/mobile Chromium suite.",
+        "Merged-main workspace-and-foundation run 39391928226 passed for 1bf010f8c6a219b751729dcc8d904257689a5f0c.",
+        "https://github.com/neophilism/The-Learning-Machine/pull/29"
       ]
     },
     {
