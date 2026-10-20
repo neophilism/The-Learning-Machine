@@ -483,12 +483,15 @@
         "Recognizer detects novel placements and rejects distractors",
         "Precision and recall golden fixtures pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 28,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/28",
-      "merged_commit": null,
+      "merged_commit": "7fd5a7ced90911fcae120e1d566f743697e1b319",
       "verification_evidence": [
-        "Local TLM-019 golden recognizer tests passed 4/4."
+        "Local TLM-019 golden recognizer tests passed 4/4.",
+        "Exact-head workspace-and-foundation run 39390431302 passed for ce698e9d13d2ec4c7a400f3631322d74bb364c01: frozen install, repository checks/build, and full desktop/mobile Chromium suite.",
+        "Merged-main workspace-and-foundation run 39390685667 passed for 7fd5a7ced90911fcae120e1d566f743697e1b319.",
+        "https://github.com/neophilism/The-Learning-Machine/pull/28"
       ]
     },
     {
