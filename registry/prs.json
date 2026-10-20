@@ -554,11 +554,13 @@
         "Stale frame results cannot appear after reset",
         "Race and timeout stress tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_progress",
+      "github_pr_number": 31,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/31",
       "merged_commit": null,
-      "verification_evidence": []
+      "verification_evidence": [
+        "Local worker-controller race, reset, timeout and failure suite passes 4/4; exact-head hosted repository and browser validation pending."
+      ]
     },
     {
       "id": "TLM-023",
