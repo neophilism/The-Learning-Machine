@@ -554,12 +554,14 @@
         "Stale frame results cannot appear after reset",
         "Race and timeout stress tests pass"
       ],
-      "status": "in_progress",
+      "status": "merged",
       "github_pr_number": 31,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/31",
-      "merged_commit": null,
+      "merged_commit": "1d68effb7f349dd9991428614e29d6764f66dc94",
       "verification_evidence": [
-        "Local worker-controller race, reset, timeout and failure suite passes 4/4; exact-head hosted repository and browser validation pending."
+        "Exact-head workspace-and-foundation run 39394648219 passed for f8c73403efabfe59e37c4e17c3973921a9200207: frozen install, 144 Node tests, strict TypeScript, production build, repository checks and all 32 desktop/mobile Chromium cases.",
+        "Merged-main workspace-and-foundation run 39394888227 passed for 1d68effb7f349dd9991428614e29d6764f66dc94.",
+        "https://github.com/neophilism/The-Learning-Machine/pull/31"
       ]
     },
     {
