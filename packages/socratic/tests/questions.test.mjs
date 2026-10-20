@@ -73,9 +73,7 @@ test('counterexamples fail closed outside challenge nodes, for unknown hypothese
  assert.throws(()=>selectCounterexample(c,s,'missing'),/known learner hypothesis/);
  assert.throws(()=>selectCounterexample(c,{...s,nodeId:'a',stage:'encounter'}),/challenge node/);
  const raw=counterexampleFixture();raw.nodes[4].counterexamples=raw.nodes[4].counterexamples.filter(x=>x.triggerTerms.length);
- const noFallback=compileLearningModule(raw);
- const mismatched={...s,releaseDigest:noFallback.digest};
- assert.throws(()=>selectCounterexample(noFallback,mismatched),/neutral fallback/);
+ assert.throws(()=>compileLearningModule(raw),/neutral counterexample fallback/);
 });
 test('malformed or unbounded authored counterexamples fail content validation',()=>{
  const malformed=counterexampleFixture();malformed.nodes[4].counterexamples[0].triggerTerms=['political position'];
