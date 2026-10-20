@@ -437,11 +437,13 @@
         "Scenes need no unauthorized logos and remain reproducible",
         "Image snapshots and descriptions pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_progress",
+      "github_pr_number": 26,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/26",
       "merged_commit": null,
-      "verification_evidence": []
+      "verification_evidence": [
+        "Local Node vision-scene tests passed 4/4 before exact-head hosted validation."
+      ]
     },
     {
       "id": "TLM-018",
