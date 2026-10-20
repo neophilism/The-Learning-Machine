@@ -1,0 +1,508 @@
+{
+  "schemaVersion": "1.0.0",
+  "jurisdiction": "United States",
+  "curatedOn": "2026-10-19",
+  "sourceBaseline": {
+    "edition": "2024 U.S. Code for statutory text; later legal changes require validation",
+    "asOf": "2026-10-19",
+    "note": "A learning reference pack, not a certified current-law database or a complete bill."
+  },
+  "scope": "Dated, source-linked American copyright and computational learning precedents; no non-U.S. laws.",
+  "authorities": [
+    {
+      "id": "constitution-copyright-clause",
+      "kind": "constitution",
+      "citation": "U.S. Const. art. I, § 8, cl. 8",
+      "title": "Copyright Clause",
+      "forum": "United States Constitution",
+      "issuedOn": null,
+      "sourceUrl": "https://constitution.congress.gov/browse/article-1/section-8/clause-8/",
+      "sourceType": "government-constitution",
+      "researchStatus": "source_link_identified",
+      "relevance": "Congress may grant exclusive rights for limited times to promote the progress of science and useful arts.",
+      "scopeLimitations": "The clause empowers Congress; it does not itself resolve specific fair-use defenses or grant a universal right to machine learning.",
+      "topics": [
+        "constitutional-purpose",
+        "learning"
+      ]
+    },
+    {
+      "id": "usc17-101",
+      "kind": "statute",
+      "citation": "17 U.S.C. § 101",
+      "title": "Definitions and fixation",
+      "forum": "United States Congress",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/17/101",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Fixation requires embodiment sufficiently stable for longer than a transitory duration.",
+      "scopeLimitations": "This definition alone does not establish that every computer buffer is excluded from reproduction rights; context and duration matter.",
+      "topics": [
+        "fixation",
+        "temporary-processing"
+      ]
+    },
+    {
+      "id": "usc17-102-b-",
+      "kind": "statute",
+      "citation": "17 U.S.C. § 102(b)",
+      "title": "Subject matter and exclusions",
+      "forum": "United States Congress",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/17/102",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Facts, ideas, procedures, processes, systems and methods are excluded from copyright protection.",
+      "scopeLimitations": "The underlying expression used to convey excluded subject matter can nonetheless remain protected.",
+      "topics": [
+        "ideas-expression",
+        "learning"
+      ]
+    },
+    {
+      "id": "usc17-106",
+      "kind": "statute",
+      "citation": "17 U.S.C. § 106",
+      "title": "Exclusive rights",
+      "forum": "United States Congress",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/17/106",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Copyright owners have enumerated rights over reproduction, distribution, derivative works and specified performances and displays.",
+      "scopeLimitations": "The rights are subject to Title 17 limitations and exceptions; they do not create a general property right in acquired knowledge.",
+      "topics": [
+        "ideas-expression",
+        "licenses"
+      ]
+    },
+    {
+      "id": "usc17-107",
+      "kind": "statute",
+      "citation": "17 U.S.C. § 107",
+      "title": "Fair use",
+      "forum": "United States Congress",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/17/107",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Fair use considers purpose, nature, amount, and market effect, including teaching, research and scholarship.",
+      "scopeLimitations": "Commerciality and educational purpose are considerations, not automatic conclusions; all applicable factors matter.",
+      "topics": [
+        "fair-use",
+        "commercial-learning"
+      ]
+    },
+    {
+      "id": "usc17-108",
+      "kind": "statute",
+      "citation": "17 U.S.C. § 108",
+      "title": "Libraries and archives",
+      "forum": "United States Congress",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/17/108",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Specified libraries and archives may make certain reproductions under statutory conditions.",
+      "scopeLimitations": "This section is institution- and purpose-specific; it does not establish a universal right to digitize collections.",
+      "topics": [
+        "libraries",
+        "exceptions"
+      ]
+    },
+    {
+      "id": "usc17-109",
+      "kind": "statute",
+      "citation": "17 U.S.C. § 109",
+      "title": "First sale",
+      "forum": "United States Congress",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/17/109",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Ownership of a lawfully made tangible copy can permit its disposition without a new distribution license.",
+      "scopeLimitations": "First sale does not independently authorize creating additional digital reproductions when transferring a copy.",
+      "topics": [
+        "first-sale",
+        "access"
+      ]
+    },
+    {
+      "id": "usc17-110",
+      "kind": "statute",
+      "citation": "17 U.S.C. § 110",
+      "title": "Teaching and specified performances",
+      "forum": "United States Congress",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/17/110",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Enumerated exceptions include face-to-face nonprofit classroom teaching, qualified mediated instruction and limited household film filtering.",
+      "scopeLimitations": "The principal §110(1) classroom exemption expressly specifies nonprofit educational institutions; for-profit teaching is not categorically exempt.",
+      "topics": [
+        "education",
+        "commercial-learning",
+        "filtering"
+      ]
+    },
+    {
+      "id": "usc17-112",
+      "kind": "statute",
+      "citation": "17 U.S.C. § 112",
+      "title": "Ephemeral recordings",
+      "forum": "United States Congress",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/17/112",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Specified transmitting organizations can make ephemeral recordings under detailed conditions.",
+      "scopeLimitations": "These exceptions are purpose- and entity-specific; their time limits do not create a general computer-copy exemption.",
+      "topics": [
+        "temporary-processing",
+        "broadcasting"
+      ]
+    },
+    {
+      "id": "usc17-117",
+      "kind": "statute",
+      "citation": "17 U.S.C. § 117",
+      "title": "Computer programs",
+      "forum": "United States Congress",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/17/117",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Owners of qualifying program copies may make certain copies essential to use and maintain software.",
+      "scopeLimitations": "Eligibility and ownership conditions matter, and this is not blanket permission to reproduce arbitrary media.",
+      "topics": [
+        "software",
+        "temporary-processing"
+      ]
+    },
+    {
+      "id": "usc17-121",
+      "kind": "statute",
+      "citation": "17 U.S.C. § 121",
+      "title": "Accessible format copies",
+      "forum": "United States Congress",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/17/121",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Eligible entities may make and distribute accessible-format works for qualifying persons under conditions.",
+      "scopeLimitations": "Accessible-format permissions have specific beneficiaries, entities and restrictions; not all disability-related copying is covered.",
+      "topics": [
+        "accessibility",
+        "exceptions"
+      ]
+    },
+    {
+      "id": "usc17-512-a-",
+      "kind": "statute",
+      "citation": "17 U.S.C. § 512(a)",
+      "title": "Transient digital transmissions",
+      "forum": "United States Congress",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/17/512",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Qualified online service providers can obtain a conditional liability safe harbor for transient network communications.",
+      "scopeLimitations": "A liability safe harbor does not independently authorize unlawful content acquisition, training or redistribution.",
+      "topics": [
+        "network",
+        "temporary-processing"
+      ]
+    },
+    {
+      "id": "usc17-512-b-",
+      "kind": "statute",
+      "citation": "17 U.S.C. § 512(b)",
+      "title": "System caching",
+      "forum": "United States Congress",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/17/512",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Qualified system caching can obtain a conditional liability safe harbor.",
+      "scopeLimitations": "Conditions apply; §512 is not a general copying license or all-purpose defense to infringement.",
+      "topics": [
+        "caching",
+        "temporary-processing"
+      ]
+    },
+    {
+      "id": "usc17-1201-f-",
+      "kind": "statute",
+      "citation": "17 U.S.C. § 1201(f)",
+      "title": "Interoperability and access control",
+      "forum": "United States Congress",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/17/1201",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Limited anticircumvention provisions permit specified interoperability research on computer programs.",
+      "scopeLimitations": "The exception is narrow and does not authorize general circumvention, intrusion, or access to any protected source.",
+      "topics": [
+        "interoperability",
+        "security"
+      ]
+    },
+    {
+      "id": "baker-selden",
+      "kind": "precedent",
+      "citation": "101 U.S. 99 (1879)",
+      "title": "Baker v. Selden",
+      "forum": "U.S. Supreme Court",
+      "issuedOn": "1879-01-01",
+      "sourceUrl": "https://supreme.justia.com/cases/federal/us/101/99/",
+      "sourceType": "secondary-opinion",
+      "researchStatus": "source_link_identified",
+      "stance": "foundation",
+      "relevance": "Distinguishes a copyrighted explanation of a system from the system itself.",
+      "scopeLimitations": "Does not authorize duplication of expressive portions of the copyrighted book.",
+      "topics": [
+        "ideas-expression"
+      ]
+    },
+    {
+      "id": "feist-rural",
+      "kind": "precedent",
+      "citation": "499 U.S. 340 (1991)",
+      "title": "Feist Publications v. Rural Telephone",
+      "forum": "U.S. Supreme Court",
+      "issuedOn": "1991-03-27",
+      "sourceUrl": "https://supreme.justia.com/cases/federal/us/499/340/",
+      "sourceType": "secondary-opinion",
+      "researchStatus": "source_link_identified",
+      "stance": "foundation",
+      "relevance": "Facts lack copyright originality; originality in selection or arrangement can be protected.",
+      "scopeLimitations": "The case does not hold that any work combining facts and original expression may be freely copied.",
+      "topics": [
+        "ideas-expression"
+      ]
+    },
+    {
+      "id": "sony-universal",
+      "kind": "precedent",
+      "citation": "464 U.S. 417 (1984)",
+      "title": "Sony Corp. of America v. Universal City Studios",
+      "forum": "U.S. Supreme Court",
+      "issuedOn": "1984-01-17",
+      "sourceUrl": "https://supreme.justia.com/cases/federal/us/464/417/",
+      "sourceType": "secondary-opinion",
+      "researchStatus": "source_link_identified",
+      "stance": "mixed",
+      "relevance": "Private household time-shifting was held fair use in its record; technological tools can have substantial noninfringing uses.",
+      "scopeLimitations": "The decision addressed a particular consumer recording practice and does not authorize all machine-learning datasets.",
+      "topics": [
+        "fair-use",
+        "technology"
+      ]
+    },
+    {
+      "id": "sega-accolade",
+      "kind": "precedent",
+      "citation": "977 F.2d 1510 (9th Cir. 1992)",
+      "title": "Sega Enterprises v. Accolade",
+      "forum": "U.S. Court of Appeals, Ninth Circuit",
+      "issuedOn": "1992-10-20",
+      "sourceUrl": "https://www.copyright.gov/fair-use/fair-index.html",
+      "sourceType": "government-case-index",
+      "researchStatus": "indexed_summary",
+      "stance": "supporting",
+      "relevance": "Necessary intermediate copying to examine software functionality could be fair use despite the commercial context.",
+      "scopeLimitations": "Reverse engineering for interoperability is materially narrower than all-purpose model training or output substitution.",
+      "topics": [
+        "software",
+        "intermediate-copying"
+      ]
+    },
+    {
+      "id": "connectix",
+      "kind": "precedent",
+      "citation": "203 F.3d 596 (9th Cir. 2000)",
+      "title": "Sony Computer Entertainment v. Connectix",
+      "forum": "U.S. Court of Appeals, Ninth Circuit",
+      "issuedOn": "2000-02-10",
+      "sourceUrl": "https://www.copyright.gov/fair-use/summaries/sony-connectix-9thcir2000.pdf",
+      "sourceType": "government-case-summary",
+      "researchStatus": "summary_reviewed",
+      "stance": "supporting",
+      "relevance": "Intermediate copies of PlayStation BIOS during emulator reverse engineering were fair use on the specific facts.",
+      "scopeLimitations": "An emulator without protected BIOS content in the product differs from a system retaining and distributing expressive source material.",
+      "topics": [
+        "software",
+        "intermediate-copying"
+      ]
+    },
+    {
+      "id": "cablevision",
+      "kind": "precedent",
+      "citation": "536 F.3d 121 (2d Cir. 2008)",
+      "title": "Cartoon Network LP v. CSC Holdings",
+      "forum": "U.S. Court of Appeals, Second Circuit",
+      "issuedOn": "2008-08-04",
+      "sourceUrl": "https://docs.justia.com/cases/federal/appellate-courts/ca2/07-1480/920080804",
+      "sourceType": "secondary-opinion",
+      "researchStatus": "opinion_reviewed",
+      "stance": "supporting",
+      "relevance": "The brief automatically overwritten buffers at issue did not yield fixed copies under the applicable statutory definition.",
+      "scopeLimitations": "The opinion did not establish a universally lawful 1.2-second limit, or exempt independent later reproductions.",
+      "topics": [
+        "temporary-processing",
+        "fixation"
+      ]
+    },
+    {
+      "id": "hathitrust",
+      "kind": "precedent",
+      "citation": "755 F.3d 87 (2d Cir. 2014)",
+      "title": "Authors Guild v. HathiTrust",
+      "forum": "U.S. Court of Appeals, Second Circuit",
+      "issuedOn": "2014-06-10",
+      "sourceUrl": "https://www.copyright.gov/fair-use/summaries/authorsguild-hathitrust-2dcir2014.pdf",
+      "sourceType": "government-case-summary",
+      "researchStatus": "summary_reviewed",
+      "stance": "supporting",
+      "relevance": "Full-text indexing and identified accessibility uses of digitized books qualified as fair use.",
+      "scopeLimitations": "The holding concerns those functions and restrictions; it does not authorize broad distribution of the original books.",
+      "topics": [
+        "search",
+        "accessibility",
+        "fair-use"
+      ]
+    },
+    {
+      "id": "google-books",
+      "kind": "precedent",
+      "citation": "804 F.3d 202 (2d Cir. 2015)",
+      "title": "Authors Guild v. Google",
+      "forum": "U.S. Court of Appeals, Second Circuit",
+      "issuedOn": "2015-10-16",
+      "sourceUrl": "https://www.copyright.gov/fair-use/summaries/authorsguild-google-2dcir2015.pdf",
+      "sourceType": "government-case-summary",
+      "researchStatus": "summary_reviewed",
+      "stance": "supporting",
+      "relevance": "Copying whole books for indexed full-text search and limited snippets was fair use despite commercial operation.",
+      "scopeLimitations": "The system did not give users substantial substitutes for the protected books; outputs that substitute may present different issues.",
+      "topics": [
+        "search",
+        "commercial-learning",
+        "fair-use"
+      ]
+    },
+    {
+      "id": "tveyes",
+      "kind": "precedent",
+      "citation": "883 F.3d 169 (2d Cir. 2018)",
+      "title": "Fox News Network v. TVEyes",
+      "forum": "U.S. Court of Appeals, Second Circuit",
+      "issuedOn": "2018-02-27",
+      "sourceUrl": "https://www.copyright.gov/fair-use/summaries/fox-news-network-tveyes-02272018.pdf",
+      "sourceType": "government-case-summary",
+      "researchStatus": "summary_reviewed",
+      "stance": "limiting",
+      "relevance": "A media monitoring service's availability of extensive broadcast clips for customer viewing failed fair-use analysis.",
+      "scopeLimitations": "A useful search function did not immunize separately consumable news footage; the decision does not eliminate all search-engine fair use.",
+      "topics": [
+        "redistribution",
+        "commercial-learning",
+        "fair-use"
+      ]
+    },
+    {
+      "id": "google-oracle",
+      "kind": "precedent",
+      "citation": "593 U.S. 1 (2021)",
+      "title": "Google LLC v. Oracle America",
+      "forum": "U.S. Supreme Court",
+      "issuedOn": "2021-04-05",
+      "sourceUrl": "https://www.supremecourt.gov/opinions/20pdf/18-956_new_0e04.pdf",
+      "sourceType": "official-opinion",
+      "researchStatus": "opinion_reviewed",
+      "stance": "supporting",
+      "relevance": "Copying specific Java API declaring code in the Android development circumstances was fair use.",
+      "scopeLimitations": "The Court assumed copyrightability for purposes of decision and did not authorize unrestricted software or media copying.",
+      "topics": [
+        "software",
+        "fair-use"
+      ]
+    },
+    {
+      "id": "warhol-goldsmith",
+      "kind": "precedent",
+      "citation": "598 U.S. 508 (2023)",
+      "title": "Andy Warhol Foundation v. Goldsmith",
+      "forum": "U.S. Supreme Court",
+      "issuedOn": "2023-05-18",
+      "sourceUrl": "https://www.supremecourt.gov/opinions/slipopinion/22",
+      "sourceType": "official-opinion-index",
+      "researchStatus": "opinion_indexed",
+      "stance": "limiting",
+      "relevance": "The first fair-use factor may weigh against a commercial licensing use serving substantially the same purpose as the original image.",
+      "scopeLimitations": "The holding evaluated the specific magazine licensing use; it did not decide all transformative or learning scenarios.",
+      "topics": [
+        "market-substitution",
+        "fair-use"
+      ]
+    },
+    {
+      "id": "bartz-anthropic",
+      "kind": "precedent",
+      "citation": "No. 24-cv-05417 (N.D. Cal. June 23, 2025)",
+      "title": "Bartz v. Anthropic PBC",
+      "forum": "U.S. District Court, Northern District of California",
+      "issuedOn": "2025-06-23",
+      "sourceUrl": "https://www.govinfo.gov/app/details/USCOURTS-cand-3_24-cv-05417/USCOURTS-cand-3_24-cv-05417-1/context",
+      "sourceType": "official-court-docket",
+      "researchStatus": "opinion_located",
+      "stance": "mixed",
+      "relevance": "The court held particular LLM book-training uses fair while distinguishing the pirated permanent library's retention.",
+      "scopeLimitations": "This is a district-court ruling on a specific evidentiary record, not a categorical license for all AI training or unlawful acquisition.",
+      "topics": [
+        "machine-learning",
+        "lawful-acquisition",
+        "fair-use"
+      ]
+    },
+    {
+      "id": "kadrey-meta",
+      "kind": "precedent",
+      "citation": "No. 23-cv-03417 (N.D. Cal. June 25, 2025)",
+      "title": "Kadrey v. Meta Platforms",
+      "forum": "U.S. District Court, Northern District of California",
+      "issuedOn": "2025-06-25",
+      "sourceUrl": "https://law.justia.com/cases/federal/district-courts/california/candce/3%3A2023cv03417/415175/598/",
+      "sourceType": "secondary-opinion",
+      "researchStatus": "opinion_reviewed",
+      "stance": "mixed",
+      "relevance": "Meta prevailed on the particular fair-use claims, with the court emphasizing limits of plaintiffs' market-harm evidence.",
+      "scopeLimitations": "The court expressly did not hold that all LLM training is fair use; sufficiently supported displacement evidence could matter.",
+      "topics": [
+        "machine-learning",
+        "market-substitution",
+        "fair-use"
+      ]
+    },
+    {
+      "id": "thomson-ross",
+      "kind": "precedent",
+      "citation": "No. 25-2153 (3d Cir. Sept. 29, 2026)",
+      "title": "Thomson Reuters v. ROSS Intelligence",
+      "forum": "U.S. Court of Appeals, Third Circuit",
+      "issuedOn": "2026-09-29",
+      "sourceUrl": "https://www.govinfo.gov/app/details/USCOURTS-ca3-25-02153/context",
+      "sourceType": "official-court-docket",
+      "researchStatus": "opinion_reviewed",
+      "stance": "limiting",
+      "relevance": "The court rejected fair use of copied Westlaw editorial headnotes for a competing AI-assisted legal-research platform.",
+      "scopeLimitations": "The opinion addressed a specific commercially overlapping search product and did not resolve all generative-model training controversies.",
+      "topics": [
+        "machine-learning",
+        "market-substitution",
+        "fair-use"
+      ]
+    }
+  ]
+}

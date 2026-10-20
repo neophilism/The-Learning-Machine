@@ -66,6 +66,8 @@ importers:
         specifier: workspace:*
         version: link:../contracts
 
+  packages/evidence: {}
+
 packages:
 
   '@astrojs/compiler-binding-android-arm64@0.5.2':
