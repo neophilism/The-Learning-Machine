@@ -607,11 +607,14 @@
         "Holdout examples do not leak into training",
         "Partition property tests and seed replay pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 21,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/21",
+      "merged_commit": "69cf895021b8c722dffb068b4aa96bb829800e87",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39382215960",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39382473295"
+      ]
     },
     {
       "id": "TLM-027",
