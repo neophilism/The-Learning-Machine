@@ -10,7 +10,7 @@ export function createLearningSession(compiled,sessionId='anonymous'){
  validModule(compiled);
  if(typeof sessionId!=='string'||!sessionId.trim()||sessionId.length>256)throw new TypeError('Invalid session ID');
  const start=node(compiled,compiled.startNodeId);
- return freeze({sessionId,lessonId:compiled.lessonId,releaseDigest:compiled.digest,nodeId:start.id,stage:start.stage,answers:{},hypotheses:[],predictions:[],observations:[],skipped:[],history:[],actions:[],complete:start.stage==='complete'});
+ return freeze({sessionId,lessonId:compiled.lessonId,releaseDigest:compiled.digest,nodeId:start.id,stage:start.stage,answers:{},hypotheses:[],predictions:[],observations:[],hints:{},skipped:[],history:[],actions:[],complete:start.stage==='complete'});
 }
 function commit(s,action,update){
  const next=clone(s);next.actions.push(clone(action));Object.assign(next,update);return freeze(next);
@@ -52,6 +52,14 @@ export function transitionLearningSession(compiled,s,action){
     if(s.observations.length)throw new RangeError('Cannot commit a prediction after observing experiment results');
     const prediction=Object.freeze({id:'p'+(s.predictions.length+1),nodeId:s.nodeId,hypothesisId:action.hypothesisId??null,experimentId:action.experimentId,text:action.text.trim(),releaseDigest:s.releaseDigest});
     return commit(s,action,{predictions:[...s.predictions,prediction]});
+  }
+  case 'REQUEST_HINT':{
+    if(s.complete)throw new RangeError('Completed experiences have no further hints');
+    const authored=node(compiled,s.nodeId).hints||[];
+    if(!authored.length)throw new RangeError('No authored hint is available at this stage');
+    const count=s.hints[s.nodeId]||0;
+    if(count>=authored.length)return s;
+    return commit(s,action,{hints:{...s.hints,[s.nodeId]:count+1}});
   }
   case 'ANSWER': {
     if(typeof action.text!=='string'||!action.text.trim()||action.text.length>10000)throw new TypeError('An answer must be a bounded nonempty string');

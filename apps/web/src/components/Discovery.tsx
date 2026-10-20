@@ -71,6 +71,10 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
   <div className="exercise-header"><span className="stage-label">{titles[session.stage]}</span><span className="stage-label">Step {index+1} / {compiled.nodes.length}</span></div>
   <div className="progress" role="progressbar" aria-label="Learning journey progress" aria-valuenow={Math.round((index+1)/compiled.nodes.length*100)} aria-valuemin={0} aria-valuemax={100}><div className="progress-fill" style={{width:(index+1)/compiled.nodes.length*100+'%'}}/></div>
   <h2>{selectedQuestion.text}</h2>
+  {!!(session.hints[session.nodeId]||0)&&active.hints&&<section role="region" aria-label="Progressive Socratic hints" className="status-note">
+   <strong>Hints you requested</strong><ol>{active.hints.slice(0,session.hints[session.nodeId]).map((hint,i)=><li key={i}>{hint}</li>)}</ol>
+   <p>These are suggestions for further investigation. They are not a score or a required political conclusion.</p>
+  </section>}
   {session.stage==='experiment'&&<><div className="comparison" aria-label="Illustrative masking alternatives">
    <section className="option"><h3>Selective masking</h3><p>Recognize the target's location, then obscure that region.</p></section>
    <section className="option"><h3>Blanket masking</h3><p>Obscure every pixel without recognizing a target.</p></section>
@@ -117,6 +121,10 @@ export default function Discovery({compiled}:{compiled:CompiledLearningModule}) 
    {!session.complete&&routes.filter(r=>r.when==='alternative').map(r=><button key={r.to} className="action" disabled={!hydrated} onClick={()=>act([{type:'CHOOSE',to:r.to}])}>Explore alternative: {r.to}</button>)}
    {!session.complete&&routes.filter(r=>r.when==='retry').map(r=><button key={r.to} className="action" disabled={!hydrated} onClick={()=>act([{type:'RETRY',to:r.to}])}>Retry</button>)}
    <button className="action" onClick={()=>act([{type:'BACK'}])} disabled={!hydrated||!session.history.length}>Previous</button>
+   {!!active.hints?.length&&!session.complete&&<button className="action" disabled={!hydrated||(session.hints[session.nodeId]||0)>=active.hints.length} onClick={()=>{
+    try{setSession(transitionLearningSession(compiled,session,{type:'REQUEST_HINT'}));setError('')}
+    catch(e){setError(e instanceof Error?e.message:'No hint is available')}
+   }}>Need a hint</button>}
    {!session.complete&&session.stage!=='reflection'&&<button className="action" disabled={!hydrated} onClick={()=>act([{type:'REQUEST_EXPLANATION'}])}>See direct explanation</button>}
    <button className="action" disabled={!hydrated} onClick={()=>act([{type:'RESET'}])}>Restart</button>
   </div>

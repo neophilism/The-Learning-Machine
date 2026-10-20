@@ -26,11 +26,13 @@ export function trainLinearClassifier(dataset,split,{epochs=60,learningRate=0.06
  if(!split.ready)throw new RangeError('At least two classes with both training and held-out examples are required');
  if(!Number.isInteger(epochs)||epochs<1||epochs>150)throw new RangeError('Epochs out of bounds');
  if(!Number.isFinite(learningRate)||learningRate<0.001||learningRate>0.25)throw new RangeError('Learning rate out of bounds');
- const labels=split.classes.map(c=>c.label);
+ const labels=split.classes.map(c=>c.label),datasetLabels=[...new Set(dataset.examples.map(e=>e.label))].sort((a,b)=>a.localeCompare(b));
  if(labels.length<2||labels.length>16)throw new RangeError('Classifier supports 2–16 classes');
+ if(new Set(labels).size!==labels.length||labels.length!==datasetLabels.length||labels.some((label,i)=>label!==datasetLabels[i]))throw new TypeError('Split class metadata does not match dataset labels');
  const map=new Map(dataset.examples.map(e=>[e.id,e]));
- const training=split.trainIds.map(id=>map.get(id));
- if(training.some(x=>!x))throw new TypeError('Training split references unknown examples');
+ const training=split.trainIds.map(id=>map.get(id)),heldOut=split.testIds.map(id=>map.get(id));
+ if(training.some(x=>!x)||heldOut.some(x=>!x))throw new TypeError('Split references unknown examples');
+ if(labels.some(label=>!training.some(e=>e.label===label)||!heldOut.some(e=>e.label===label)))throw new RangeError('Every class requires training and held-out examples');
  for(const example of training)verifyPixels(example.pixels);
  const weights=labels.map(()=>new Float64Array(PIXEL_COUNT)),bias=new Float64Array(labels.length),history=[];
  const before=evaluate(weights,bias,training,labels);
@@ -57,6 +59,7 @@ export function trainLinearClassifier(dataset,split,{epochs=60,learningRate=0.06
 export function classifyDrawing(model,pixels){
  verifyPixels(pixels);
  if(!model||model.algorithm!=='multiclass-softmax-sgd-v1'||!Array.isArray(model.weights)||!Array.isArray(model.labels)||!Array.isArray(model.bias))throw new TypeError('Invalid trained classifier');
+ if(model.labels.length<2||model.weights.length!==model.labels.length||model.bias.length!==model.labels.length||model.weights.some(row=>!Array.isArray(row)||row.length!==PIXEL_COUNT||row.some(v=>!Number.isFinite(v)))||model.bias.some(v=>!Number.isFinite(v)))throw new TypeError('Invalid trained classifier dimensions');
  const p=probabilities(logits(model.weights,model.bias,pixels));
  const winner=p.indexOf(Math.max(...p));
  return Object.freeze({predictedLabel:model.labels[winner],confidence:p[winner],classScores:Object.freeze(model.labels.map((label,i)=>Object.freeze({label,probability:p[i]}))),origin:'computed-from-learned-parameters'});

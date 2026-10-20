@@ -38,6 +38,8 @@ test('inadequate data and unsafe hyperparameters fail closed',()=>{
  assert.throws(()=>trainLinearClassifier(d,s,{epochs:0}),RangeError);
  assert.throws(()=>trainLinearClassifier(d,s,{learningRate:100}),RangeError);
  assert.throws(()=>classifyDrawing({},presetDrawing('horizontal')),TypeError);
+ assert.throws(()=>classifyDrawing({...trainLinearClassifier(d,s),weights:[[1]]},presetDrawing('horizontal')),/dimensions/);
+ assert.throws(()=>trainLinearClassifier(d,{...s,classes:s.classes.map((c,i)=>({...c,label:i?'Square':'Forged'}))}),/metadata/);
  let tiny=createShapeDataset();tiny=addShapeExample(tiny,'A',presetDrawing('square'));
  assert.throws(()=>trainLinearClassifier(tiny,stratifiedHoldout(tiny)),/two classes/);
 });

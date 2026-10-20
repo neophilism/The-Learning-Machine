@@ -372,11 +372,13 @@
         "Visitor can skip or seek help without punitive scoring",
         "Hint-level and bypass tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 23,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/23",
+      "merged_commit": "5cdd8058be9b7ba8c797c853a446a40a6f2ac109",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39306750243"
+      ]
     },
     {
       "id": "TLM-015",
@@ -605,11 +607,14 @@
         "Holdout examples do not leak into training",
         "Partition property tests and seed replay pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
-      "merged_commit": null,
-      "verification_evidence": []
+      "status": "merged",
+      "github_pr_number": 21,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/21",
+      "merged_commit": "69cf895021b8c722dffb068b4aa96bb829800e87",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39382215960",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39382473295"
+      ]
     },
     {
       "id": "TLM-027",
