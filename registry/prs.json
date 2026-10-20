@@ -691,12 +691,14 @@
         "New predictions are calculated rather than scripted",
         "Holdout inference fixtures pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 34,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/34",
-      "merged_commit": null,
+      "merged_commit": "a963792376181c6fc22f043287e7fc2b8a065186",
       "verification_evidence": [
-        "Held-out and fresh-drawing parameter-derived inference, score/limitation display, focused fixtures and browser-local coverage are in PR #34; exact-head hosted validation pending."
+        "Exact-head workspace-and-foundation run 39399837544 passed for af16c68ea7417d98b9a8ab69a5570aab2a016fce: frozen install, 150 Node tests, strict TypeScript, production build, repository checks and all 40 desktop/mobile Chromium cases.",
+        "Merged-main workspace-and-foundation run 39400070882 passed for a963792376181c6fc22f043287e7fc2b8a065186.",
+        "https://github.com/neophilism/The-Learning-Machine/pull/34"
       ]
     },
     {
