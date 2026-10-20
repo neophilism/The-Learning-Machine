@@ -16,5 +16,5 @@ test('module requires a recognition and non-recognition comparison through the k
  await expect(page.getByText(/blanket: concealed/)).toBeVisible();
  await expect(page.getByText(/Compared methods: selective, blanket/)).toBeVisible();
  await page.getByRole('button',{name:'Continue'}).click();
- await expect(page.getByText(/Compare the computed pixel changes/)).toBeVisible();
+ await expect(page.getByRole('heading',{name:/Compare the computed pixel changes/})).toBeVisible();
 });
