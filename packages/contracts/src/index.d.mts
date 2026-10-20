@@ -5,7 +5,7 @@ export type ObservationKind='measured'|'computed'|'simulated'|'unknown';
 export const OBSERVATION_KINDS:readonly ObservationKind[];
 export type QuestionCondition='multiple_hypotheses'|'has_hypothesis'|'has_prediction'|'computed_observation'|'has_observation'|'no_observation'|'always';
 export interface QuestionVariant {id:string;when:QuestionCondition;prompt:string}
-export interface LearningNode {id:string;stage:LearningStage;prompt:string;edges:Array<{to:string;when?:'always'|'correct'|'retry'|'alternative'|'on_request'}>;concepts?:string[];accessibleAlternative?:string;terminal?:boolean;questionVariants?:QuestionVariant[];hints?:string[];}
+export interface AuthoredCounterexample {id:string;prompt:string;triggerTerms:string[];competingApproach:string}\nexport interface LearningNode {id:string;stage:LearningStage;prompt:string;edges:Array<{to:string;when?:'always'|'correct'|'retry'|'alternative'|'on_request'}>;concepts?:string[];accessibleAlternative?:string;terminal?:boolean;questionVariants?:QuestionVariant[];hints?:string[];counterexamples?:AuthoredCounterexample[];}
 export interface LearningModule {schemaVersion:'1.0.0';id:string;title:string;startNodeId:string;nodes:LearningNode[];concepts:string[];}
 export interface Observation {schemaVersion:'1.0.0';experimentId:string;runId:string;kind:ObservationKind;description:string;value?:string|number|boolean|null;unit?:string;sourceId?:string;uncertainty?:string;}
 export interface ExperimentDefinition {schemaVersion:'1.0.0';id:string;version:string;title:string;capabilities:Array<'canvas'|'audio'|'camera'|'ml'|'worker'|'keyboard'>;timeoutMs:number;}
