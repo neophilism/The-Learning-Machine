@@ -12,6 +12,8 @@ test('held-out and fresh drawing predictions expose computed scores without uplo
  await page.getByRole('button',{name:'Create held-out split'}).click();
  await page.getByRole('button',{name:'Train local classifier'}).click();
  await expect(page.getByRole('region',{name:'Held-out inference results'})).toContainText('2 of 2 unseen examples');
+ await expect(page.getByRole('table',{name:'Held-out confusion matrix'})).toContainText('Actual total');
+ await expect(page.getByRole('list',{name:'Per-class held-out metrics'})).toContainText('precision 100.0% (1/1); recall 100.0% (1/1)');
  await preset.selectOption('diagonal');
  await page.getByRole('button',{name:'Load selected preset'}).click();
  await page.getByRole('button',{name:'Predict current drawing'}).click();

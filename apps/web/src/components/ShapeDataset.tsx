@@ -120,6 +120,12 @@ export default function ShapeDatasetLab(){
        {holdoutReport&&<div className="status-note" role="region" aria-label="Held-out inference results">
         <p><strong>Held-out check:</strong> {holdoutReport.correctCount} of {holdoutReport.exampleCount} unseen examples matched their labels ({(holdoutReport.accuracy*100).toFixed(1)}%).</p>
         <ul>{holdoutReport.predictions.map(result=><li key={result.id}>{result.id}: actual {result.actualLabel}; predicted {result.predictedLabel}; top score {(result.confidence*100).toFixed(1)}%.</li>)}</ul>
+        <table aria-label="Held-out confusion matrix">
+         <caption>Actual labels by predicted labels</caption>
+         <thead><tr><th scope="col">Actual / Predicted</th>{holdoutReport.metrics.labels.map(predicted=><th scope="col" key={predicted}>{predicted}</th>)}<th scope="col">Actual total</th></tr></thead>
+         <tbody>{holdoutReport.metrics.labels.map((actual,row)=><tr key={actual}><th scope="row">{actual}</th>{holdoutReport.metrics.matrix[row].map((count,column)=><td key={holdoutReport.metrics.labels[column]}>{count}</td>)}<td>{holdoutReport.metrics.perClass[row].actualCount}</td></tr>)}</tbody>
+        </table>
+        <ul aria-label="Per-class held-out metrics">{holdoutReport.metrics.perClass.map(metric=><li key={metric.label}><strong>{metric.label}</strong>: precision {metric.precision===null?'not available (no examples were predicted as this class)':(metric.precision*100).toFixed(1)+'% ('+metric.truePositive+'/'+metric.predictedCount+')'}; recall {metric.recall===null?'not available (no held-out examples have this actual class)':(metric.recall*100).toFixed(1)+'% ('+metric.truePositive+'/'+metric.actualCount+')'}.</li>)}</ul>
        </div>}
        {model&&<section aria-label="Predict a new drawing" className="status-note">
         <h3>Try an unseen drawing</h3>

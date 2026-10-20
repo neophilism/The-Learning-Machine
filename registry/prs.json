@@ -714,9 +714,9 @@
         "Displayed results match actual labeled predictions",
         "Imbalanced and empty-class tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_progress",
+      "github_pr_number": 35,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/35",
       "merged_commit": null,
       "verification_evidence": []
     },
