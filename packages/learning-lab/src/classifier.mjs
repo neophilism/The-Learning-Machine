@@ -102,3 +102,60 @@ export function evaluateHoldout(model,dataset,split){
   predictions:frozenPredictions,metrics,trainingExampleIds:Object.freeze([...model.trainingExampleIds]),
   source:'computed from held-out browser-local examples excluded from training'});
 }
+
+
+function assertMatchingTrainingIds(model,split,name){
+ if(!model||!Array.isArray(model.trainingExampleIds))throw new TypeError('Invalid '+name);
+ const actual=new Set(model.trainingExampleIds),expected=new Set(split.trainIds);
+ if(actual.size!==expected.size||[...expected].some(id=>!actual.has(id)))throw new TypeError(name+' was not trained on this split');
+}
+function hammingDistance(left,right){
+ let distance=0;for(let i=0;i<PIXEL_COUNT;i++)if(left[i]!==right[i])distance++;return distance;
+}
+export function trainNearestExampleMemorizer(dataset,split){
+ validateHoldout(split,dataset);
+ if(!split.ready)throw new RangeError('At least two classes with both training and held-out examples are required');
+ const examples=new Map(dataset.examples.map(example=>[example.id,example]));
+ const trainingExamples=split.trainIds.map(id=>{
+  const example=examples.get(id);if(!example)throw new TypeError('Split references unknown examples');
+  verifyPixels(example.pixels);
+  return Object.freeze({id:example.id,label:example.label,pixels:Object.freeze([...example.pixels])});
+ });
+ return Object.freeze({algorithm:'nearest-example-memorizer-v1',trainingExampleIds:Object.freeze([...split.trainIds]),
+  trainingExamples:Object.freeze(trainingExamples),inputShape:Object.freeze([16,16]),
+  source:'stores every selected browser-local training example and chooses the smallest Hamming distance'});
+}
+export function classifyNearestExample(model,pixels){
+ verifyPixels(pixels);
+ if(!model||model.algorithm!=='nearest-example-memorizer-v1'||!Array.isArray(model.trainingExamples)||model.trainingExamples.length===0)throw new TypeError('Invalid nearest-example memorizer');
+ const ranked=model.trainingExamples.map(example=>{
+  if(!example||typeof example.id!=='string'||typeof example.label!=='string')throw new TypeError('Invalid nearest-example memorizer');
+  verifyPixels(example.pixels);return {example,distance:hammingDistance(example.pixels,pixels)};
+ }).sort((left,right)=>left.distance-right.distance||left.example.id.localeCompare(right.example.id));
+ const nearestDistance=ranked[0].distance,ties=ranked.filter(item=>item.distance===nearestDistance);
+ return Object.freeze({predictedLabel:ties[0].example.label,nearestDistance,
+  nearestExampleIds:Object.freeze(ties.map(item=>item.example.id)),tie:ties.length>1,
+  origin:'computed-from-stored-training-examples'});
+}
+export function compareMemorizationGeneralization(linearModel,memorizer,dataset,split){
+ validateHoldout(split,dataset);
+ if(!split.ready||split.testIds.length===0)throw new RangeError('A ready split with held-out examples is required');
+ assertMatchingTrainingIds(linearModel,split,'Classifier');
+ assertMatchingTrainingIds(memorizer,split,'Memorizer');
+ const examples=new Map(dataset.examples.map(example=>[example.id,example]));
+ let learnerCorrectCount=0,memorizerCorrectCount=0,disagreementCount=0;
+ const trials=split.testIds.map(id=>{
+  const example=examples.get(id);if(!example)throw new TypeError('Split references unknown examples');
+  const learner=classifyDrawing(linearModel,example.pixels),memory=classifyNearestExample(memorizer,example.pixels);
+  const learnerCorrect=learner.predictedLabel===example.label,memorizerCorrect=memory.predictedLabel===example.label;
+  if(learnerCorrect)learnerCorrectCount++;if(memorizerCorrect)memorizerCorrectCount++;
+  const disagree=learner.predictedLabel!==memory.predictedLabel;if(disagree)disagreementCount++;
+  return Object.freeze({id,actualLabel:example.label,learnerPredictedLabel:learner.predictedLabel,
+   memorizerPredictedLabel:memory.predictedLabel,learnerCorrect,memorizerCorrect,disagree,
+   memorizerDistance:memory.nearestDistance,memorizerTie:memory.tie});
+ });
+ return Object.freeze({algorithm:'memorization-generalization-trial-v1',holdoutExampleIds:Object.freeze([...split.testIds]),
+  trainingExampleIds:Object.freeze([...split.trainIds]),exampleCount:trials.length,learnerCorrectCount,memorizerCorrectCount,
+  disagreementCount,trials:Object.freeze(trials),
+  source:'both methods evaluated against the identical held-out IDs; outcomes do not prove generalization beyond this split'});
+}

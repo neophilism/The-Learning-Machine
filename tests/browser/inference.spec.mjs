@@ -14,9 +14,15 @@ test('held-out and fresh drawing predictions expose computed scores without uplo
  await expect(page.getByRole('region',{name:'Held-out inference results'})).toContainText('2 of 2 unseen examples');
  await expect(page.getByRole('table',{name:'Held-out confusion matrix'})).toContainText('Actual total');
  await expect(page.getByRole('list',{name:'Per-class held-out metrics'})).toContainText('precision 100.0% (1/1); recall 100.0% (1/1)');
+ const comparison=page.getByRole('region',{name:'Memorization versus generalization trial'});
+ await expect(comparison).toContainText('Both methods receive the same 2 held-out example IDs');
+ await expect(comparison).toContainText('learned parameters matched 2 of 2');
+ await expect(comparison.getByRole('table',{name:'Per-example memorization and generalization outcomes'})).toContainText('success');
+ await expect(comparison).toContainText(/Held-out IDs: ex-/);
+ await expect(comparison).toContainText(/does not prove either method will generalize/);
  await preset.selectOption('diagonal');
- await page.getByRole('button',{name:'Load selected preset'}).click();
- await page.getByRole('button',{name:'Predict current drawing'}).click();
+ const loadPreset=page.getByRole('button',{name:'Load selected preset'});await loadPreset.focus();await loadPreset.press('Enter');
+ const predictDrawing=page.getByRole('button',{name:'Predict current drawing'});await predictDrawing.focus();await predictDrawing.press('Enter');
  const scores=page.getByRole('list',{name:'Calculated class scores'});
  await expect(scores).toContainText('Line:');
  await expect(scores).toContainText('Square:');
