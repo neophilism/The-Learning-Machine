@@ -21,8 +21,8 @@ test('held-out and fresh drawing predictions expose computed scores without uplo
  await expect(comparison).toContainText(/Held-out IDs: ex-/);
  await expect(comparison).toContainText(/does not prove either method will generalize/);
  await preset.selectOption('diagonal');
- await page.getByRole('button',{name:'Load selected preset'}).click();
- await page.getByRole('button',{name:'Predict current drawing'}).click();
+ const loadPreset=page.getByRole('button',{name:'Load selected preset'});await loadPreset.focus();await loadPreset.press('Enter');
+ const predictDrawing=page.getByRole('button',{name:'Predict current drawing'});await predictDrawing.focus();await predictDrawing.press('Enter');
  const scores=page.getByRole('list',{name:'Calculated class scores'});
  await expect(scores).toContainText('Line:');
  await expect(scores).toContainText('Square:');
