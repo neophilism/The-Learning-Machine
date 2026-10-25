@@ -1,5 +1,5 @@
-import {trainLinearClassifier,classifyDrawing,evaluateHoldout,trainNearestExampleMemorizer,compareMemorizationGeneralization} from '../../../../packages/learning-lab/src/classifier.mjs';
-import type {LinearModel} from '../../../../packages/learning-lab/src/classifier.mjs';
+import {trainLinearClassifier,classifyDrawing,evaluateHoldout,trainNearestExampleMemorizer,compareMemorizationGeneralization,runReproduciblePerturbationTrial} from '../../../../packages/learning-lab/src/classifier.mjs';
+import type {LinearModel,PerturbationTrial} from '../../../../packages/learning-lab/src/classifier.mjs';
 import {stratifiedHoldout} from '../../../../packages/learning-lab/src/split.mjs';
 import type {HoldoutSplit} from '../../../../packages/learning-lab/src/split.mjs';
 import {useEffect,useRef,useState} from 'react';
@@ -19,8 +19,12 @@ export default function ShapeDatasetLab(){
  const [prediction,setPrediction]=useState<ReturnType<typeof classifyDrawing>|null>(null);
  const [splitSeed,setSplitSeed]=useState(42);
  const [testFraction,setTestFraction]=useState(0.25);
+ const [perturbationSeed,setPerturbationSeed]=useState(73);
+ const [pixelFlips,setPixelFlips]=useState(8);
+ const [includeMisleadingLabel,setIncludeMisleadingLabel]=useState(false);
+ const [perturbation,setPerturbation]=useState<PerturbationTrial|null>(null);
  useEffect(()=>setHydrated(true),[]);
- useEffect(()=>{setModel(null);setPrediction(null)},[split,dataset]);
+ useEffect(()=>{setModel(null);setPrediction(null);setPerturbation(null)},[split,dataset]);
  useEffect(()=>setPrediction(null),[pixels,model]);
  const drawing=useRef(false);const canvas=useRef<HTMLCanvasElement|null>(null);
  useEffect(()=>{
@@ -142,6 +146,28 @@ export default function ShapeDatasetLab(){
         </table>
         <details><summary>Inspect the identical evaluation IDs</summary><p>Held-out IDs: {comparison.holdoutExampleIds.join(', ')}.</p><p>Training IDs: {comparison.trainingExampleIds.join(', ')}.</p></details>
         <p>Success on this small split does not prove either method will generalize to different drawings. Failures and disagreements are evidence to inspect, not scores of learner ability.</p>
+       </section>}
+       {model&&split&&<section className="status-note" aria-label="Noise outlier and misleading-label experiments">
+        <h3>Challenge both the drawing and its label</h3>
+        <p>Run a reproducible copy-only disturbance over the same held-out IDs. Pixel flips model noise or outliers. The optional misleading label is explicitly declared and scored separately from the source label.</p>
+        <label htmlFor="perturbation-seed">Perturbation seed</label>{' '}
+        <input id="perturbation-seed" type="number" min={0} max={2147483647} value={perturbationSeed} onChange={e=>{setPerturbationSeed(Number(e.target.value));setPerturbation(null)}}/>
+        <label htmlFor="pixel-flips">Pixels flipped per held-out drawing</label>{' '}
+        <input id="pixel-flips" type="number" min={0} max={64} value={pixelFlips} onChange={e=>{setPixelFlips(Number(e.target.value));setPerturbation(null)}}/>
+        <label><input type="checkbox" checked={includeMisleadingLabel} onChange={e=>{setIncludeMisleadingLabel(e.target.checked);setPerturbation(null)}}/> Intentionally mislabel the first held-out example</label>
+        <div className="controls"><button type="button" className="action" onClick={()=>{
+         try{setPerturbation(runReproduciblePerturbationTrial(model,dataset,split,{seed:perturbationSeed,pixelFlips,misleadingIds:includeMisleadingLabel?[split.testIds[0]]:[]}));setError('')}
+         catch(e){setError(e instanceof Error?e.message:'Perturbation trial failed')}
+        }}>Run declared perturbation</button></div>
+        {perturbation&&<div role="region" aria-label="Perturbation trial results">
+         <p><strong>Baseline source-label matches:</strong> {perturbation.baselineCorrectCount} of {perturbation.exampleCount}. <strong>After {perturbation.pixelFlips} declared pixel flips:</strong> {perturbation.perturbedCorrectAgainstSourceCount} of {perturbation.exampleCount} against unchanged source labels.</p>
+         <p>Seed {perturbation.seed}; held-out IDs {perturbation.holdoutExampleIds.join(', ')}. Declared-label score: {perturbation.perturbedCorrectAgainstDeclaredCount} of {perturbation.exampleCount}.</p>
+         <table aria-label="Declared perturbation outcomes"><caption>Source truth remains separate from intentional label noise</caption>
+          <thead><tr><th scope="col">Example</th><th scope="col">Source label</th><th scope="col">Declared evaluation label</th><th scope="col">Pixel changes</th><th scope="col">Prediction</th></tr></thead>
+          <tbody>{perturbation.trials.map(row=><tr key={row.id}><th scope="row">{row.id}</th><td>{row.sourceActualLabel}</td><td>{row.declaredEvaluationLabel}{row.labelWasIntentionallyChanged?' (intentionally misleading)':' (unchanged)'}</td><td>{row.flippedPixelIndexes.length}: {row.flippedPixelIndexes.join(', ')||'none'}</td><td>{row.baselinePredictedLabel} before; {row.perturbedPredictedLabel} after — {row.perturbedCorrectAgainstSource?'source-label success':'source-label failure'}</td></tr>)}</tbody>
+         </table>
+         <p>The source dataset is unchanged. Every disturbance is listed, and perturbed accuracy is not presented as baseline performance.</p>
+        </div>}
        </section>}
        {model&&<section aria-label="Predict a new drawing" className="status-note">
         <h3>Try an unseen drawing</h3>
