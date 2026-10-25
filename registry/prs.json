@@ -760,9 +760,9 @@
         "Accuracy changes trace back to declared perturbations",
         "Seed and label-integrity tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 38,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/38",
       "merged_commit": null,
       "verification_evidence": []
     },
