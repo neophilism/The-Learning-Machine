@@ -1,6 +1,5 @@
 import {test,expect} from '@playwright/test';
 test('held-out and fresh drawing predictions expose computed scores without uploads',async({page})=>{
- test.setTimeout(45_000);
  const posts=[];page.on('request',request=>{if(request.method()==='POST')posts.push(request.url())});
  await page.goto('/shapes');
  const label=page.getByLabel('Training class label'),preset=page.getByLabel('Original drawing preset');
@@ -19,7 +18,6 @@ test('held-out and fresh drawing predictions expose computed scores without uplo
  await expect(comparison).toContainText('Both methods receive the same 2 held-out example IDs');
  await expect(comparison).toContainText('learned parameters matched 2 of 2');
  await expect(comparison.getByRole('table',{name:'Per-example memorization and generalization outcomes'})).toContainText('success');
- await comparison.getByText('Inspect the identical evaluation IDs').click();
  await expect(comparison).toContainText(/Held-out IDs: ex-/);
  await expect(comparison).toContainText(/does not prove either method will generalize/);
  await preset.selectOption('diagonal');
