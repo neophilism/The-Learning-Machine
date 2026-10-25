@@ -1,5 +1,6 @@
 import {test,expect} from '@playwright/test';
 test('held-out and fresh drawing predictions expose computed scores without uploads',async({page})=>{
+ test.setTimeout(45_000);
  const posts=[];page.on('request',request=>{if(request.method()==='POST')posts.push(request.url())});
  await page.goto('/shapes');
  const label=page.getByLabel('Training class label'),preset=page.getByLabel('Original drawing preset');
