@@ -738,11 +738,14 @@
         "Unseen scenarios reveal where each method fails",
         "Both algorithms run under identical holdout sets"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 37,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/37",
-      "merged_commit": null,
-      "verification_evidence": []
+      "merged_commit": "ee0bd2de2de9e687ff1cdd549f699790257949a4",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40182467147",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40182618749"
+      ]
     },
     {
       "id": "TLM-031",
