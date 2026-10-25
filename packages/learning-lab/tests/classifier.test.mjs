@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {createShapeDataset,addShapeExample,presetDrawing} from '../src/dataset.mjs';
 import {stratifiedHoldout} from '../src/split.mjs';
-import {trainLinearClassifier,classifyDrawing,evaluateHoldout,summarizeClassificationMetrics,trainNearestExampleMemorizer,classifyNearestExample,compareMemorizationGeneralization} from '../src/classifier.mjs';
+import {trainLinearClassifier,classifyDrawing,evaluateHoldout,summarizeClassificationMetrics,trainNearestExampleMemorizer,classifyNearestExample,compareMemorizationGeneralization,runReproduciblePerturbationTrial} from '../src/classifier.mjs';
 function trainingData(){
  let d=createShapeDataset();for(let i=0;i<4;i++)d=addShapeExample(d,'Line',presetDrawing('horizontal'));
  for(let i=0;i<4;i++)d=addShapeExample(d,'Square',presetDrawing('square'));return d;
@@ -119,4 +119,36 @@ test('comparison rejects mismatched training evidence and malformed memorizer in
  assert.throws(()=>compareMemorizationGeneralization(learner,{...memorizer,trainingExampleIds:memorizer.trainingExampleIds.slice(1)},d,s),/not trained on this split/);
  assert.throws(()=>classifyNearestExample({},presetDrawing('horizontal')),/Invalid nearest-example/);
  assert.throws(()=>trainNearestExampleMemorizer(d,{...s,ready:false}),/two classes/);
+});
+
+
+test('seeded perturbations are reproducible, declared and leave source examples unchanged',()=>{
+ const d=trainingData(),before=structuredClone(d),s=stratifiedHoldout(d,{seed:37}),model=trainLinearClassifier(d,s);
+ const options={seed:99,pixelFlips:12,misleadingIds:[s.testIds[0]]};
+ const first=runReproduciblePerturbationTrial(model,d,s,options),replay=runReproduciblePerturbationTrial(model,d,s,options);
+ assert.deepEqual(first,replay);assert.deepEqual(d,before);
+ assert.deepEqual(first.holdoutExampleIds,s.testIds);assert.deepEqual(first.misleadingIds,[s.testIds[0]]);
+ assert.ok(first.trials.every(row=>row.flippedPixelIndexes.length===12));
+ assert.equal(first.trials[0].labelWasIntentionallyChanged,true);
+ assert.notEqual(first.trials[0].sourceActualLabel,first.trials[0].declaredEvaluationLabel);
+ assert.ok(first.trials.slice(1).every(row=>!row.labelWasIntentionallyChanged&&row.sourceActualLabel===row.declaredEvaluationLabel));
+ assert.notDeepEqual(first.trials[0].flippedPixelIndexes,runReproduciblePerturbationTrial(model,d,s,{...options,seed:100}).trials[0].flippedPixelIndexes);
+});
+
+test('perturbation trials report source-label and declared-label outcomes separately',()=>{
+ const d=trainingData(),s=stratifiedHoldout(d,{seed:41}),model=trainLinearClassifier(d,s);
+ const trial=runReproduciblePerturbationTrial(model,d,s,{seed:8,pixelFlips:64,misleadingIds:[...s.testIds]});
+ assert.equal(trial.exampleCount,s.testIds.length);
+ assert.equal(trial.baselineCorrectCount,trial.trials.filter(row=>row.baselineCorrectAgainstSource).length);
+ assert.equal(trial.perturbedCorrectAgainstSourceCount,trial.trials.filter(row=>row.perturbedCorrectAgainstSource).length);
+ assert.equal(trial.perturbedCorrectAgainstDeclaredCount,trial.trials.filter(row=>row.perturbedCorrectAgainstDeclaredLabel).length);
+ assert.ok(trial.trials.every(row=>row.labelWasIntentionallyChanged&&row.sourceActualLabel!==row.declaredEvaluationLabel));
+});
+
+test('perturbation trials reject undeclared or invalid disturbances',()=>{
+ const d=trainingData(),s=stratifiedHoldout(d),model=trainLinearClassifier(d,s);
+ assert.throws(()=>runReproduciblePerturbationTrial(model,d,s,{seed:-1}),/seed/);
+ assert.throws(()=>runReproduciblePerturbationTrial(model,d,s,{pixelFlips:65}),/Pixel flips/);
+ assert.throws(()=>runReproduciblePerturbationTrial(model,d,s,{misleadingIds:['not-held-out']}),/held-out/);
+ assert.throws(()=>runReproduciblePerturbationTrial(model,d,s,{misleadingIds:[s.testIds[0],s.testIds[0]]}),/unique/);
 });

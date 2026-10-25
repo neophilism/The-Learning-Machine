@@ -20,6 +20,15 @@ test('held-out and fresh drawing predictions expose computed scores without uplo
  await expect(comparison.getByRole('table',{name:'Per-example memorization and generalization outcomes'})).toContainText('success');
  await expect(comparison).toContainText(/Held-out IDs: ex-/);
  await expect(comparison).toContainText(/does not prove either method will generalize/);
+ await page.getByLabel('Perturbation seed').fill('101');
+ await page.getByLabel('Pixels flipped per held-out drawing').fill('12');
+ await page.getByLabel('Intentionally mislabel the first held-out example').check();
+ const runPerturbation=page.getByRole('button',{name:'Run declared perturbation'});await runPerturbation.focus();await runPerturbation.press('Enter');
+ const perturbation=page.getByRole('region',{name:'Perturbation trial results'});
+ await expect(perturbation).toContainText('After 12 declared pixel flips');
+ await expect(perturbation).toContainText('Seed 101; held-out IDs');
+ await expect(perturbation.getByRole('table',{name:'Declared perturbation outcomes'})).toContainText('intentionally misleading');
+ await expect(perturbation).toContainText('source dataset is unchanged');
  await preset.selectOption('diagonal');
  const loadPreset=page.getByRole('button',{name:'Load selected preset'});await loadPreset.focus();await loadPreset.press('Enter');
  const predictDrawing=page.getByRole('button',{name:'Predict current drawing'});await predictDrawing.focus();await predictDrawing.press('Enter');

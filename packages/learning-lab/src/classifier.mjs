@@ -159,3 +159,39 @@ export function compareMemorizationGeneralization(linearModel,memorizer,dataset,
   disagreementCount,trials:Object.freeze(trials),
   source:'both methods evaluated against the identical held-out IDs; outcomes do not prove generalization beyond this split'});
 }
+
+
+function seededPerturbationRandom(seed){
+ let value=seed>>>0;return ()=>{value=(value+0x6d2b79f5)>>>0;let t=value;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296};
+}
+export function runReproduciblePerturbationTrial(model,dataset,split,{seed=73,pixelFlips=8,misleadingIds=[]}={}){
+ validateHoldout(split,dataset);
+ if(!split.ready||split.testIds.length===0)throw new RangeError('A ready split with held-out examples is required');
+ assertMatchingTrainingIds(model,split,'Classifier');
+ if(!Number.isInteger(seed)||seed<0||seed>2147483647)throw new RangeError('Perturbation seed must be a nonnegative 31-bit integer');
+ if(!Number.isInteger(pixelFlips)||pixelFlips<0||pixelFlips>64)throw new RangeError('Pixel flips must be an integer from 0 to 64');
+ if(!Array.isArray(misleadingIds)||new Set(misleadingIds).size!==misleadingIds.length||misleadingIds.some(id=>!split.testIds.includes(id)))throw new TypeError('Misleading IDs must be unique held-out example IDs');
+ const misleading=new Set(misleadingIds),examples=new Map(dataset.examples.map(example=>[example.id,example])),random=seededPerturbationRandom(seed);
+ let baselineCorrectCount=0,perturbedCorrectAgainstSourceCount=0,perturbedCorrectAgainstDeclaredCount=0;
+ const trials=split.testIds.map(id=>{
+  const example=examples.get(id);if(!example)throw new TypeError('Split references unknown examples');verifyPixels(example.pixels);
+  const changed=new Set();while(changed.size<pixelFlips)changed.add(Math.floor(random()*PIXEL_COUNT));
+  const perturbedPixels=example.pixels.slice();for(const index of changed)perturbedPixels[index]=perturbedPixels[index]===1?0:1;
+  const baseline=classifyDrawing(model,example.pixels),perturbed=classifyDrawing(model,perturbedPixels);
+  const sourceIndex=model.labels.indexOf(example.label);if(sourceIndex<0)throw new TypeError('Example label is missing from classifier labels');
+  const labelWasIntentionallyChanged=misleading.has(id);
+  const declaredEvaluationLabel=labelWasIntentionallyChanged?model.labels[(sourceIndex+1)%model.labels.length]:example.label;
+  const baselineCorrectAgainstSource=baseline.predictedLabel===example.label;
+  const perturbedCorrectAgainstSource=perturbed.predictedLabel===example.label;
+  const perturbedCorrectAgainstDeclaredLabel=perturbed.predictedLabel===declaredEvaluationLabel;
+  if(baselineCorrectAgainstSource)baselineCorrectCount++;if(perturbedCorrectAgainstSource)perturbedCorrectAgainstSourceCount++;if(perturbedCorrectAgainstDeclaredLabel)perturbedCorrectAgainstDeclaredCount++;
+  return Object.freeze({id,sourceActualLabel:example.label,declaredEvaluationLabel,labelWasIntentionallyChanged,
+   flippedPixelIndexes:Object.freeze([...changed].sort((a,b)=>a-b)),baselinePredictedLabel:baseline.predictedLabel,
+   perturbedPredictedLabel:perturbed.predictedLabel,baselineCorrectAgainstSource,perturbedCorrectAgainstSource,
+   perturbedCorrectAgainstDeclaredLabel});
+ });
+ return Object.freeze({algorithm:'seeded-heldout-perturbation-v1',seed,pixelFlips,holdoutExampleIds:Object.freeze([...split.testIds]),
+  misleadingIds:Object.freeze([...misleadingIds]),exampleCount:trials.length,baselineCorrectCount,perturbedCorrectAgainstSourceCount,
+  perturbedCorrectAgainstDeclaredCount,trials:Object.freeze(trials),
+  source:'declared seeded pixel flips and optional explicit label noise over copied held-out examples; source dataset unchanged'});
+}
