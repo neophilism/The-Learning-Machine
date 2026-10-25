@@ -26,3 +26,11 @@ export interface MemorizationGeneralizationTrial {readonly id:string;readonly ac
 export interface MemorizationGeneralizationComparison {readonly algorithm:'memorization-generalization-trial-v1';readonly holdoutExampleIds:readonly string[];readonly trainingExampleIds:readonly string[];
  readonly exampleCount:number;readonly learnerCorrectCount:number;readonly memorizerCorrectCount:number;readonly disagreementCount:number;readonly trials:readonly MemorizationGeneralizationTrial[];readonly source:string;}
 export function compareMemorizationGeneralization(linearModel:LinearModel,memorizer:NearestExampleMemorizer,dataset:ShapeDataset,split:HoldoutSplit):MemorizationGeneralizationComparison;
+
+export interface PerturbationTrialRow {readonly id:string;readonly sourceActualLabel:string;readonly declaredEvaluationLabel:string;readonly labelWasIntentionallyChanged:boolean;
+ readonly flippedPixelIndexes:readonly number[];readonly baselinePredictedLabel:string;readonly perturbedPredictedLabel:string;readonly baselineCorrectAgainstSource:boolean;
+ readonly perturbedCorrectAgainstSource:boolean;readonly perturbedCorrectAgainstDeclaredLabel:boolean;}
+export interface PerturbationTrial {readonly algorithm:'seeded-heldout-perturbation-v1';readonly seed:number;readonly pixelFlips:number;readonly holdoutExampleIds:readonly string[];
+ readonly misleadingIds:readonly string[];readonly exampleCount:number;readonly baselineCorrectCount:number;readonly perturbedCorrectAgainstSourceCount:number;
+ readonly perturbedCorrectAgainstDeclaredCount:number;readonly trials:readonly PerturbationTrialRow[];readonly source:string;}
+export function runReproduciblePerturbationTrial(model:LinearModel,dataset:ShapeDataset,split:HoldoutSplit,options?:{seed?:number;pixelFlips?:number;misleadingIds?:readonly string[]}):PerturbationTrial;
