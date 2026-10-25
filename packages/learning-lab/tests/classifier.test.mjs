@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {createShapeDataset,addShapeExample,presetDrawing} from '../src/dataset.mjs';
 import {stratifiedHoldout} from '../src/split.mjs';
-import {trainLinearClassifier,classifyDrawing,evaluateHoldout,summarizeClassificationMetrics} from '../src/classifier.mjs';
+import {trainLinearClassifier,classifyDrawing,evaluateHoldout,summarizeClassificationMetrics,trainNearestExampleMemorizer,classifyNearestExample,compareMemorizationGeneralization} from '../src/classifier.mjs';
 function trainingData(){
  let d=createShapeDataset();for(let i=0;i<4;i++)d=addShapeExample(d,'Line',presetDrawing('horizontal'));
  for(let i=0;i<4;i++)d=addShapeExample(d,'Square',presetDrawing('square'));return d;
@@ -78,4 +78,45 @@ test('balanced metrics report empty-class denominators without invented zero sco
  assert.equal(metrics.perClass[2].precision,null);assert.equal(metrics.perClass[2].recall,null);
  assert.throws(()=>summarizeClassificationMetrics(['A','B'],[{actualLabel:'A',predictedLabel:'C'}]),/unknown class/);
  assert.throws(()=>summarizeClassificationMetrics(['A','A'],[]),/unique class/);
+});
+
+
+test('memorizing and generalizing methods run against the identical held-out IDs',()=>{
+ const d=trainingData(),s=stratifiedHoldout(d,{seed:29}),learner=trainLinearClassifier(d,s);
+ const memorizer=trainNearestExampleMemorizer(d,s),comparison=compareMemorizationGeneralization(learner,memorizer,d,s);
+ assert.deepEqual(comparison.holdoutExampleIds,s.testIds);
+ assert.deepEqual(comparison.trainingExampleIds,s.trainIds);
+ assert.equal(comparison.exampleCount,s.testIds.length);
+ assert.equal(comparison.trials.length,s.testIds.length);
+ assert.deepEqual(comparison.trials.map(trial=>trial.id),s.testIds);
+ assert.ok(comparison.trials.every(trial=>typeof trial.learnerCorrect==='boolean'&&typeof trial.memorizerCorrect==='boolean'&&typeof trial.disagree==='boolean'));
+ assert.equal(comparison.source,'both methods evaluated against the identical held-out IDs; outcomes do not prove generalization beyond this split');
+});
+
+test('nearest-example memorization exposes successes, failures and deterministic ties on unseen examples',()=>{
+ const horizontal=[...presetDrawing('horizontal')],square=[...presetDrawing('square')];
+ const dataset={nextId:7,examples:[
+  {id:'ex-1',label:'Line',pixels:horizontal},{id:'ex-2',label:'Line',pixels:horizontal},
+  {id:'ex-3',label:'Square',pixels:square},{id:'ex-4',label:'Square',pixels:square},
+  {id:'ex-5',label:'Line',pixels:horizontal},{id:'ex-6',label:'Square',pixels:horizontal}
+ ]};
+ const split={algorithm:'fixture',seed:0,testFraction:1/3,trainIds:['ex-1','ex-2','ex-3','ex-4'],testIds:['ex-5','ex-6'],
+  classes:[{label:'Line',total:3,train:2,test:1},{label:'Square',total:3,train:2,test:1}],warnings:[],ready:true,source:'fixture'};
+ const learner=trainLinearClassifier(dataset,split,{epochs:45,learningRate:.05}),memorizer=trainNearestExampleMemorizer(dataset,split);
+ const comparison=compareMemorizationGeneralization(learner,memorizer,dataset,split);
+ assert.equal(comparison.trials[0].memorizerCorrect,true);
+ assert.equal(comparison.trials[1].memorizerCorrect,false);
+ assert.equal(comparison.memorizerCorrectCount,1);
+ const tieModel={...memorizer,trainingExamples:[
+  {id:'a',label:'Line',pixels:horizontal},{id:'b',label:'Square',pixels:horizontal}
+ ]};
+ const tied=classifyNearestExample(tieModel,horizontal);
+ assert.equal(tied.tie,true);assert.deepEqual(tied.nearestExampleIds,['a','b']);assert.equal(tied.predictedLabel,'Line');
+});
+
+test('comparison rejects mismatched training evidence and malformed memorizer inputs',()=>{
+ const d=trainingData(),s=stratifiedHoldout(d,{seed:31}),learner=trainLinearClassifier(d,s),memorizer=trainNearestExampleMemorizer(d,s);
+ assert.throws(()=>compareMemorizationGeneralization(learner,{...memorizer,trainingExampleIds:memorizer.trainingExampleIds.slice(1)},d,s),/not trained on this split/);
+ assert.throws(()=>classifyNearestExample({},presetDrawing('horizontal')),/Invalid nearest-example/);
+ assert.throws(()=>trainNearestExampleMemorizer(d,{...s,ready:false}),/two classes/);
 });
