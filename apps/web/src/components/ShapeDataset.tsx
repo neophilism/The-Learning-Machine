@@ -1,4 +1,4 @@
-import {trainLinearClassifier,classifyDrawing,evaluateHoldout} from '../../../../packages/learning-lab/src/classifier.mjs';
+import {trainLinearClassifier,classifyDrawing,evaluateHoldout,trainNearestExampleMemorizer,compareMemorizationGeneralization} from '../../../../packages/learning-lab/src/classifier.mjs';
 import type {LinearModel} from '../../../../packages/learning-lab/src/classifier.mjs';
 import {stratifiedHoldout} from '../../../../packages/learning-lab/src/split.mjs';
 import type {HoldoutSplit} from '../../../../packages/learning-lab/src/split.mjs';
@@ -45,6 +45,7 @@ export default function ShapeDatasetLab(){
  }
  const filled=pixels.reduce<number>((n,p)=>n+p,0),counts=shapeCounts(dataset);
  const holdoutReport=model&&split?evaluateHoldout(model,dataset,split):null;
+ const comparison=model&&split?compareMemorizationGeneralization(model,trainNearestExampleMemorizer(dataset,split),dataset,split):null;
  return <section className="learning-card drawing-lab" aria-label="Create local training examples">
   <h2>Create examples for a future classifier</h2>
   <p>Draw a simple shape, assign it a label, and save it as a training example. Create examples for at least two different labels to prepare for a classification experiment. Everything remains on this device, in this page, until you reset or leave.</p>
@@ -127,6 +128,21 @@ export default function ShapeDatasetLab(){
         </table>
         <ul aria-label="Per-class held-out metrics">{holdoutReport.metrics.perClass.map(metric=><li key={metric.label}><strong>{metric.label}</strong>: precision {metric.precision===null?'not available (no examples were predicted as this class)':(metric.precision*100).toFixed(1)+'% ('+metric.truePositive+'/'+metric.predictedCount+')'}; recall {metric.recall===null?'not available (no held-out examples have this actual class)':(metric.recall*100).toFixed(1)+'% ('+metric.truePositive+'/'+metric.actualCount+')'}.</li>)}</ul>
        </div>}
+       {comparison&&<section className="status-note" role="region" aria-label="Memorization versus generalization trial">
+        <h3>Compare memorization with learned parameters</h3>
+        <p>Both methods receive the same {comparison.exampleCount} held-out example IDs. The nearest-example method stores every training drawing and chooses the smallest pixel distance; the linear learner uses updated weights.</p>
+        <p><strong>Held-out outcomes:</strong> learned parameters matched {comparison.learnerCorrectCount} of {comparison.exampleCount}; nearest-example memory matched {comparison.memorizerCorrectCount} of {comparison.exampleCount}; the methods disagreed on {comparison.disagreementCount}.</p>
+        <table aria-label="Per-example memorization and generalization outcomes">
+         <caption>Identical held-out examples, with success and failure shown separately</caption>
+         <thead><tr><th scope="col">Example</th><th scope="col">Actual</th><th scope="col">Learned parameters</th><th scope="col">Nearest memory</th><th scope="col">Comparison</th></tr></thead>
+         <tbody>{comparison.trials.map(trial=><tr key={trial.id}><th scope="row">{trial.id}</th><td>{trial.actualLabel}</td>
+          <td>{trial.learnerPredictedLabel} — {trial.learnerCorrect?'success':'failure'}</td>
+          <td>{trial.memorizerPredictedLabel} — {trial.memorizerCorrect?'success':'failure'}; distance {trial.memorizerDistance}{trial.memorizerTie?' (tie resolved by stable example ID)':''}</td>
+          <td>{trial.disagree?'methods disagree':'same prediction'}</td></tr>)}</tbody>
+        </table>
+        <details><summary>Inspect the identical evaluation IDs</summary><p>Held-out IDs: {comparison.holdoutExampleIds.join(', ')}.</p><p>Training IDs: {comparison.trainingExampleIds.join(', ')}.</p></details>
+        <p>Success on this small split does not prove either method will generalize to different drawings. Failures and disagreements are evidence to inspect, not scores of learner ability.</p>
+       </section>}
        {model&&<section aria-label="Predict a new drawing" className="status-note">
         <h3>Try an unseen drawing</h3>
         <p>Change or clear the drawing without saving it, then calculate scores from the learned parameters. The current drawing is not added to training automatically.</p>
