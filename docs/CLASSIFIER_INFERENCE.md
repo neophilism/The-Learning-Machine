@@ -25,3 +25,12 @@ TLM-030 adds a deterministic nearest-example baseline beside the existing learne
 The comparison rejects either method unless its training IDs exactly match the selected split. Both methods then receive the same ordered held-out IDs. Each row exposes the actual label, both predictions, independent success/failure flags, disagreement, nearest distance and tie status. Aggregate counts are derived from those rows.
 
 This trial demonstrates behavior on one small local split. Agreement or success is not proof of generalization, semantic understanding or performance on different drawings. A mislabeled or unusual held-out example can make either method fail. Drawings, stored examples, learned weights and comparison evidence remain browser-local, with no network write.
+
+
+## Reproducible disturbances and misleading examples
+
+TLM-031 runs declared experiments over copies of the same held-out examples. A bounded seed chooses exact binary-pixel indexes to flip; the evidence lists every changed index and preserves the ordered held-out IDs. Replaying the same seed, flip count, model and split produces the same trial.
+
+Optional label noise is explicit. The source label remains present and is still used for the source-truth accuracy comparison; an intentionally misleading evaluation label is shown separately and has its own score. The source dataset and split are never mutated. Baseline accuracy, perturbed source-label accuracy and perturbed declared-label accuracy remain distinct.
+
+These disturbances model limited noise, outliers and misleading labels, not every adversarial technique. Accuracy changes apply only to the declared trial and are not silently substituted for baseline performance.
