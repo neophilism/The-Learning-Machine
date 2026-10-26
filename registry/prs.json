@@ -789,11 +789,15 @@
         "Visitor trains and tests an actual local model",
         "E2E training and accessible route tests pass"
       ],
-      "status": "planned",
+      "status": "merged",
       "github_pr_number": 39,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/39",
-      "merged_commit": null,
-      "verification_evidence": []
+      "merged_commit": "d5799f369de5bfc45c024328ae685719ac8349c5",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40279909366",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40280106655",
+        "https://github.com/neophilism/The-Learning-Machine/pull/39"
+      ]
     },
     {
       "id": "TLM-033",
