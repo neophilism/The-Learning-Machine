@@ -167,7 +167,6 @@ export default function ShapeDatasetLab(){
         <textarea id="revision-note" rows={3} maxLength={320} value={revisionNote} onChange={e=>setRevisionNote(e.target.value)}/>
         <button type="button" className="action" disabled={!revisionNote.trim()} onClick={()=>{setRevisionCount(count=>count+1);setRevisionNote('');setSplit(null);setError('')}}>Record revision and return to examples</button>
        </section>}
-       {revisionCount>0&&<p role="status" className="status-note">{revisionCount} evidence-based revision {revisionCount===1?'has':'have'} been recorded in this page session. Create a new held-out split and retrain to test the revised dataset.</p>}
        {model&&split&&<section className="status-note" aria-label="Noise outlier and misleading-label experiments">
         <h3>Challenge both the drawing and its label</h3>
         <p>Run a reproducible copy-only disturbance over the same held-out IDs. Pixel flips model noise or outliers. The optional misleading label is explicitly declared and scored separately from the source label.</p>
@@ -205,6 +204,7 @@ export default function ShapeDatasetLab(){
         </div>}
        </section>}
       </section>}
+      {revisionCount>0&&<p role="status" className="status-note">{revisionCount} evidence-based revision {revisionCount===1?'has':'have'} been recorded in this page session. Create a new held-out split and retrain to test the revised dataset.</p>}
       <p>{split?.ready?'You may train this real local model.':'Create a valid split before training a model.'}</p>
     </section>
     {dataset.examples.length>0&&!model&&<p className="status-note">You have created real labeled examples. No model has been trained yet; the next laboratory step is an actual train/test split.</p>}
