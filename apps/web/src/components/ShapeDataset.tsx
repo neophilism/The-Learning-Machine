@@ -23,6 +23,9 @@ export default function ShapeDatasetLab(){
  const [pixelFlips,setPixelFlips]=useState(8);
  const [includeMisleadingLabel,setIncludeMisleadingLabel]=useState(false);
  const [perturbation,setPerturbation]=useState<PerturbationTrial|null>(null);
+ const [lessonQuestion,setLessonQuestion]=useState('');
+ const [revisionNote,setRevisionNote]=useState('');
+ const [revisionCount,setRevisionCount]=useState(0);
  useEffect(()=>setHydrated(true),[]);
  useEffect(()=>{setModel(null);setPrediction(null);setPerturbation(null)},[split,dataset]);
  useEffect(()=>setPrediction(null),[pixels,model]);
@@ -50,9 +53,19 @@ export default function ShapeDatasetLab(){
  const filled=pixels.reduce<number>((n,p)=>n+p,0),counts=shapeCounts(dataset);
  const holdoutReport=model&&split?evaluateHoldout(model,dataset,split):null;
  const comparison=model&&split?compareMemorizationGeneralization(model,trainNearestExampleMemorizer(dataset,split),dataset,split):null;
+ const lessonSteps=[
+  {label:'Build labeled examples',complete:dataset.examples.length>=4},
+  {label:'Reserve an unseen test',complete:Boolean(split?.ready)},
+  {label:'Train and inspect failures',complete:Boolean(model&&holdoutReport)},
+  {label:'Revise from evidence',complete:revisionCount>0},
+  {label:'Transfer to a new drawing',complete:Boolean(prediction)}
+ ];
  return <section className="learning-card drawing-lab" aria-label="Create local training examples">
-  <h2>Create examples for a future classifier</h2>
+  <h2>Teach a machine: from examples to transfer</h2>
+  <nav aria-label="Teach a Machine lesson progress"><ol>{lessonSteps.map((step,index)=><li key={step.label} data-state={step.complete?'complete':'pending'}><span aria-hidden="true">{step.complete?'✓':'○'}</span> Step {index+1}: {step.label}</li>)}</ol></nav>
   <p>Draw a simple shape, assign it a label, and save it as a training example. Create examples for at least two different labels to prepare for a classification experiment. Everything remains on this device, in this page, until you reset or leave.</p>
+  <label htmlFor="lesson-question">Before training, what visual pattern do you expect the model to learn?</label>
+  <textarea id="lesson-question" rows={2} maxLength={240} value={lessonQuestion} onChange={e=>setLessonQuestion(e.target.value)} placeholder="Record a testable expectation in your own words."/>
   <div className="shape-workbench">
    <div>
     <canvas ref={canvas} width={256} height={256} className="shape-canvas" role="img" aria-label="16 by 16 drawing grid. Drag to mark cells, or use the keyboard coordinate controls below."
@@ -147,6 +160,14 @@ export default function ShapeDatasetLab(){
         <details><summary>Inspect the identical evaluation IDs</summary><p>Held-out IDs: {comparison.holdoutExampleIds.join(', ')}.</p><p>Training IDs: {comparison.trainingExampleIds.join(', ')}.</p></details>
         <p>Success on this small split does not prove either method will generalize to different drawings. Failures and disagreements are evidence to inspect, not scores of learner ability.</p>
        </section>}
+       {model&&holdoutReport&&<section className="status-note" aria-label="Revise the lesson from test evidence">
+        <h3>Revise from evidence</h3>
+        <p>Inspect the held-out successes, failures, and disagreements above. Record one change you would make to the examples or labels, then return to the dataset and retrain rather than editing the test result.</p>
+        <label htmlFor="revision-note">What will you revise, and what evidence led you there?</label>
+        <textarea id="revision-note" rows={3} maxLength={320} value={revisionNote} onChange={e=>setRevisionNote(e.target.value)}/>
+        <button type="button" className="action" disabled={!revisionNote.trim()} onClick={()=>{setRevisionCount(count=>count+1);setRevisionNote('');setSplit(null);setError('')}}>Record revision and return to examples</button>
+       </section>}
+       {revisionCount>0&&<p role="status" className="status-note">{revisionCount} evidence-based revision {revisionCount===1?'has':'have'} been recorded in this page session. Create a new held-out split and retrain to test the revised dataset.</p>}
        {model&&split&&<section className="status-note" aria-label="Noise outlier and misleading-label experiments">
         <h3>Challenge both the drawing and its label</h3>
         <p>Run a reproducible copy-only disturbance over the same held-out IDs. Pixel flips model noise or outliers. The optional misleading label is explicitly declared and scored separately from the source label.</p>
@@ -180,6 +201,7 @@ export default function ShapeDatasetLab(){
          <p><strong>Predicted class: {prediction.predictedLabel}</strong>; top score {(prediction.confidence*100).toFixed(1)}%.</p>
          <ul aria-label="Calculated class scores">{prediction.classScores.map(score=><li key={score.label}>{score.label}: {(score.probability*100).toFixed(1)}%</li>)}</ul>
          <p>These relative model scores are calculated from this drawing and the learned weights. They are not calibrated certainty, proof of meaning, or evidence that the model will generalize beyond examples like this small local dataset.</p>
+         <p><strong>Transfer complete:</strong> the trained local model evaluated a drawing that was not automatically added to its training set.</p>
         </div>}
        </section>}
       </section>}
