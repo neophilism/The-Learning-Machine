@@ -790,8 +790,8 @@
         "E2E training and accessible route tests pass"
       ],
       "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "github_pr_number": 39,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/39",
       "merged_commit": null,
       "verification_evidence": []
     },
