@@ -8,11 +8,11 @@ test('Teach a Machine integrates training, test evidence, revision and transfer 
  await page.getByLabel('Before training, what visual pattern do you expect the model to learn?').fill('Lines should differ from closed squares.');
 
  const label=page.getByLabel('Training class label'),preset=page.getByLabel('Original drawing preset');
- for(const [className,kind] of [['Line','horizontal'],['Line','diagonal'],['Square','square'],['Square','square']]){
+ for(const [index,[className,kind]] of [['Line','horizontal'],['Line','diagonal'],['Square','square'],['Square','square']].entries()){
   await label.fill(className);await preset.selectOption(kind);
   await page.getByRole('button',{name:'Load selected preset'}).click();
   await page.getByRole('button',{name:'Save example'}).click();
-  await expect(page.getByRole('heading',{name:`Examples saved: ${dataset.examples.length} / 64`})).toBeVisible();
+  await expect(page.getByRole('heading',{name:`Examples saved: ${index+1} / 64`})).toBeVisible();
  }
  await page.getByRole('button',{name:'Create held-out split'}).click();
  await expect(page.getByText(/Ready for later classifier training/)).toBeVisible();
