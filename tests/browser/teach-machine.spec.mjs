@@ -12,8 +12,10 @@ test('Teach a Machine integrates training, test evidence, revision and transfer 
   await label.fill(className);await preset.selectOption(kind);
   await page.getByRole('button',{name:'Load selected preset'}).click();
   await page.getByRole('button',{name:'Save example'}).click();
+  await expect(page.getByRole('heading',{name:`Examples saved: ${dataset.examples.length} / 64`})).toBeVisible();
  }
  await page.getByRole('button',{name:'Create held-out split'}).click();
+ await expect(page.getByText(/Ready for later classifier training/)).toBeVisible();
  await page.getByRole('button',{name:'Train local classifier'}).click();
  await expect(page.getByRole('region',{name:'Held-out inference results'})).toBeVisible();
  await expect(page.getByRole('region',{name:'Memorization versus generalization trial'})).toBeVisible();
@@ -23,7 +25,9 @@ test('Teach a Machine integrates training, test evidence, revision and transfer 
  await expect(page.getByText(/1 evidence-based revision has been recorded/)).toBeVisible();
 
  await page.getByRole('button',{name:'Create held-out split'}).click();
+ await expect(page.getByText(/Ready for later classifier training/)).toBeVisible();
  await page.getByRole('button',{name:'Train local classifier'}).click();
+ await expect(page.getByRole('region',{name:'Held-out inference results'})).toBeVisible();
  await preset.selectOption('cross');
  await page.getByRole('button',{name:'Load selected preset'}).click();
  await page.getByRole('button',{name:'Predict current drawing'}).click();
