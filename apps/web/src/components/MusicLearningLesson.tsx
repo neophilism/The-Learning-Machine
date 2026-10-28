@@ -39,7 +39,7 @@ export default function MusicLearningLesson(){
     osc.connect(gain);gain.connect(context.destination);osc.start(start+note.startSeconds);osc.stop(start+note.startSeconds+note.durationSeconds+0.02);current.push({osc,gain});
     captionTimers.current.push(setTimeout(()=>setCaption(`Cue ${index+1} of ${schedule.events.length}: ${candidate.notes[index]!.pitch}, one beat.`),Math.max(0,note.startSeconds*1000+50)));
    });
-   const duration=schedule.events.at(-1)!.endSeconds;
+   const duration=schedule.totalSeconds;
    captionTimers.current.push(setTimeout(()=>{setCaption('Preview ended. The transcript remains available.');setPreviewing(false);voices.current=[]},duration*1000+100));
    voices.current=current;setPreviewing(true);
   }catch(reason){setError(reason instanceof Error?reason.message:'Audio preview unavailable');setAudioMode('visual');setCaption('Audio could not start. The complete visual transcript remains available.');setPreviewing(false)}
