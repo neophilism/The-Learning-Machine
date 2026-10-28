@@ -7,6 +7,7 @@
     ".": "./src/melody.mjs",
     "./classifier": "./src/classifier.mjs",
     "./comparison": "./src/comparison.mjs",
-    "./live-processing": "./src/live-processing.mjs"
+    "./live-processing": "./src/live-processing.mjs",
+    "./lesson": "./src/lesson.mjs"
   }
 }
