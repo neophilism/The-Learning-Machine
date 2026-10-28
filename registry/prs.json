@@ -1224,7 +1224,7 @@
       "verification_evidence": [
         "Initial implementation PR #48 exact head 0d942875860ded4a7886c177cccae8b1113a7305 passed run 40667899297 and squash-merged as cbe4ef95ac40d46150d958386a403f69ab8feb65.",
         "Post-merge review found policy comparison values were not constrained to their TLM-051 fact domains.",
-        "Corrective PR #49 exact head 1e5f824b80cd4a49900f7bbe0ab7fbd00c849646 passed run 40668995407.",
+        "Corrective PR #49 final zero-behind head ad9a38be4a101a5ad9d21c62792c00945e3045eb passed run 40669285762.",
         "Corrective PR #49 squash-merged as 889126a66511e41fbdfe798a86081b643300d577.",
         "Corrected merged-main workspace-and-foundation run 40669654433 passed."
       ]
