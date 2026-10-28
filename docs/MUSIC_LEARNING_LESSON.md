@@ -7,3 +7,10 @@ The experiment trains the existing deterministic softmax learner on four explici
 The unseen candidate can be played only after an explicit button gesture through the browser's native audio context. Listening is optional: the visible note events, tempo, model result, held-out details and comparison disclosure preserve the complete non-audio route. Browser acceptance covers the gesture-triggered audio preview separately from an explicit keyboard-only route that completes while audio construction is disabled.
 
 After observing the result, the learner must record a bounded revision or proposed next test before running transfer on the other unseen melody. Transfer cannot reuse the first candidate. Completion explicitly records reasoning rather than agreement with the model. Tests cover stage order, split evidence, disagreement, revision bounds, distinct transfer, reset, candidate audio and keyboard/non-audio completion.
+
+
+## Audio accessibility and privacy
+
+TLM-048 makes sound a reversible preference rather than a lesson requirement. The sound path remains behind the existing explicit preview gesture. Selecting the visual-only route stops active oscillators, clears queued caption changes, and prevents later preview activation; it does not request a microphone or construct an audio context. When the browser has no audio API or preview startup fails, the lesson switches to the same visual route while prediction, observation, revision, and transfer remain available.
+
+Every candidate now has a named ordered transcript with pitch and beat duration. During optional playback, an atomic polite live region captions each locally synthesized cue and announces start, stop, completion, and unavailable states. These captions describe the exact scheduled note fixtures; they do not claim to transcribe user media. Mobile acceptance uses a 390 by 844 viewport, disables sound before any audio construction, completes the full reasoning journey, and checks that the page does not overflow horizontally. Assistive acceptance verifies the structured transcript and live cue captions separately from model evidence.

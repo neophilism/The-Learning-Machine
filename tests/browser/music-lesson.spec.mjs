@@ -37,3 +37,35 @@ test('music lesson requires a meaningful revision and supports reset',async({pag
  await page.getByRole('button',{name:'Reset lesson'}).click();
  await expect(page.getByRole('button',{name:'Commit prediction and run experiment'})).toBeEnabled();
 });
+
+
+test('captioned preview exposes the same note sequence to assistive technology',async({page})=>{
+ await page.addInitScript(()=>{
+  class Parameter{setValueAtTime(){}linearRampToValueAtTime(){}}
+  class Oscillator{connect(){}disconnect(){}start(){}stop(){}frequency=new Parameter();type='sine'}
+  class Gain{connect(){}disconnect(){}gain=new Parameter()}
+  window.AudioContext=class{currentTime=0;destination={};createOscillator(){return new Oscillator()}createGain(){return new Gain()}async resume(){}async close(){}};
+ });
+ await page.goto('/audio');
+ const transcript=page.getByRole('list',{name:'Visual melody transcript'});
+ await expect(transcript.getByRole('listitem')).toHaveCount(4);
+ await expect(transcript).toContainText('pitch C4');
+ await page.getByRole('button',{name:'Play unseen melody preview'}).click();
+ await expect(page.locator('[data-music-caption="true"]')).toContainText('Preview started');
+ await expect(page.locator('[data-music-caption="true"]')).toContainText('Cue 1 of 4');
+});
+
+test('muted mobile visitor completes the lesson without constructing audio',async({page})=>{
+ await page.setViewportSize({width:390,height:844});
+ await page.addInitScript(()=>{window.__audioConstructed=0;window.AudioContext=class{constructor(){window.__audioConstructed++;throw new Error('Audio must remain unused')}}});
+ await page.goto('/audio');
+ await page.getByLabel('Use visual transcript only').check();
+ await expect(page.getByRole('button',{name:'Play unseen melody preview'})).toBeDisabled();
+ await page.getByRole('button',{name:'Commit prediction and run experiment'}).click();
+ await page.getByLabel('What would you test next?').fill('I will compare direction on the other transcript.');
+ await page.getByRole('button',{name:'Record revision'}).click();
+ await page.getByRole('button',{name:'Test revision on the other unseen melody'}).click();
+ await expect(page.locator('[data-music-lesson-complete="true"]')).toBeVisible();
+ expect(await page.evaluate(()=>window.__audioConstructed)).toBe(0);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth)).toBe(true);
+});
