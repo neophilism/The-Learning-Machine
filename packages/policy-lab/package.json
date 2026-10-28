@@ -7,6 +7,13 @@
     ".": {
       "types": "./src/compiler.d.mts",
       "default": "./src/compiler.mjs"
+    },
+    "./evaluator": {
+      "types": "./src/evaluator.d.mts",
+      "default": "./src/evaluator.mjs"
     }
+  },
+  "dependencies": {
+    "@learning-machine/contracts": "workspace:*"
   }
 }

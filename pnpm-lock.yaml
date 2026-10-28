@@ -57,6 +57,12 @@ importers:
         specifier: workspace:*
         version: link:../contracts
 
+  packages/policy-lab:
+    dependencies:
+      '@learning-machine/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+
   packages/socratic:
     dependencies:
       '@learning-machine/content':
