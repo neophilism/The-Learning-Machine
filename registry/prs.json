@@ -1275,7 +1275,9 @@
       "merged_commit": null,
       "verification_evidence": [
         "Draft PR #51 opened from verified canonical main after 18 focused compiler, current-law evaluator, and framework-comparison tests passed locally.",
-        "The exact PR head must pass hosted workspace-and-foundation validation before acceptance."
+        "Initial exact head ee597e8b598e01eaa13e203d5e9c569f2293c050 passed workspace-and-foundation run 40674472290.",
+        "Final review prevents an unavailable proposal from being mislabeled as a rule-driven differential.",
+        "Corrected exact head 52ddb77dfa74b9a478776e7671bff2b32b9eaa32 passed workspace-and-foundation run 40674784499, including frozen install, all repository checks, and the complete browser suite."
       ]
     },
     {
