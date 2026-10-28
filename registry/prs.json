@@ -1194,12 +1194,13 @@
         "Scenarios cannot conceal missing material facts",
         "Schema edge and invalid classification tests pass"
       ],
-      "status": "in_progress",
+      "status": "merged",
       "github_pr_number": 47,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/47",
-      "merged_commit": null,
+      "merged_commit": "83a183341cad64112b78a2da13f512bfd22d40e5",
       "verification_evidence": [
-        "Pending exact-head workspace-and-foundation CI."
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40666580771",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40666886072"
       ]
     },
     {
