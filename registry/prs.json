@@ -1031,11 +1031,15 @@
         "Learner can test novel melodies with actual predicted results",
         "Holdout musical classifier tests pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 40,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/40",
-      "merged_commit": null,
-      "verification_evidence": []
+      "merged_commit": "c375beafb7acc071b86ab92727ce0489c07f322a",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40652195915",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40652466146",
+        "https://github.com/neophilism/The-Learning-Machine/pull/40"
+      ]
     },
     {
       "id": "TLM-045",
