@@ -9,6 +9,8 @@ type Transfer=ReturnType<typeof runMusicTransfer>;
 type Voice={osc:OscillatorNode;gain:GainNode};
 
 export default function MusicLearningLesson(){
+ const [hydrated,setHydrated]=useState(false);
+ useEffect(()=>setHydrated(true),[]);
  const [candidateId,setCandidateId]=useState('transfer-rise'),[prediction,setPrediction]=useState<Label>('rising'),[experiment,setExperiment]=useState<Experiment|null>(null);
  const [revisionText,setRevisionText]=useState(''),[revision,setRevision]=useState<Revision|null>(null),[transfer,setTransfer]=useState<Transfer|null>(null),[error,setError]=useState('');
  const [previewing,setPreviewing]=useState(false);
@@ -43,8 +45,8 @@ export default function MusicLearningLesson(){
   <p>Notes: {candidate.notes.map(note=>note.pitch).join(' - ')} at {candidate.tempo} BPM.</p>
   <button type="button" className="action" aria-pressed={previewing} onClick={()=>{if(previewing)stopPreview();else void playPreview()}}>{previewing?'Stop unseen melody preview':'Play unseen melody preview'}</button>
   <p className="status-note">Listening is optional. The visible note sequence and all model evidence provide the complete non-audio route.</p>
-  <label>Your prediction <select value={prediction} disabled={Boolean(experiment)} onChange={event=>setPrediction(event.target.value as Label)}><option value="rising">Rising pattern</option><option value="falling">Falling pattern</option></select></label>
-  <div className="controls"><button type="button" className="action action-primary" disabled={Boolean(experiment)} onClick={observe}>Commit prediction and run experiment</button><button type="button" className="action" onClick={()=>{stopPreview();setExperiment(null);setRevision(null);setTransfer(null);setRevisionText('');setError('')}}>Reset lesson</button></div>
+  <label>Your prediction <select value={prediction} disabled={!hydrated||Boolean(experiment)} onChange={event=>setPrediction(event.target.value as Label)}><option value="rising">Rising pattern</option><option value="falling">Falling pattern</option></select></label>
+  <div className="controls"><button type="button" className="action action-primary" disabled={!hydrated||Boolean(experiment)} onClick={observe}>Commit prediction and run experiment</button><button type="button" className="action" onClick={()=>{stopPreview();setExperiment(null);setRevision(null);setTransfer(null);setRevisionText('');setError('')}}>Reset lesson</button></div>
   {experiment&&<section aria-label="Observed model evidence"><h3>Observe the evidence</h3>
    <p role="status">You predicted {experiment.committedPrediction}. The locally trained model computed {experiment.inference.predictedLabel} at {(experiment.inference.confidence*100).toFixed(1)}% model confidence. {experiment.predictionMatched?'Your prediction matched this model output.':'Your prediction differed from this model output; disagreement is allowed.'}</p>
    <p>Held-out evidence: {experiment.heldOut.correctCount} of {experiment.heldOut.exampleCount} original examples classified as labeled. Training IDs and held-out IDs were disjoint.</p>
