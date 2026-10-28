@@ -59,11 +59,10 @@ const scalar = (value) =>
   typeof value === "boolean" ||
   (typeof value === "number" && Number.isFinite(value));
 const factValue = (fact, value) => {
-  if (value === null) return true;
   if (ENUM_FACT_VALUES.has(fact)) return ENUM_FACT_VALUES.get(fact).has(value);
-  if (BOOLEAN_FACTS.has(fact)) return typeof value === "boolean";
+  if (BOOLEAN_FACTS.has(fact)) return value === null || typeof value === "boolean";
   if (fact === "retention.durationDays") {
-    return Number.isInteger(value) && value >= 0 && value <= 36500;
+    return value === null || (Number.isInteger(value) && value >= 0 && value <= 36500);
   }
   return false;
 };
