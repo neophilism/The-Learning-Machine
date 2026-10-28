@@ -135,7 +135,7 @@ export function compareLegalFrameworks(
   } else {
     proposed = evaluateApprovedProposal(scenario, proposedRuleSet, bill);
   }
-  const differences = current.outcome === proposed.outcome ? [] : [{
+  const differences = !proposalStatus.isComplete || current.outcome === proposed.outcome ? [] : [{
     field: "outcome",
     current: current.outcome,
     proposed: proposed.outcome,
