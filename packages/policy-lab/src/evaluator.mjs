@@ -90,7 +90,7 @@ function compareCondition(condition, facts) {
 
   const actual = facts[condition.fact];
   if (condition.operator === "exists") {
-    return condition.value ? !unknown(actual) : unknown(actual);
+    return unknown(actual) ? null : condition.value;
   }
   if (unknown(actual)) return null;
   if (condition.operator === "eq") return Object.is(actual, condition.value);
