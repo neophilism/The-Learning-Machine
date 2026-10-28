@@ -16,8 +16,8 @@ test('fails closed for unsupported or unsafe settings',()=>{
 });
 
 test('records setup time separately from browser-reported latency',()=>{
- const evidence=summarizeLatency({baseLatency:0.01,outputLatency:0.025},100,112.345);
- assert.deepEqual(evidence,{setupMilliseconds:12.35,browserReportedMilliseconds:35,measurement:'local-setup-clock-and-browser-reported-audio-latency',caveat:'This is not an acoustic round-trip measurement.'});
+ const evidence=summarizeLatency({baseLatency:0.01,outputLatency:0.025},100,112.3);
+ assert.deepEqual(evidence,{setupMilliseconds:12.3,browserReportedMilliseconds:35,measurement:'local-setup-clock-and-browser-reported-audio-latency',caveat:'This is not an acoustic round-trip measurement.'});
  assert.throws(()=>summarizeLatency({},20,10),TypeError);
 });
 
