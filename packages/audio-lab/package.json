@@ -6,6 +6,7 @@
   "exports": {
     ".": "./src/melody.mjs",
     "./classifier": "./src/classifier.mjs",
-    "./comparison": "./src/comparison.mjs"
+    "./comparison": "./src/comparison.mjs",
+    "./live-processing": "./src/live-processing.mjs"
   }
 }

@@ -1,0 +1,7 @@
+# Live Audio Processing Boundary
+
+TLM-046 adds an optional browser-local microphone experiment. Permission is requested only after the visitor activates **Start local microphone filter**. The request enables audio and explicitly disables video. Denial, missing hardware, graph errors, track ending, stop and component unmount all fail closed or release the local tracks and audio context. No audio buffer, recording, digest, transcript, upload, analytics event or persistent state is created.
+
+The bounded graph is `MediaStreamAudioSourceNode -> GainNode -> BiquadFilterNode -> GainNode -> AnalyserNode -> MediaStreamAudioDestinationNode`. It supports bypass, low-pass and high-pass comparison with cutoff from 80–12,000 Hz and input gain from 0–1.5. The browser's native Web Audio rendering thread processes signal blocks separately from React's page interaction. Speaker monitoring is optional, disabled by default, capped at 0.3 output gain and accompanied by a headphone/feedback warning. The existing synthesized melody composer is the no-permission and non-audio alternative.
+
+Latency evidence separates measured local setup elapsed time from the sum of the browser-reported `baseLatency` and `outputLatency` values. The interface explicitly says this is not an acoustic round-trip measurement; unsupported browsers report latency as unavailable. Tests cover bounded graph plans, invalid settings, timing semantics, permission classification, gesture-only permission requests, denial containment and preservation of the no-microphone route.
