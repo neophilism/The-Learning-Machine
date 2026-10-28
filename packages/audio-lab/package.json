@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./src/melody.mjs",
-    "./classifier": "./src/classifier.mjs"
+    "./classifier": "./src/classifier.mjs",
+    "./comparison": "./src/comparison.mjs"
   }
 }
