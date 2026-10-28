@@ -1054,11 +1054,15 @@
         "Listeners can distinguish simulated copying from new compositions",
         "Originality labeling and audio comparison tests pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 42,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/42",
-      "merged_commit": null,
-      "verification_evidence": []
+      "merged_commit": "db4b6d59f2cb778b9e6b866b73419ec207b50116",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40654595078",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40654932941",
+        "https://github.com/neophilism/The-Learning-Machine/pull/42"
+      ]
     },
     {
       "id": "TLM-046",
