@@ -1,0 +1,14 @@
+import type {MelodyNote} from './melody.mjs';
+export type MusicLessonExample={id:string;label:string|null;tempo:number;notes:readonly MelodyNote[]};
+export type MusicInference=Readonly<{predictedLabel:string;confidence:number}>;
+export type MusicHeldOut=Readonly<{correctCount:number;exampleCount:number;predictions:readonly Readonly<{id:string;actualLabel:string;predictedLabel:string;confidence:number;correct:boolean}>[]}>;
+export type MusicComparison=Readonly<{relationship:string;disclosure:string}>;
+export type MusicExperiment=Readonly<{candidateId:string;committedPrediction:'rising'|'falling';inference:MusicInference;heldOut:MusicHeldOut;comparison:MusicComparison;predictionMatched:boolean;evidence:string}>;
+export type MusicRevision=Readonly<{experiment:MusicExperiment;revision:string;recordedAfterObservation:true}>;
+export type MusicTransfer=Readonly<{candidateId:string;inference:MusicInference;revision:string;complete:true;agreementRequired:false;evidence:string}>;
+export const MUSIC_LESSON_EXAMPLES:readonly MusicLessonExample[];
+export const MUSIC_LESSON_SPLIT:Readonly<{trainIds:readonly string[];testIds:readonly string[]}>;
+export const MUSIC_LESSON_CANDIDATES:readonly MusicLessonExample[];
+export function runMusicLearningExperiment(input:{prediction:'rising'|'falling';candidateId:string}):MusicExperiment;
+export function recordMusicRevision(experiment:MusicExperiment,text:string):MusicRevision;
+export function runMusicTransfer(revision:MusicRevision,candidateId:string):MusicTransfer;
