@@ -1129,9 +1129,9 @@
         "Experience objectives remain achievable without hearing or microphone",
         "Assistive and mobile-muted tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 45,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/45",
       "merged_commit": null,
       "verification_evidence": []
     },
