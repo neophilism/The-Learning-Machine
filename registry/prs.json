@@ -1217,11 +1217,14 @@
         "Unsupported operations and unsourced operative rules fail closed",
         "Nested-rule property and hostile input tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_progress",
+      "github_pr_number": 48,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/48",
       "merged_commit": null,
-      "verification_evidence": []
+      "verification_evidence": [
+        "Local Node focused policy-compiler tests passed 6/6.",
+        "Pending exact-head workspace-and-foundation CI."
+      ]
     },
     {
       "id": "TLM-053",
