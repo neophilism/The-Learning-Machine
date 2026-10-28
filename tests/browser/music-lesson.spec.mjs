@@ -18,7 +18,7 @@ test('music lesson previews locally synthesized candidate audio after a gesture'
 test('keyboard route commits, revises, and transfers without playing audio',async({page})=>{
  await page.addInitScript(()=>{window.AudioContext=class{constructor(){throw new Error('Audio must remain unused')}}});
  await page.goto('/audio');
- const prediction=page.getByLabel('Your prediction');await prediction.focus();await page.keyboard.press('End');
+ const prediction=page.getByLabel('Your prediction');await expect(prediction).toBeEnabled();await prediction.focus();await page.keyboard.press('End');
  const run=page.getByRole('button',{name:'Commit prediction and run experiment'});await run.focus();await page.keyboard.press('Enter');
  await expect(page.getByRole('region',{name:'Observed model evidence'})).toContainText('You predicted falling');
  await expect(page.getByText(/Held-out evidence: \d of 4/)).toBeVisible();
