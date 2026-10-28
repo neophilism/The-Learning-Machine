@@ -89,8 +89,10 @@ function compareCondition(condition, facts) {
   }
 
   const actual = facts[condition.fact];
+  if (condition.operator === "exists") {
+    return condition.value ? !unknown(actual) : unknown(actual);
+  }
   if (unknown(actual)) return null;
-  if (condition.operator === "exists") return condition.value;
   if (condition.operator === "eq") return Object.is(actual, condition.value);
   if (condition.operator === "neq") return !Object.is(actual, condition.value);
   return condition.value.some((candidate) => Object.is(actual, candidate));
@@ -174,4 +176,3 @@ export function evaluateCurrentLaw(scenarioInput, ruleSetInput, authorityCatalog
     ruleEvaluations: evaluations,
   });
 }
-
