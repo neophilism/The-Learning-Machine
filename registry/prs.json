@@ -1199,8 +1199,9 @@
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/47",
       "merged_commit": "83a183341cad64112b78a2da13f512bfd22d40e5",
       "verification_evidence": [
-        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40666580771",
-        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40666886072"
+        "Exact-head workspace-and-foundation run 40666580771 passed for ab818976d47386c96adaa52d29039245d7858dc3.",
+        "PR #47 squash-merged as 83a183341cad64112b78a2da13f512bfd22d40e5.",
+        "Merged-main workspace-and-foundation run 40666886072 passed."
       ]
     },
     {
