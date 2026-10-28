@@ -85,6 +85,14 @@ test("unknown material facts prevent a decisive legal outcome", () => {
   ]), catalog);
   assert.equal(result.outcome, "unresolved");
   assert.deepEqual(result.unknownRuleIds, ["lawful-access"]);
+
+  const absenceResult = evaluateCurrentLaw(unknown, ruleSet([
+    rule("missing-lawful-access", ["usc17-107"], {
+      operator: "exists", fact: "access.lawful", value: false,
+    }, "permit"),
+  ]), catalog);
+  assert.equal(absenceResult.outcome, "unresolved");
+  assert.deepEqual(absenceResult.unknownRuleIds, ["missing-lawful-access"]);
 });
 
 test("stale baselines and future authorities remain unresolved", () => {
@@ -112,3 +120,4 @@ test("rejects non-current frameworks and unregistered scenario or rule sources",
   missing.sourceIds = ["invented-source"];
   assert.throws(() => evaluateCurrentLaw(missing, rules, catalog), /Unknown scenario source/);
 });
+
