@@ -1077,11 +1077,15 @@
         "Observed processing corresponds to actual signals and disclosed fallbacks",
         "Measured-latency and denied-permission tests pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 43,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/43",
-      "merged_commit": null,
-      "verification_evidence": []
+      "merged_commit": "314706a47f292ec866206f08ebf97a844db2ffb1",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40657213535",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40657558401",
+        "https://github.com/neophilism/The-Learning-Machine/pull/43"
+      ]
     },
     {
       "id": "TLM-047",
