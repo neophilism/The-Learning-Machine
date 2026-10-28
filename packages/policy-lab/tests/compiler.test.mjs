@@ -51,6 +51,41 @@ test("unsupported operations, facts, effects and executable values fail closed",
   }
 });
 
+test("fact comparisons reject values outside the TLM-051 scenario domains", () => {
+  for (const [fact, value] of [
+    ["access.lawful", "yes"],
+    ["access.method", "scrape"],
+    ["access.method", null],
+    ["work.copyrightStatus", null],
+    ["retention.durationDays", -1],
+    ["retention.durationDays", 1.5],
+    ["work.copyrightStatus", "maybe"],
+  ]) {
+    const candidate = fixture();
+    candidate.rules[0].when.conditions[0] = { operator: "eq", fact, value };
+    assert.throws(() => compilePolicyRuleSet(candidate, sourceOptions), /fact-compatible/);
+  }
+
+  const declaredUnknown = fixture();
+  declaredUnknown.rules[0].when.conditions[0] = {
+    operator: "eq",
+    fact: "access.lawful",
+    value: null,
+  };
+  assert.equal(
+    compilePolicyRuleSet(declaredUnknown, sourceOptions).rules[0].when.conditions[0].value,
+    null,
+  );
+
+  const invalidMembership = fixture();
+  invalidMembership.rules[0].when.conditions[0] = {
+    operator: "in",
+    fact: "access.method",
+    value: ["purchase", "scrape"],
+  };
+  assert.throws(() => compilePolicyRuleSet(invalidMembership, sourceOptions), /fact-compatible/);
+});
+
 test("nested groups retain exact meaning and bounded alternatives", () => {
   const candidate = fixture();
   candidate.rules[0].when = {
