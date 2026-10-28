@@ -7,3 +7,13 @@ The eight bounded inputs are mean detected pitch, detected pitch range, mean det
 `classifyMusicalPattern` extracts the same features from a new melody and computes probabilities from learned numerical parameters. It never stores raw audio, sends media over a network, or substitutes a scripted label. Melodies must contain at least two notes, resolve every bounded pitch frame, and fit the existing 12-second local analysis window.
 
 `evaluateMusicalHoldout` reports predictions only for IDs excluded from training. Tests cover two independently authored rising/falling families, novel melodies, exact held-out IDs, split leakage, missing held-out classes, model/split mismatch, and bounded-window failure.
+
+## Expression comparison
+
+TLM-045 adds `compareMusicalExpression`, a bounded comparison among three distinct signals:
+
+- exact replay compares stored pitches, note lengths, and tempo;
+- transformed-pattern detection compares interval sequences without calling a transformation an exact replay;
+- the TLM-044 classifier reports its learned generalized label, while a normalized edit distance identifies the nearest stored example.
+
+The result labels a candidate as `direct-replay`, `transformed-pattern`, or `new-sequence`. A new sequence means only that this bounded library contains no exact replay or identical interval pattern. It is not evidence of authorship, copyrightability, independent creation, legal originality, or musical quality. Inputs remain authored note events and locally synthesized features; no recording is uploaded or retained.

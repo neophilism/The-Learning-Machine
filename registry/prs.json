@@ -1054,9 +1054,9 @@
         "Listeners can distinguish simulated copying from new compositions",
         "Originality labeling and audio comparison tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 42,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/42",
       "merged_commit": null,
       "verification_evidence": []
     },
