@@ -1243,14 +1243,16 @@
         "No universal all-training-legal or illegal shortcut appears",
         "Legal golden cases and unknown branches pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 50,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/50",
-      "merged_commit": null,
+      "merged_commit": "6b384bb5f1686ea2a640d47bed8fdb4cc62157ee",
       "verification_evidence": [
         "Draft PR #50 opened after 25 focused contract, compiler and evaluator tests plus syntax checks passed locally.",
-        "Exact head e725a8bdaa2d671ce173588a71c3a60cae672897 passed workspace-and-foundation run 40672584502, including frozen install, all foundation tests, strict type/build/content/boundary/secret/legal gates and the full desktop/mobile browser suite.",
-        "Review correction preserves declared-unknown facts as unresolved even when a rule tests exists false."
+        "Final zero-behind head ff509bb408e07e7126f87b290b207b962fda9fc2 passed workspace-and-foundation run 40672822833, including frozen install, all foundation tests, strict type/build/content/boundary/secret/legal gates and the full desktop/mobile browser suite.",
+        "Review correction preserves declared-unknown facts as unresolved even when a rule tests exists false.",
+        "PR #50 squash-merged as 6b384bb5f1686ea2a640d47bed8fdb4cc62157ee.",
+        "Merged-main workspace-and-foundation run 40673057371 passed."
       ]
     },
     {
