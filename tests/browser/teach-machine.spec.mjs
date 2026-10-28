@@ -5,6 +5,7 @@ test('Teach a Machine integrates training, test evidence, revision and transfer 
  await page.goto('/shapes');
  await expect(page).toHaveTitle(/Teach a Machine/);
  await expect(page.getByRole('navigation',{name:'Teach a Machine lesson progress'})).toBeVisible();
+ await expect(page.getByRole('button',{name:'Save example'})).toBeEnabled();
  await page.getByLabel('Before training, what visual pattern do you expect the model to learn?').fill('Lines should differ from closed squares.');
 
  const label=page.getByLabel('Training class label'),preset=page.getByLabel('Original drawing preset');
