@@ -41,9 +41,9 @@ export default function MusicLearningLesson(){
  return <section className="learning-card" aria-labelledby="music-lesson-heading">
   <p className="eyebrow">Predict - experiment - revise - transfer</p><h2 id="music-lesson-heading">Teach and challenge a musical pattern learner</h2>
   <p>The training set contains only original synthesized note events. Commit a prediction before the local model reveals its result.</p>
-  <label>Unseen melody <select value={candidateId} disabled={Boolean(experiment)} onChange={event=>{stopPreview();setCandidateId(event.target.value)}}>{MUSIC_LESSON_CANDIDATES.map(item=><option key={item.id} value={item.id}>{item.id==='transfer-rise'?'Melody A':'Melody B'}</option>)}</select></label>
+  <label>Unseen melody <select value={candidateId} disabled={!hydrated||Boolean(experiment)} onChange={event=>{stopPreview();setCandidateId(event.target.value)}}>{MUSIC_LESSON_CANDIDATES.map(item=><option key={item.id} value={item.id}>{item.id==='transfer-rise'?'Melody A':'Melody B'}</option>)}</select></label>
   <p>Notes: {candidate.notes.map(note=>note.pitch).join(' - ')} at {candidate.tempo} BPM.</p>
-  <button type="button" className="action" aria-pressed={previewing} onClick={()=>{if(previewing)stopPreview();else void playPreview()}}>{previewing?'Stop unseen melody preview':'Play unseen melody preview'}</button>
+  <button type="button" className="action" aria-pressed={previewing} disabled={!hydrated} onClick={()=>{if(previewing)stopPreview();else void playPreview()}}>{previewing?'Stop unseen melody preview':'Play unseen melody preview'}</button>
   <p className="status-note">Listening is optional. The visible note sequence and all model evidence provide the complete non-audio route.</p>
   <label>Your prediction <select value={prediction} disabled={!hydrated||Boolean(experiment)} onChange={event=>setPrediction(event.target.value as Label)}><option value="rising">Rising pattern</option><option value="falling">Falling pattern</option></select></label>
   <div className="controls"><button type="button" className="action action-primary" disabled={!hydrated||Boolean(experiment)} onClick={observe}>Commit prediction and run experiment</button><button type="button" className="action" onClick={()=>{stopPreview();setExperiment(null);setRevision(null);setTransfer(null);setRevisionText('');setError('')}}>Reset lesson</button></div>
