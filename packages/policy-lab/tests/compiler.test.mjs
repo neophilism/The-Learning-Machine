@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { compilePolicyRuleSet, SUPPORTED_POLICY_FACTS } from "./compiler.mjs";
+import { compilePolicyRuleSet, SUPPORTED_POLICY_FACTS } from "../src/compiler.mjs";
 
 const sourceOptions = { allowedSourceIds: ["statute-107", "proposal-v1"] };
 const fixture = () => ({
