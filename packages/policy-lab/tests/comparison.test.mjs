@@ -64,6 +64,7 @@ test("does not invent operative rules for the repository's incomplete proposal",
   assert.equal(result.proposed.outcome, "unresolved");
   assert.equal(result.proposed.qualification, "authoritative-proposal-unavailable");
   assert.deepEqual(result.proposed.ruleEvaluations, []);
+  assert.deepEqual(result.differences, []);
   assert.throws(() => compareLegalFrameworks(
     scenario(), currentRules(), catalog, incomplete, proposedRules(),
   ), /cannot have operative rules/);
