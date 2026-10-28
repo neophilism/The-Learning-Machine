@@ -1105,9 +1105,9 @@
         "Learner can infer musical features without access to copyrighted recordings",
         "Keyboard, audio and nonaudio E2E paths pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 44,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/44",
       "merged_commit": null,
       "verification_evidence": []
     },
