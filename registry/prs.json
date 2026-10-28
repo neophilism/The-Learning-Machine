@@ -1031,9 +1031,9 @@
         "Learner can test novel melodies with actual predicted results",
         "Holdout musical classifier tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 40,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/40",
       "merged_commit": null,
       "verification_evidence": []
     },

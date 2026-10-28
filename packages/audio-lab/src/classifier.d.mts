@@ -1,0 +1,8 @@
+import type {MelodyNote} from './melody.mjs';
+export interface MusicalExample {readonly id:string;readonly label:string;readonly notes:readonly MelodyNote[];readonly tempo?:number;}
+export interface MusicalSplit {readonly trainIds:readonly string[];readonly testIds:readonly string[];}
+export interface MusicalPatternModel {readonly algorithm:'musical-feature-softmax-sgd-v1';readonly labels:readonly string[];readonly weights:readonly (readonly number[])[];readonly bias:readonly number[];readonly epochs:number;readonly learningRate:number;readonly trainingExampleIds:readonly string[];readonly heldOutExampleIds:readonly string[];readonly featureNames:readonly string[];readonly source:string;}
+export interface MusicalPrediction {readonly predictedLabel:string;readonly confidence:number;readonly classScores:readonly {readonly label:string;readonly probability:number}[];readonly origin:string;}
+export function trainMusicalPatternClassifier(examples:readonly MusicalExample[],split:MusicalSplit,options?:{epochs?:number;learningRate?:number}):MusicalPatternModel;
+export function classifyMusicalPattern(model:MusicalPatternModel,notes:readonly MelodyNote[],tempo?:number):MusicalPrediction;
+export function evaluateMusicalHoldout(model:MusicalPatternModel,examples:readonly MusicalExample[],split:MusicalSplit):{readonly algorithm:'musical-heldout-evaluation-v1';readonly exampleCount:number;readonly correctCount:number;readonly accuracy:number;readonly predictions:readonly {readonly id:string;readonly actualLabel:string;readonly predictedLabel:string;readonly confidence:number;readonly correct:boolean}[];readonly source:string};
