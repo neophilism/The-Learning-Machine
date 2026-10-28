@@ -14,6 +14,20 @@ const FACT_PATHS = new Set([
 ]);
 const EFFECTS = new Set(["permit", "restrict", "conditional", "unresolved"]);
 const FRAMEWORKS = new Set(["current-law", "proposed-law", "hypothetical"]);
+const ENUM_FACT_VALUES = new Map([
+  ["work.copyrightStatus", new Set(["protected", "public-domain", "licensed", "unknown"])],
+  ["access.method", new Set(["purchase", "license", "borrow", "stream", "public-source", "unauthorized", "unknown"])],
+]);
+const BOOLEAN_FACTS = new Set([
+  "access.lawful",
+  "copying.performed",
+  "copying.intermediateCopies",
+  "retention.retained",
+  "teaching.performed",
+  "outputs.created",
+  "outputs.distributed",
+  "outputs.containsProtectedExpression",
+]);
 
 const assert = (condition, message) => {
   if (!condition) throw new TypeError(message);
@@ -44,6 +58,15 @@ const scalar = (value) =>
   typeof value === "string" ||
   typeof value === "boolean" ||
   (typeof value === "number" && Number.isFinite(value));
+const factValue = (fact, value) => {
+  if (value === null) return true;
+  if (ENUM_FACT_VALUES.has(fact)) return ENUM_FACT_VALUES.get(fact).has(value);
+  if (BOOLEAN_FACTS.has(fact)) return typeof value === "boolean";
+  if (fact === "retention.durationDays") {
+    return Number.isInteger(value) && value >= 0 && value <= 36500;
+  }
+  return false;
+};
 const deepFreeze = (value) => {
   if (value && typeof value === "object") {
     for (const child of Object.values(value)) deepFreeze(child);
@@ -90,15 +113,19 @@ function compileCondition(input, state, depth = 1) {
       Array.isArray(input.value) &&
         input.value.length > 0 &&
         input.value.length <= 32 &&
-        input.value.every(scalar),
-      "Policy in comparison requires bounded scalar values",
+        input.value.every(scalar) &&
+        input.value.every((value) => factValue(input.fact, value)),
+      "Policy in comparison requires bounded fact-compatible values",
     );
     const signatures = input.value.map((value) => JSON.stringify(value));
     assert(new Set(signatures).size === signatures.length, "Duplicate policy comparison value");
   } else if (operator === "exists") {
     assert(typeof input.value === "boolean", "Policy exists comparison requires a boolean");
   } else {
-    assert(scalar(input.value), "Policy comparison requires a scalar value");
+    assert(
+      scalar(input.value) && factValue(input.fact, input.value),
+      "Policy comparison requires a fact-compatible scalar value",
+    );
   }
   return structuredClone(input);
 }
