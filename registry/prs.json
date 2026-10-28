@@ -1222,10 +1222,13 @@
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/48",
       "merged_commit": "cbe4ef95ac40d46150d958386a403f69ab8feb65",
       "verification_evidence": [
-        "Local Node focused policy-compiler tests passed 6/6.",
+        "Local Node focused policy-compiler tests passed 7/7.",
         "Exact-head workspace-and-foundation run 40667899297 passed for 0d942875860ded4a7886c177cccae8b1113a7305.",
         "PR #48 squash-merged as cbe4ef95ac40d46150d958386a403f69ab8feb65.",
-        "Merged-main workspace-and-foundation run 40668255205 passed."
+        "Merged-main workspace-and-foundation run 40668255205 passed.",
+        "Corrective PR #49 exact head ad9a38be4a101a5ad9d21c62792c00945e3045eb passed workspace-and-foundation run 40669285762.",
+        "Corrective PR #49 squash-merged as 889126a66511e41fbdfe798a86081b643300d577.",
+        "Corrective merged-main workspace-and-foundation run 40669654433 passed."
       ]
     },
     {
