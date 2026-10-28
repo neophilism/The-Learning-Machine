@@ -55,6 +55,8 @@ test("fact comparisons reject values outside the TLM-051 scenario domains", () =
   for (const [fact, value] of [
     ["access.lawful", "yes"],
     ["access.method", "scrape"],
+    ["access.method", null],
+    ["work.copyrightStatus", null],
     ["retention.durationDays", -1],
     ["retention.durationDays", 1.5],
     ["work.copyrightStatus", "maybe"],
@@ -63,6 +65,17 @@ test("fact comparisons reject values outside the TLM-051 scenario domains", () =
     candidate.rules[0].when.conditions[0] = { operator: "eq", fact, value };
     assert.throws(() => compilePolicyRuleSet(candidate, sourceOptions), /fact-compatible/);
   }
+
+  const declaredUnknown = fixture();
+  declaredUnknown.rules[0].when.conditions[0] = {
+    operator: "eq",
+    fact: "access.lawful",
+    value: null,
+  };
+  assert.equal(
+    compilePolicyRuleSet(declaredUnknown, sourceOptions).rules[0].when.conditions[0].value,
+    null,
+  );
 
   const invalidMembership = fixture();
   invalidMembership.rules[0].when.conditions[0] = {
