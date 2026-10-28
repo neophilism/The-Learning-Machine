@@ -1243,11 +1243,14 @@
         "No universal all-training-legal or illegal shortcut appears",
         "Legal golden cases and unknown branches pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 50,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/50",
       "merged_commit": null,
-      "verification_evidence": []
+      "verification_evidence": [
+        "Draft PR #50 opened from implementation head 85263117ab9e732d732eb7d571dc967977bbbc45 after 25 focused contract, compiler and evaluator tests plus syntax checks passed locally.",
+        "Hosted exact-head workspace-and-foundation validation is pending."
+      ]
     },
     {
       "id": "TLM-054",
