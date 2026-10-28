@@ -1129,11 +1129,15 @@
         "Experience objectives remain achievable without hearing or microphone",
         "Assistive and mobile-muted tests pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 45,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/45",
-      "merged_commit": null,
-      "verification_evidence": []
+      "merged_commit": "d54feb8526939a00b3dc2b60135c3f6233f21ed2",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40660664685",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40660970365",
+        "https://github.com/neophilism/The-Learning-Machine/pull/45"
+      ]
     },
     {
       "id": "TLM-049",
