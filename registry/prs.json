@@ -1217,13 +1217,15 @@
         "Unsupported operations and unsourced operative rules fail closed",
         "Nested-rule property and hostile input tests pass"
       ],
-      "status": "in_progress",
+      "status": "merged",
       "github_pr_number": 48,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/48",
-      "merged_commit": null,
+      "merged_commit": "cbe4ef95ac40d46150d958386a403f69ab8feb65",
       "verification_evidence": [
         "Local Node focused policy-compiler tests passed 6/6.",
-        "Pending exact-head workspace-and-foundation CI."
+        "Exact-head workspace-and-foundation run 40667899297 passed for 0d942875860ded4a7886c177cccae8b1113a7305.",
+        "PR #48 squash-merged as cbe4ef95ac40d46150d958386a403f69ab8feb65.",
+        "Merged-main workspace-and-foundation run 40668255205 passed."
       ]
     },
     {
