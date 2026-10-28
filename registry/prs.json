@@ -1077,9 +1077,9 @@
         "Observed processing corresponds to actual signals and disclosed fallbacks",
         "Measured-latency and denied-permission tests pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 43,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/43",
       "merged_commit": null,
       "verification_evidence": []
     },
