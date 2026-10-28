@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/melody.mjs"
+    ".": "./src/melody.mjs",
+    "./classifier": "./src/classifier.mjs"
   }
 }
