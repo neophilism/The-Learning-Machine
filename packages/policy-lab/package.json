@@ -11,9 +11,14 @@
     "./evaluator": {
       "types": "./src/evaluator.d.mts",
       "default": "./src/evaluator.mjs"
+    },
+    "./comparison": {
+      "types": "./src/comparison.d.mts",
+      "default": "./src/comparison.mjs"
     }
   },
   "dependencies": {
-    "@learning-machine/contracts": "workspace:*"
+    "@learning-machine/contracts": "workspace:*",
+    "@learning-machine/evidence": "workspace:*"
   }
 }

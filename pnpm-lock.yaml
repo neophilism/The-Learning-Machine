@@ -62,6 +62,9 @@ importers:
       '@learning-machine/contracts':
         specifier: workspace:*
         version: link:../contracts
+      '@learning-machine/evidence':
+        specifier: workspace:*
+        version: link:../evidence
 
   packages/socratic:
     dependencies:
