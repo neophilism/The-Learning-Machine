@@ -6,7 +6,7 @@ The contract package exports dependency-free runtime validators from `@learning-
 
 - Learning module nodes contain an authored stage, a prompt and explicit outgoing edges. Structural and reachability compilation belongs to TLM-004.
 - An observation must label itself measured, computed, simulated or unknown; a measured record also needs a source identifier.
-- Legal scenarios and rules distinguish enacted/current, proposed, hypothetical and learner-authored content. Source IDs alone do not certify a legal claim: independent provenance review is added in later legal units.
+- Legal scenarios and rules distinguish enacted/current, proposed, hypothetical and learner-authored content. A legal scenario is fixed to a dated U.S.-federal evaluation and carries typed actors, works, access, copying, retention, teaching and outputs. Every nullable or `unknown` material fact must have an exact `declaredUnknowns` path; hidden omissions, dangling actor/work references and contradictory states fail closed. Source IDs alone do not certify a legal claim.
 - Experiments state capabilities and time budgets, but they are not treated as executed solely because the definition exists.
 - Published release digests are 64 lowercase hexadecimal characters and do not in themselves prove that a source has been authenticated.
 
