@@ -322,6 +322,8 @@
         "schemaVersion",
         "id",
         "status",
+        "jurisdiction",
+        "evaluationDate",
         "facts",
         "sourceIds"
       ],
@@ -331,7 +333,8 @@
         },
         "id": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "maxLength": 128
         },
         "status": {
           "enum": [
@@ -340,13 +343,260 @@
             "hypothetical"
           ]
         },
+        "jurisdiction": {
+          "const": "US-federal"
+        },
+        "evaluationDate": {
+          "type": "string",
+          "format": "date"
+        },
         "facts": {
-          "type": "object"
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "actors",
+            "works",
+            "access",
+            "copying",
+            "retention",
+            "teaching",
+            "outputs",
+            "declaredUnknowns"
+          ],
+          "properties": {
+            "actors": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 32,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "role"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 128
+                  },
+                  "role": {
+                    "enum": [
+                      "learner",
+                      "creator",
+                      "rights-holder",
+                      "platform",
+                      "institution",
+                      "other"
+                    ]
+                  }
+                }
+              }
+            },
+            "works": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 64,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "kind",
+                  "copyrightStatus",
+                  "rightsHolderActorId"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 128
+                  },
+                  "kind": {
+                    "enum": [
+                      "text",
+                      "image",
+                      "audio",
+                      "video",
+                      "software",
+                      "dataset",
+                      "other"
+                    ]
+                  },
+                  "copyrightStatus": {
+                    "enum": [
+                      "protected",
+                      "public-domain",
+                      "licensed",
+                      "unknown"
+                    ]
+                  },
+                  "rightsHolderActorId": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "access": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "method",
+                "lawful",
+                "sourceActorId"
+              ],
+              "properties": {
+                "method": {
+                  "enum": [
+                    "purchase",
+                    "license",
+                    "borrow",
+                    "stream",
+                    "public-source",
+                    "unauthorized",
+                    "unknown"
+                  ]
+                },
+                "lawful": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "sourceActorId": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "copying": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "performed",
+                "inputWorkIds",
+                "intermediateCopies"
+              ],
+              "properties": {
+                "performed": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "inputWorkIds": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "intermediateCopies": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "retention": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "retained",
+                "durationDays"
+              ],
+              "properties": {
+                "retained": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "durationDays": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "minimum": 0,
+                  "maximum": 36500
+                }
+              }
+            },
+            "teaching": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "performed",
+                "learnerActorIds"
+              ],
+              "properties": {
+                "performed": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "learnerActorIds": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "outputs": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "created",
+                "distributed",
+                "containsProtectedExpression"
+              ],
+              "properties": {
+                "created": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "distributed": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "containsProtectedExpression": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "declaredUnknowns": {
+              "type": "array",
+              "uniqueItems": true,
+              "maxItems": 100,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
         },
         "sourceIds": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           }
         }
       }
