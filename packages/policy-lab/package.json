@@ -1,0 +1,12 @@
+{
+  "name": "@learning-machine/policy-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/compiler.d.mts",
+      "default": "./src/compiler.mjs"
+    }
+  }
+}
