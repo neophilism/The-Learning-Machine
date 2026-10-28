@@ -1172,12 +1172,13 @@
         "A proposed provision never appears as enacted law",
         "Missing authoritative full-text guard tests pass"
       ],
-      "status": "in_progress",
+      "status": "merged",
       "github_pr_number": 46,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/46",
-      "merged_commit": null,
+      "merged_commit": "85490341be1cddecea3eacae29c63a9a6a9b1015",
       "verification_evidence": [
-        "Pending exact-head workspace-and-foundation CI."
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40664051372",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40664388101"
       ]
     },
     {
