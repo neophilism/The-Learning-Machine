@@ -77,7 +77,7 @@ export function validateLegalScenario(v){
  object(v,'legal scenario');version(v);keys(v,['schemaVersion','id','status','jurisdiction','evaluationDate','facts','sourceIds'],'legal scenario');
  str(v.id,'id',128);if(!['current','proposed','hypothetical'].includes(v.status))throw new TypeError('Invalid legal status');
  if(v.jurisdiction!=='US-federal')throw new TypeError('Unsupported legal jurisdiction');
- if(typeof v.evaluationDate!=='string'||!/^\\d{4}-\\d{2}-\\d{2}$/.test(v.evaluationDate)||Number.isNaN(Date.parse(v.evaluationDate+'T00:00:00Z')))throw new TypeError('Invalid legal evaluation date');
+ if(typeof v.evaluationDate!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(v.evaluationDate))throw new TypeError('Invalid legal evaluation date');\n const [year,month,day]=v.evaluationDate.split('-').map(Number);const evaluated=new Date(Date.UTC(year,month-1,day));\n if(evaluated.getUTCFullYear()!==year||evaluated.getUTCMonth()!==month-1||evaluated.getUTCDate()!==day)throw new TypeError('Invalid legal evaluation date');
  strings(v.sourceIds,'sourceIds');if(v.status!=='hypothetical'&&!v.sourceIds.length)throw new TypeError('Sourced legal scenario required');
  const f=v.facts;object(f,'facts');keys(f,['actors','works','access','copying','retention','teaching','outputs','declaredUnknowns'],'facts');
  list(f.actors,'actors',1,32);const actorIds=new Set();
