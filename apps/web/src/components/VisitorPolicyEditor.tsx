@@ -51,10 +51,10 @@ export default function VisitorPolicyEditor(){
      <option value="purchase">Purchase</option><option value="license">License</option><option value="borrow">Borrow</option><option value="stream">Stream</option><option value="public-source">Public source</option><option value="unauthorized">Unauthorized</option><option value="unknown">Unknown</option>
     </select></label>
     <label htmlFor="retention-days">Exact retention duration in days<input id="retention-days" type="number" min="0" max="36500" step="1" value={retentionDurationDays} onChange={event=>setRetentionDurationDays(Math.max(0,Math.min(36500,Number.parseInt(event.target.value||'0',10))))}/></label>
-    <label className="check-term"><input type="checkbox" checked={lawfulAccess} onChange={event=>setLawfulAccess(event.target.checked)}/> Require lawful access</label>
-    <label className="check-term"><input type="checkbox" checked={intermediateCopies} onChange={event=>setIntermediateCopies(event.target.checked)}/> Cover intermediate copies</label>
-    <label className="check-term"><input type="checkbox" checked={teaching} onChange={event=>setTeaching(event.target.checked)}/> Cover teaching</label>
-    <label className="check-term"><input type="checkbox" checked={distributedOutput} onChange={event=>setDistributedOutput(event.target.checked)}/> Cover distributed outputs</label>
+    <label className="check-term"><input type="checkbox" checked={lawfulAccess} onChange={event=>setLawfulAccess(event.target.checked)}/> Access is lawful</label>
+    <label className="check-term"><input type="checkbox" checked={intermediateCopies} onChange={event=>setIntermediateCopies(event.target.checked)}/> Intermediate copies are made</label>
+    <label className="check-term"><input type="checkbox" checked={teaching} onChange={event=>setTeaching(event.target.checked)}/> Teaching is performed</label>
+    <label className="check-term"><input type="checkbox" checked={distributedOutput} onChange={event=>setDistributedOutput(event.target.checked)}/> Output is distributed</label>
    </fieldset>
    <section className="policy-preview" aria-labelledby="preview-title"><h3 id="preview-title">Same-facts preview</h3>
     <p>The example uses licensed, lawful access; intermediate copies; one day of retention; teaching; and no distributed output.</p>
