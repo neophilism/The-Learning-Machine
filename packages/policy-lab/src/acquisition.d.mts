@@ -40,4 +40,5 @@ export interface AcquisitionExerciseResult {
 }
 export function evaluateAcquisitionExercise(
   input: AcquisitionExerciseInput,
+  options: { allowedSourceIds: string[] },
 ): Readonly<AcquisitionExerciseResult>;
