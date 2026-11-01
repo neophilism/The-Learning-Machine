@@ -6,7 +6,7 @@ test('visitor rule editor serializes controlled terms and previews their exact e
  await expect(page.getByRole('status')).toContainText('Outcome: permit');
  await page.getByLabel('Effect when every term matches').selectOption('restrict');
  await expect(page.getByRole('status')).toContainText('Outcome: restrict');
- await page.getByLabel('Cover distributed outputs').check();
+ await page.getByLabel('Output is distributed').check();
  await expect(page.getByRole('status')).toContainText('Rule does not match the example.');
  await expect(page.getByRole('status')).toContainText('Outcome: unresolved');
  const serialized=await page.getByLabel('Portable local JSON').inputValue();
