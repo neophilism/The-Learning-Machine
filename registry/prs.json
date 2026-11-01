@@ -1330,7 +1330,7 @@
       "verification_evidence": [
         "Draft PR #53 adds a fail-closed legal conflict resolver that accepts only acyclic precedence backed by authority IDs already cited in the evaluated scenario.",
         "Local isolated Node syntax checks and the focused conflict-oracle suite passed 5/5.",
-        "Exact-head hosted validation is pending."
+        "Behavior head 1bb8684a65b2cdef2c51154c2c34ec29301c0894 passed workspace-and-foundation run 41337051324, including frozen install, all foundation tests, TypeScript, production build, repository checks, and the complete desktop/mobile browser suite."
       ]
     },
     {
