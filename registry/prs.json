@@ -1348,13 +1348,15 @@
         "Acquisition and learning remain independently evaluated",
         "Source-provenance negative cases pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 54,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/54",
-      "merged_commit": null,
+      "merged_commit": "bf2b4385ba8a3bed783e89ed9a6db1683b5a1d0a",
       "verification_evidence": [
         "Hardened behavior head 503ab2ad0a3f4e455cfa85065add8324c63e6573 passed workspace-and-foundation run 41338225166 after final review required curated source registration.",
-        "Connector-safe isolated Node tests passed 5/5 and syntax validation passed before hosted verification."
+        "Evidence-mapped exact head 43ad79204af31fec0e19b18b35ac7e1e32ff00c4 passed workspace-and-foundation run 41338384303.",
+        "PR #54 squash-merged as bf2b4385ba8a3bed783e89ed9a6db1683b5a1d0a.",
+        "Merged-main workspace-and-foundation run 41338533420 passed."
       ]
     },
     {
