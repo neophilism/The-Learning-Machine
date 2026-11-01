@@ -1,0 +1,22 @@
+---
+import VisitorPolicyEditor from '../components/VisitorPolicyEditor.tsx';
+import '../styles/global.css';
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="description" content="Create and test a bounded hypothetical policy rule without changing the facts."/>
+<title>Hypothetical Rule Studio — The Learning Machine</title>
+</head>
+<body><div class="shell">
+<header class="site-header"><a class="brand" href="/" aria-label="The Learning Machine homepage"><span class="brand-mark" aria-hidden="true">◉</span> The Learning Machine</a><span class="site-label">An experimental classroom</span></header>
+<main id="main-content">
+<section class="intro" aria-labelledby="intro-title"><p class="eyebrow">Compare rules, preserve facts</p>
+<h1 id="intro-title">What changes when you change only the rule?</h1>
+<p class="lede">Choose a narrow factual scope and an effect. The preview keeps one example fixed so a different outcome cannot be produced by silently changing the actors, access, copying, teaching, retention, or outputs.</p></section>
+<VisitorPolicyEditor client:load/>
+</main>
+<footer>Independent educational work. No account, upload, or legal conclusion required.</footer>
+</div></body></html>
+
