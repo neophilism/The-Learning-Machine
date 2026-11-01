@@ -23,6 +23,10 @@
     "./conflicts": {
       "types": "./src/conflicts.d.mts",
       "default": "./src/conflicts.mjs"
+    },
+    "./acquisition": {
+      "types": "./src/acquisition.d.mts",
+      "default": "./src/acquisition.mjs"
     }
   },
   "dependencies": {
