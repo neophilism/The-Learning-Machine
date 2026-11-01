@@ -68,6 +68,7 @@ function validateEvaluation(input) {
   const ruleIds = new Set();
   const ruleEffects = new Map();
   const sourceIds = new Set();
+  const sourceIssuedOn = new Map();
   const applicability = new Map();
   for (const rule of input.ruleEvaluations) {
     exact(rule, ["id", "applicability", "effect", "rationale", "sources"], "Rule evaluation");
@@ -83,9 +84,16 @@ function validateEvaluation(input) {
     for (const source of rule.sources) {
       exact(source, ["id", "citation", "issuedOn", "sourceUrl", "scopeLimitations"],
         "Rule evaluation source");
-      sourceIds.add(text(source.id, "source ID", 128));
+      const sourceId = text(source.id, "source ID", 128);
+      sourceIds.add(sourceId);
       text(source.citation, "source citation", 512);
       assert(source.issuedOn === null || validDate(source.issuedOn), "Invalid source issue date");
+      if (sourceIssuedOn.has(sourceId)) {
+        assert(sourceIssuedOn.get(sourceId) === source.issuedOn,
+          "Conflicting source issue date");
+      } else {
+        sourceIssuedOn.set(sourceId, source.issuedOn);
+      }
       assert(/^https:\/\//.test(text(source.sourceUrl, "source URL")), "Source URL must use HTTPS");
       text(source.scopeLimitations, "source limitations", 4000);
     }
@@ -112,7 +120,15 @@ function validateEvaluation(input) {
         ? matchedEffects.values().next().value
         : "unresolved";
   assert(input.outcome === expectedOutcome, "Legal evaluation outcome is inconsistent");
-  return { matchedRuleIds, unknownRuleIds, ruleIds, ruleEffects, sourceIds };
+  return {
+    matchedRuleIds,
+    unknownRuleIds,
+    ruleIds,
+    ruleEffects,
+    sourceIds,
+    sourceIssuedOn,
+    evaluationDate: input.evaluationDate,
+  };
 }
 
 function validatePrecedence(input, evaluation) {
@@ -140,6 +156,9 @@ function validatePrecedence(input, evaluation) {
     for (const sourceId of sourceIds) {
       assert(evaluation.sourceIds.has(sourceId),
         "Precedence source must be cited in the evaluated scenario");
+      const issuedOn = evaluation.sourceIssuedOn.get(sourceId);
+      assert(issuedOn === null || issuedOn <= evaluation.evaluationDate,
+        "Precedence source postdates the evaluation");
     }
     return {
       id,
@@ -174,6 +193,14 @@ export function resolveLegalConflict(evaluationInput, precedenceInput) {
       baseOutcome: base.outcome,
       outcome: "unresolved",
       qualification: base.qualification,
+      winningRuleIds: [],
+      appliedPrecedenceIds: [],
+    });
+  }
+  if (base.outcome !== "disputed" && base.outcome !== "unresolved") {
+    return deepFreeze({
+      ...base,
+      baseOutcome: base.outcome,
       winningRuleIds: [],
       appliedPrecedenceIds: [],
     });

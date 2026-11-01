@@ -123,4 +123,9 @@ test("invented sources, unknown rules, cycles and stray fields fail closed", () 
   assert.throws(() => resolveLegalConflict(fabricated, precedence([
     decision("valid", "supporting", ["limiting"], ["authority-supporting"]),
   ])), /outcome is inconsistent/);
+  const future = structuredClone(input);
+  future.ruleEvaluations[0].sources[0].issuedOn = "2027-01-01";
+  assert.throws(() => resolveLegalConflict(future, precedence([
+    decision("future", "supporting", ["limiting"], ["authority-supporting"]),
+  ])), /postdates the evaluation/);
 });
