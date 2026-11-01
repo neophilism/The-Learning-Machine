@@ -15,6 +15,10 @@
     "./comparison": {
       "types": "./src/comparison.d.mts",
       "default": "./src/comparison.mjs"
+    },
+    "./editor": {
+      "types": "./src/editor.d.mts",
+      "default": "./src/editor.mjs"
     }
   },
   "dependencies": {
