@@ -1348,7 +1348,7 @@
         "Acquisition and learning remain independently evaluated",
         "Source-provenance negative cases pass"
       ],
-      "status": "planned",
+      "status": "in_progress",
       "github_pr_number": null,
       "github_pr_url": null,
       "merged_commit": null,
