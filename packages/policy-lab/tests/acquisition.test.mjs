@@ -2,6 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { evaluateAcquisitionExercise } from "../src/acquisition.mjs";
 
+const evaluate = (input) => evaluateAcquisitionExercise(input, {allowedSourceIds: ["source-1"]});
+
 const learningEvaluation = (overrides = {}) => ({
   scenarioId: "scenario-57",
   outcome: "restrict",
@@ -33,7 +35,7 @@ test("lawful acquisition does not force a permitted learning-use outcome", () =>
     ["borrow", "loan-record"],
     ["stream", "license-record"],
   ]) {
-    const result = evaluateAcquisitionExercise(exercise(method, kind, "confirmed"));
+    const result = evaluate(exercise(method, kind, "confirmed"));
     assert.equal(result.acquisition.accessAssessment, "lawful");
     assert.equal(result.learningUse.outcome, "restrict");
     assert.equal(result.axesIndependent, true);
@@ -41,7 +43,7 @@ test("lawful acquisition does not force a permitted learning-use outcome", () =>
 });
 
 test("unauthorized acquisition does not overwrite a supported learning-use result", () => {
-  const result = evaluateAcquisitionExercise(exercise(
+  const result = evaluate(exercise(
     "pirated-copy",
     "unauthorized-copy-record",
     "denied",
@@ -56,7 +58,7 @@ test("unauthorized acquisition does not overwrite a supported learning-use resul
 });
 
 test("unknown authorization remains unresolved without changing the use evaluation", () => {
-  const result = evaluateAcquisitionExercise(exercise(
+  const result = evaluate(exercise(
     "stream",
     "license-record",
     "unknown",
@@ -74,25 +76,28 @@ test("unknown authorization remains unresolved without changing the use evaluati
 });
 
 test("rejects mismatched, contradictory, and missing provenance", () => {
-  assert.throws(() => evaluateAcquisitionExercise(
+  assert.throws(() => evaluate(
     exercise("purchase", "license-record", "confirmed")), /does not match/);
-  assert.throws(() => evaluateAcquisitionExercise(
+  assert.throws(() => evaluate(
     exercise("pirated-copy", "unauthorized-copy-record", "confirmed")), /explicit unauthorized/);
   const missing = exercise("borrow", "loan-record", "confirmed");
   delete missing.acquisition.evidence.sourceId;
-  assert.throws(() => evaluateAcquisitionExercise(missing), /fields/);
+  assert.throws(() => evaluate(missing), /fields/);
+  const invented = exercise("stream", "license-record", "confirmed");
+  invented.acquisition.evidence.sourceId = "invented-source";
+  assert.throws(() => evaluate(invented), /Unregistered/);
 });
 
 test("rejects fabricated outcomes, duplicate rule evidence, and stray fields", () => {
-  assert.throws(() => evaluateAcquisitionExercise(exercise(
+  assert.throws(() => evaluate(exercise(
     "purchase", "receipt", "confirmed",
     {learningEvaluation: learningEvaluation({outcome: "obviously-lawful"})},
   )), /Unsupported learning-use outcome/);
-  assert.throws(() => evaluateAcquisitionExercise(exercise(
+  assert.throws(() => evaluate(exercise(
     "purchase", "receipt", "confirmed",
     {learningEvaluation: learningEvaluation({matchedRuleIds: ["rule-1", "rule-1"]})},
   )), /Duplicate/);
   const stray = exercise("purchase", "receipt", "confirmed");
   stray.combinedVerdict = "approved";
-  assert.throws(() => evaluateAcquisitionExercise(stray), /fields/);
+  assert.throws(() => evaluate(stray), /fields/);
 });
