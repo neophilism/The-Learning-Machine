@@ -1,0 +1,2165 @@
+{
+  "schema_version": "1.0.0",
+  "repository": "neophilism/The-Learning-Machine",
+  "project": "The Learning Machine",
+  "roadmap_version": "2026-10-19",
+  "status_policy": "PRs are planned only until actually written, tested, merged and verified. No acceptance by documentation alone.",
+  "phases": [
+    {
+      "id": "P0",
+      "title": "Executable foundations",
+      "release_gate": "Reproducible plan, registered DAG and tested Socratic demonstration",
+      "work_units": 8
+    },
+    {
+      "id": "P1",
+      "title": "Socratic engine",
+      "release_gate": "Complete discover-experiment-revise-transfer cycle without remote AI",
+      "work_units": 8
+    },
+    {
+      "id": "P2",
+      "title": "Vision laboratory",
+      "release_gate": "Functional selective detection with honest alternatives",
+      "work_units": 8
+    },
+    {
+      "id": "P3",
+      "title": "Trainable classification laboratory",
+      "release_gate": "Genuine generalization on unseen data",
+      "work_units": 8
+    },
+    {
+      "id": "P4",
+      "title": "Model internals and retention",
+      "release_gate": "Accurate distinction between learning and source retention",
+      "work_units": 8
+    },
+    {
+      "id": "P5",
+      "title": "Music and audio learning",
+      "release_gate": "Real original-media audio classification and accessible alternatives",
+      "work_units": 8
+    },
+    {
+      "id": "P6",
+      "title": "U.S. legal evidence and policy engine",
+      "release_gate": "Sourced, qualified U.S. law evaluation",
+      "work_units": 8
+    },
+    {
+      "id": "P7",
+      "title": "Legal cases, education and creator rights",
+      "release_gate": "Non-misleading full legal learning scenarios",
+      "work_units": 8
+    },
+    {
+      "id": "P8",
+      "title": "Economic flows and perspectives",
+      "release_gate": "Transparent actor-based economics with no invented facts",
+      "work_units": 8
+    },
+    {
+      "id": "P9",
+      "title": "Design your own law and transfer",
+      "release_gate": "Functional impartial hypothetical law-making studio",
+      "work_units": 8
+    },
+    {
+      "id": "P10",
+      "title": "Publishing and optional AI assistance",
+      "release_gate": "Immutable curated source releases; no mandatory model calls",
+      "work_units": 8
+    },
+    {
+      "id": "P11",
+      "title": "Full acceptance and public deployment",
+      "release_gate": "Independently verified accessible production system",
+      "work_units": 8
+    }
+  ],
+  "work_units": [
+    {
+      "id": "TLM-001",
+      "phase": "P0",
+      "title": "Foundational architecture, roadmap and mini-loop",
+      "depends_on": [],
+      "scope": "Complete canonical plan, registry, smoke-tested pure learner reducer and CI",
+      "acceptance_criteria": [
+        "Basic encounter-hypothesis-prediction-observation cycle runs; no future features marked done",
+        "Node tests and roadmap validation prove real executable foundation"
+      ],
+      "status": "merged",
+      "github_pr_number": 1,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/1",
+      "merged_commit": "bf9c10e9f8d553a164b493920c2e5a85aeaeeca0",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39289389096",
+        "https://github.com/neophilism/The-Learning-Machine/pull/1"
+      ]
+    },
+    {
+      "id": "TLM-002",
+      "phase": "P0",
+      "title": "Pinned TypeScript workspace and Astro/React build",
+      "depends_on": [
+        "TLM-001"
+      ],
+      "scope": "Pin Node 24, pnpm, lockfile, strict TypeScript and browser build",
+      "acceptance_criteria": [
+        "Clean frozen install, typecheck and production preview succeed",
+        "CI builds from empty checkout"
+      ],
+      "status": "merged",
+      "github_pr_number": 2,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/2",
+      "merged_commit": "85fdb2680dc34af53f2421b10818ff1d3c9722c7",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39294200581",
+        "https://github.com/neophilism/The-Learning-Machine/pull/2"
+      ]
+    },
+    {
+      "id": "TLM-003",
+      "phase": "P0",
+      "title": "Versioned contracts and schema validation",
+      "depends_on": [
+        "TLM-002"
+      ],
+      "scope": "Validate events, modules, experiments, measurements, scenarios and releases at boundaries",
+      "acceptance_criteria": [
+        "Malformed or unsupported versions fail closed",
+        "Schema/property negative tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 3,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/3",
+      "merged_commit": "c3d9bb18a1c2ec3035b44239d3956b9cfda7a5c1",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39294751705",
+        "https://github.com/neophilism/The-Learning-Machine/pull/3"
+      ]
+    },
+    {
+      "id": "TLM-004",
+      "phase": "P0",
+      "title": "Lesson graph DSL and compiler",
+      "depends_on": [
+        "TLM-003"
+      ],
+      "scope": "Author and compile bounded branching lesson graphs and prerequisites",
+      "acceptance_criteria": [
+        "Invalid edges, dead ends and inaccessible required routes are rejected",
+        "Graph fixtures exercise branches, alternative endings and cycles"
+      ],
+      "status": "merged",
+      "github_pr_number": 4,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/4",
+      "merged_commit": "8011ccb297ae3c8d5922fe6f41340d83730ea468",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39295203852",
+        "https://github.com/neophilism/The-Learning-Machine/pull/4"
+      ]
+    },
+    {
+      "id": "TLM-005",
+      "phase": "P0",
+      "title": "Full deterministic Socratic state machine",
+      "depends_on": [
+        "TLM-003",
+        "TLM-004"
+      ],
+      "scope": "Typed learner stages, guards, skips, explanation routes and replayable actions",
+      "acceptance_criteria": [
+        "Only permitted transitions occur; direct answers remain accessible",
+        "Table-driven transition and navigation tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 5,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/5",
+      "merged_commit": "6e36fbc51617975af0bbff360844c7cc85ab843c",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39295607409",
+        "https://github.com/neophilism/The-Learning-Machine/pull/5"
+      ]
+    },
+    {
+      "id": "TLM-006",
+      "phase": "P0",
+      "title": "Observation provenance and experiment replay",
+      "depends_on": [
+        "TLM-003",
+        "TLM-005"
+      ],
+      "scope": "Record measurements versus simulations, algorithm versions, run IDs and seeds",
+      "acceptance_criteria": [
+        "Deterministic experiments replay and cannot relabel simulated values as measured",
+        "Golden replay and trace validation pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 6,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/6",
+      "merged_commit": "78920a77cc9053b1642b3f5a67d3ca86212e0700",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39295989726",
+        "https://github.com/neophilism/The-Learning-Machine/pull/6"
+      ]
+    },
+    {
+      "id": "TLM-007",
+      "phase": "P0",
+      "title": "Responsive accessible learning shell",
+      "depends_on": [
+        "TLM-002",
+        "TLM-005"
+      ],
+      "scope": "Build semantic public app with question, stage, evidence and accessible interaction",
+      "acceptance_criteria": [
+        "Keyboard-only visitor can complete and reset a miniature lesson",
+        "Playwright desktop/mobile accessibility smoke passes"
+      ],
+      "status": "merged",
+      "github_pr_number": 7,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/7",
+      "merged_commit": "4eb9f75bc34ed496a9f79e0be2e8d426c050348c",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39297448911",
+        "https://github.com/neophilism/The-Learning-Machine/pull/7"
+      ]
+    },
+    {
+      "id": "TLM-008",
+      "phase": "P0",
+      "title": "Foundational CI and PR quality enforcement",
+      "depends_on": [
+        "TLM-002",
+        "TLM-003",
+        "TLM-004",
+        "TLM-005",
+        "TLM-006",
+        "TLM-007"
+      ],
+      "scope": "Require lint, typecheck, tests, registry validation and security gates",
+      "acceptance_criteria": [
+        "Required jobs fail on actual defects and run against exact PR head",
+        "Fresh-checkout CI and negative tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 8,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/8",
+      "merged_commit": "7be7c5cf28bb9f9b5379bcdac257f1b0cfa21733",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39298075673",
+        "https://github.com/neophilism/The-Learning-Machine/pull/8"
+      ]
+    },
+    {
+      "id": "TLM-009",
+      "phase": "P1",
+      "title": "Open-ended encounter and hypothesis input",
+      "depends_on": [
+        "TLM-005",
+        "TLM-007"
+      ],
+      "scope": "Capture multiple plausible learner explanations and suggested alternatives",
+      "acceptance_criteria": [
+        "Valid unusual solutions are not rejected to force an approved answer",
+        "Noncanonical answer fixtures pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 9,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/9",
+      "merged_commit": "3b844033e3b340fc4dda22865155607d46dda2b7",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39298452158"
+      ]
+    },
+    {
+      "id": "TLM-010",
+      "phase": "P1",
+      "title": "Prediction before reveal",
+      "depends_on": [
+        "TLM-009",
+        "TLM-006"
+      ],
+      "scope": "Associate learner predictions with experiments and prevent premature result disclosure",
+      "acceptance_criteria": [
+        "Prediction appears beside actual observation after execution",
+        "Leakage and edit/reset tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 15,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/15",
+      "merged_commit": "457b8c8ad80eaa6504fdaf98e1caa3103a696868",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39302222199"
+      ]
+    },
+    {
+      "id": "TLM-011",
+      "phase": "P1",
+      "title": "Experiment dispatch, cancellation and retries",
+      "depends_on": [
+        "TLM-003",
+        "TLM-006",
+        "TLM-010"
+      ],
+      "scope": "Route learner actions to typed local experiments with controlled retries",
+      "acceptance_criteria": [
+        "Failure and cancellation do not corrupt the learning state",
+        "Timeout and retry integration tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 17,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/17",
+      "merged_commit": "1f51270c439d0b7d95811f0511a85267a5f0f58a",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39303410288"
+      ]
+    },
+    {
+      "id": "TLM-012",
+      "phase": "P1",
+      "title": "Evidence-bound observation stage",
+      "depends_on": [
+        "TLM-011",
+        "TLM-006"
+      ],
+      "scope": "Turn experiment outputs into source-labeled learner observations",
+      "acceptance_criteria": [
+        "Measured, computed, simulated and unknown are visibly distinct",
+        "Mislabelled evidence and unknown-value tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 18,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/18",
+      "merged_commit": "455c6534a6c7e640abfc3aac13a34239aa829524",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39304057045"
+      ]
+    },
+    {
+      "id": "TLM-013",
+      "phase": "P1",
+      "title": "Contextual Socratic question selection",
+      "depends_on": [
+        "TLM-009",
+        "TLM-010",
+        "TLM-012"
+      ],
+      "scope": "Select questions from learner claims, prerequisites and observed outcomes",
+      "acceptance_criteria": [
+        "Different learner approaches elicit meaningfully different questions",
+        "Branching dialogue fixtures pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 20,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/20",
+      "merged_commit": "056b2bd49ad45d3a754a80ee250e8657a57ba7a0",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39305002208"
+      ]
+    },
+    {
+      "id": "TLM-014",
+      "phase": "P1",
+      "title": "Progressive scaffolding and direct explanation",
+      "depends_on": [
+        "TLM-013"
+      ],
+      "scope": "Offer clear hints, accessibility support and immediate explanations on request",
+      "acceptance_criteria": [
+        "Visitor can skip or seek help without punitive scoring",
+        "Hint-level and bypass tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 23,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/23",
+      "merged_commit": "5cdd8058be9b7ba8c797c853a446a40a6f2ac109",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39306750243"
+      ]
+    },
+    {
+      "id": "TLM-015",
+      "phase": "P1",
+      "title": "Counterexample selection and competing approaches",
+      "depends_on": [
+        "TLM-012",
+        "TLM-013"
+      ],
+      "scope": "Challenge weak hypotheses with balanced, actual counterexamples",
+      "acceptance_criteria": [
+        "Bill-supporting and bill-opposing hypotheses receive equally rigorous scrutiny",
+        "Adversarial question selection fixtures pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 24,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/24",
+      "merged_commit": "03d3f23323aba6d4bc0e54da314f3b0a230ace8e",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39384194746",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39384389775"
+      ]
+    },
+    {
+      "id": "TLM-016",
+      "phase": "P1",
+      "title": "Revision, transfer and reasoning evidence",
+      "depends_on": [
+        "TLM-014",
+        "TLM-015"
+      ],
+      "scope": "Record revisions and test ideas on novel tasks rather than political agreement",
+      "acceptance_criteria": [
+        "Reasoned disagreement can complete an experience",
+        "Transfer and alternative-outcome E2E passes"
+      ],
+      "status": "merged",
+      "github_pr_number": 25,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/25",
+      "merged_commit": "a1535fb57288af439959a0a96b04198a5e9e6a76",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39384984445",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39385161188"
+      ]
+    },
+    {
+      "id": "TLM-017",
+      "phase": "P2",
+      "title": "Synthetic image scenes and accessible drawing inputs",
+      "depends_on": [
+        "TLM-007",
+        "TLM-011"
+      ],
+      "scope": "Use original symbols, Canvas and SVG descriptions to build scene fixtures",
+      "acceptance_criteria": [
+        "Scenes need no unauthorized logos and remain reproducible",
+        "Image snapshots and descriptions pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 26,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/26",
+      "merged_commit": "3cea971832238fc0f1811ac51ea79f43f33e79d2",
+      "verification_evidence": [
+        "Local Node vision-scene tests passed 4/4.",
+        "Exact-head workspace-and-foundation run 39388069972 passed for 329cdc2c89d31768dcc2c07ccd388d6834aabcb3: frozen install, 126/126 foundation tests, TypeScript, production build, content/boundary/secret/legal checks, and 24/24 desktop/mobile Chromium tests.",
+        "PR #26 squash-merged as 3cea971832238fc0f1811ac51ea79f43f33e79d2."
+      ]
+    },
+    {
+      "id": "TLM-018",
+      "phase": "P2",
+      "title": "Actual frame/pixel operations and trace",
+      "depends_on": [
+        "TLM-017",
+        "TLM-006"
+      ],
+      "scope": "Instrument real pixel buffer transformations, not merely animations",
+      "acceptance_criteria": [
+        "Displayed processing steps match executed pixel operations",
+        "Reference frame calculations pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 27,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/27",
+      "merged_commit": "50f4b4fcf8bec17338478a94adf1bcbe08031ab9",
+      "verification_evidence": [
+        "Local TLM-018 reference-frame tests passed 4/4.",
+        "Exact-head workspace-and-foundation run 39389263945 passed for 01c26330a80bf342db5b35c93e23d0c536d80766: frozen install, 130/130 foundation tests, TypeScript, build, repository checks, and 26/26 desktop/mobile Chromium tests.",
+        "PR #27 squash-merged as 50f4b4fcf8bec17338478a94adf1bcbe08031ab9."
+      ]
+    },
+    {
+      "id": "TLM-019",
+      "phase": "P2",
+      "title": "Real selective recognizer for synthetic icons",
+      "depends_on": [
+        "TLM-017",
+        "TLM-018"
+      ],
+      "scope": "Implement bounded template/geometric detection across varied locations",
+      "acceptance_criteria": [
+        "Recognizer detects novel placements and rejects distractors",
+        "Precision and recall golden fixtures pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 28,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/28",
+      "merged_commit": "7fd5a7ced90911fcae120e1d566f743697e1b319",
+      "verification_evidence": [
+        "Local TLM-019 golden recognizer tests passed 4/4.",
+        "Exact-head workspace-and-foundation run 39390431302 passed for ce698e9d13d2ec4c7a400f3631322d74bb364c01: frozen install, repository checks/build, and full desktop/mobile Chromium suite.",
+        "Merged-main workspace-and-foundation run 39390685667 passed for 7fd5a7ced90911fcae120e1d566f743697e1b319.",
+        "https://github.com/neophilism/The-Learning-Machine/pull/28"
+      ]
+    },
+    {
+      "id": "TLM-020",
+      "phase": "P2",
+      "title": "Manual, blanket and selective masking alternatives",
+      "depends_on": [
+        "TLM-019"
+      ],
+      "scope": "Implement masking methods with differing recognition requirements",
+      "acceptance_criteria": [
+        "Blanket masking works without recognizing the target",
+        "Rendered pixel-output tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 29,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/29",
+      "merged_commit": "1bf010f8c6a219b751729dcc8d904257689a5f0c",
+      "verification_evidence": [
+        "Local JavaScript syntax validation passed for the TLM-020 runtime and tests.",
+        "Exact-head workspace-and-foundation run 39391642961 passed for 42c059ff2e8ac74d32cbfeae086e64a6812b16f4: frozen install, repository checks/build, and full desktop/mobile Chromium suite.",
+        "Merged-main workspace-and-foundation run 39391928226 passed for 1bf010f8c6a219b751729dcc8d904257689a5f0c.",
+        "https://github.com/neophilism/The-Learning-Machine/pull/29"
+      ]
+    },
+    {
+      "id": "TLM-021",
+      "phase": "P2",
+      "title": "False positives, misses and uncertainty display",
+      "depends_on": [
+        "TLM-019",
+        "TLM-020"
+      ],
+      "scope": "Compute confusion counts and denominators from classified synthetic frames",
+      "acceptance_criteria": [
+        "Metrics change accurately as frames and thresholds change",
+        "Edge-case accuracy fixtures pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 30,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/30",
+      "merged_commit": "523d6e94de9b8f2d38ae086f664c72287c1c9cc9",
+      "verification_evidence": [
+        "Exact-head workspace-and-foundation run 39393060348 passed for fdf92376e9c25468f21053ddd28cde6b249379e2: frozen install, full repository checks/build, and complete desktop/mobile Chromium suite.",
+        "Merged-main workspace-and-foundation run 39393273408 passed for 523d6e94de9b8f2d38ae086f664c72287c1c9cc9.",
+        "https://github.com/neophilism/The-Learning-Machine/pull/30"
+      ]
+    },
+    {
+      "id": "TLM-022",
+      "phase": "P2",
+      "title": "Worker-backed vision compute and cancellation",
+      "depends_on": [
+        "TLM-011",
+        "TLM-018",
+        "TLM-021"
+      ],
+      "scope": "Move heavy pixel work to cancellable budgeted Workers",
+      "acceptance_criteria": [
+        "Stale frame results cannot appear after reset",
+        "Race and timeout stress tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 31,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/31",
+      "merged_commit": "1d68effb7f349dd9991428614e29d6764f66dc94",
+      "verification_evidence": [
+        "Exact-head workspace-and-foundation run 39394648219 passed for f8c73403efabfe59e37c4e17c3973921a9200207: frozen install, 144 Node tests, strict TypeScript, production build, repository checks and all 32 desktop/mobile Chromium cases.",
+        "Merged-main workspace-and-foundation run 39394888227 passed for 1d68effb7f349dd9991428614e29d6764f66dc94.",
+        "https://github.com/neophilism/The-Learning-Machine/pull/31"
+      ]
+    },
+    {
+      "id": "TLM-023",
+      "phase": "P2",
+      "title": "Explicit opt-in local webcam mode",
+      "depends_on": [
+        "TLM-022"
+      ],
+      "scope": "Add gesture-triggered webcam capture with local-only processing default",
+      "acceptance_criteria": [
+        "No capture without permission and no frame upload",
+        "Denied/revoked permission and network tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 32,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/32",
+      "merged_commit": "2005fd3179920265d2cfc360b798156d4c861dca",
+      "verification_evidence": [
+        "Exact-head workspace-and-foundation run 39397011091 passed for 7ccf2cca2c62a5af6831a5d0844df9acfaae3a51: frozen install, 148 Node tests, strict TypeScript, production build, repository checks and all 36 desktop/mobile Chromium cases.",
+        "Merged-main workspace-and-foundation run 39397248362 passed for 2005fd3179920265d2cfc360b798156d4c861dca.",
+        "https://github.com/neophilism/The-Learning-Machine/pull/32"
+      ]
+    },
+    {
+      "id": "TLM-024",
+      "phase": "P2",
+      "title": "Module 1: complete selective-masking Socratic journey",
+      "depends_on": [
+        "TLM-017",
+        "TLM-020",
+        "TLM-021",
+        "TLM-022",
+        "TLM-023",
+        "TLM-016"
+      ],
+      "scope": "Publish encounter-through-transfer lesson with alternative technical solutions",
+      "acceptance_criteria": [
+        "Visitors discover differing information requirements, not forced conclusions",
+        "Keyboard/mobile/adversarial journey tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 33,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/33",
+      "merged_commit": "5adf9cbf53d50c5d849e663e9bdff2e1c4dd7bfa",
+      "verification_evidence": [
+        "Exact-head workspace-and-foundation run 39398542870 passed for 5a4425870ac845374f4a4946d669061e5458333f: frozen install, 148 Node tests, strict TypeScript, production build, content/boundary/secret/legal checks and all 38 desktop/mobile Chromium cases.",
+        "Merged-main workspace-and-foundation run 39398816774 passed for 5adf9cbf53d50c5d849e663e9bdff2e1c4dd7bfa.",
+        "https://github.com/neophilism/The-Learning-Machine/pull/33"
+      ]
+    },
+    {
+      "id": "TLM-025",
+      "phase": "P3",
+      "title": "Local drawing examples and editable labels",
+      "depends_on": [
+        "TLM-007",
+        "TLM-011"
+      ],
+      "scope": "Capture user-drawn examples for at least two classes inside browser",
+      "acceptance_criteria": [
+        "Learner can add/edit/remove examples without sending them remotely",
+        "Local-only input and mutation tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 19,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/19",
+      "merged_commit": "5dc8d1ba156e9e7b5a8a80b72fd80cacfbfd7e94",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39305097378"
+      ]
+    },
+    {
+      "id": "TLM-026",
+      "phase": "P3",
+      "title": "Train/test separation and dataset provenance",
+      "depends_on": [
+        "TLM-025",
+        "TLM-006"
+      ],
+      "scope": "Make reproducible distinct training and holdout partitions",
+      "acceptance_criteria": [
+        "Holdout examples do not leak into training",
+        "Partition property tests and seed replay pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 21,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/21",
+      "merged_commit": "69cf895021b8c722dffb068b4aa96bb829800e87",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39382215960",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39382473295"
+      ]
+    },
+    {
+      "id": "TLM-027",
+      "phase": "P3",
+      "title": "Transparent real trainable classifier",
+      "depends_on": [
+        "TLM-025",
+        "TLM-026",
+        "TLM-011"
+      ],
+      "scope": "Implement working small numerical classifier with real updated parameters",
+      "acceptance_criteria": [
+        "Training changes predictions by actual computation",
+        "Reference numeric update tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 22,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/22",
+      "merged_commit": "aa0f376ed2de3892eebc0061b9338073503c1740",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39383085702",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39383256679"
+      ]
+    },
+    {
+      "id": "TLM-028",
+      "phase": "P3",
+      "title": "Unseen-example inference and score display",
+      "depends_on": [
+        "TLM-027"
+      ],
+      "scope": "Predict on new drawings with score and limitation text",
+      "acceptance_criteria": [
+        "New predictions are calculated rather than scripted",
+        "Holdout inference fixtures pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 34,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/34",
+      "merged_commit": "a963792376181c6fc22f043287e7fc2b8a065186",
+      "verification_evidence": [
+        "Exact-head workspace-and-foundation run 39399837544 passed for af16c68ea7417d98b9a8ab69a5570aab2a016fce: frozen install, 150 Node tests, strict TypeScript, production build, repository checks and all 40 desktop/mobile Chromium cases.",
+        "Merged-main workspace-and-foundation run 39400070882 passed for a963792376181c6fc22f043287e7fc2b8a065186.",
+        "https://github.com/neophilism/The-Learning-Machine/pull/34"
+      ]
+    },
+    {
+      "id": "TLM-029",
+      "phase": "P3",
+      "title": "Confusion matrix and balanced metrics",
+      "depends_on": [
+        "TLM-026",
+        "TLM-028"
+      ],
+      "scope": "Display per-class precision, recall and confusion counts",
+      "acceptance_criteria": [
+        "Displayed results match actual labeled predictions",
+        "Imbalanced and empty-class tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 35,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/35",
+      "merged_commit": "a68c73ad673a612e77fafbe13d61c6c4613d65db",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39402070543",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39402408485",
+        "https://github.com/neophilism/The-Learning-Machine/pull/35"
+      ]
+    },
+    {
+      "id": "TLM-030",
+      "phase": "P3",
+      "title": "Memorization versus generalization trials",
+      "depends_on": [
+        "TLM-027",
+        "TLM-028",
+        "TLM-029"
+      ],
+      "scope": "Compare memorizing nearest examples with a generalizing learner",
+      "acceptance_criteria": [
+        "Unseen scenarios reveal where each method fails",
+        "Both algorithms run under identical holdout sets"
+      ],
+      "status": "merged",
+      "github_pr_number": 37,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/37",
+      "merged_commit": "ee0bd2de2de9e687ff1cdd549f699790257949a4",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40182467147",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40182618749"
+      ]
+    },
+    {
+      "id": "TLM-031",
+      "phase": "P3",
+      "title": "Noise, outliers and adversarial input experiments",
+      "depends_on": [
+        "TLM-029",
+        "TLM-030"
+      ],
+      "scope": "Offer reproducible disturbances and misleading examples",
+      "acceptance_criteria": [
+        "Accuracy changes trace back to declared perturbations",
+        "Seed and label-integrity tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 38,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/38",
+      "merged_commit": "1c3d671b1f83af73359e76dc3aea7fede3143085",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40183051733",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40183157114",
+        "https://github.com/neophilism/The-Learning-Machine/pull/38"
+      ]
+    },
+    {
+      "id": "TLM-032",
+      "phase": "P3",
+      "title": "Module 2: Teach a Machine",
+      "depends_on": [
+        "TLM-025",
+        "TLM-026",
+        "TLM-027",
+        "TLM-028",
+        "TLM-029",
+        "TLM-030",
+        "TLM-031",
+        "TLM-016"
+      ],
+      "scope": "Integrate training, test, failure, revision and transfer into one real lesson",
+      "acceptance_criteria": [
+        "Visitor trains and tests an actual local model",
+        "E2E training and accessible route tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 39,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/39",
+      "merged_commit": "d5799f369de5bfc45c024328ae685719ac8349c5",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40279909366",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40280106655",
+        "https://github.com/neophilism/The-Learning-Machine/pull/39"
+      ]
+    },
+    {
+      "id": "TLM-033",
+      "phase": "P4",
+      "title": "Optional small neural-network TensorFlow.js backend",
+      "depends_on": [
+        "TLM-027",
+        "TLM-030"
+      ],
+      "scope": "Lazy-load real local neural training with CPU fallback and limits",
+      "acceptance_criteria": [
+        "Backend can be disabled without losing the lesson",
+        "Fallback, timing and tolerance tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-034",
+      "phase": "P4",
+      "title": "Actual model parameter inspector",
+      "depends_on": [
+        "TLM-027",
+        "TLM-033"
+      ],
+      "scope": "Expose real weights/centroids and changes caused by training",
+      "acceptance_criteria": [
+        "Visual states correspond to stored numerical parameters",
+        "Serialize/deserialize parameter tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-035",
+      "phase": "P4",
+      "title": "Dataset disposal and retained-model demonstration",
+      "depends_on": [
+        "TLM-026",
+        "TLM-034"
+      ],
+      "scope": "Demonstrate application-store cleanup versus retained learned model",
+      "acceptance_criteria": [
+        "System never promises guaranteed physical memory erasure or unlearning",
+        "Store inspection and disclosure tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-036",
+      "phase": "P4",
+      "title": "Versioned reproducible model experiments",
+      "depends_on": [
+        "TLM-006",
+        "TLM-033",
+        "TLM-034"
+      ],
+      "scope": "Pin algorithm, inputs, seeds and backend caveats in replay trace",
+      "acceptance_criteria": [
+        "Comparable runs explain true determinism limits",
+        "CPU golden runs and GPU tolerance tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-037",
+      "phase": "P4",
+      "title": "Honest performance and intermediate-operation microscope",
+      "depends_on": [
+        "TLM-018",
+        "TLM-035",
+        "TLM-036"
+      ],
+      "scope": "Instrument real processing steps and distinguish illustrations",
+      "acceptance_criteria": [
+        "No performance metric or internal process is fabricated",
+        "Trace provenance tests fail on synthetic labels missing disclosures"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-038",
+      "phase": "P4",
+      "title": "Unseen transfer and overfitting challenge",
+      "depends_on": [
+        "TLM-030",
+        "TLM-031",
+        "TLM-034"
+      ],
+      "scope": "Present novel tasks that distinguish rule transfer from rote memory",
+      "acceptance_criteria": [
+        "Learner revises after unexpected generalization failure",
+        "Transfer and ambiguity fixtures pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-039",
+      "phase": "P4",
+      "title": "Module 3: What Did the Machine Learn?",
+      "depends_on": [
+        "TLM-034",
+        "TLM-035",
+        "TLM-037",
+        "TLM-038"
+      ],
+      "scope": "Teach parameters, source disposal, reconstructability and generalization",
+      "acceptance_criteria": [
+        "Learner explains retention without absolute guarantees",
+        "Complete accessible learner-route tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-040",
+      "phase": "P4",
+      "title": "ML device limits and browser compatibility",
+      "depends_on": [
+        "TLM-033",
+        "TLM-035",
+        "TLM-039"
+      ],
+      "scope": "Bound memory, time, workers and offer honest low-power alternatives",
+      "acceptance_criteria": [
+        "No unlimited compute loop freezes the interface",
+        "Reference device perf and browser fallback tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-041",
+      "phase": "P5",
+      "title": "Original musical synthesizer and melody editor",
+      "depends_on": [
+        "TLM-007"
+      ],
+      "scope": "Generate original rhythms, tones and melodies using Web Audio",
+      "acceptance_criteria": [
+        "Default material has documented original-media provenance",
+        "Offline render and asset-rights checks pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 12,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/12",
+      "merged_commit": "e0d76bf482ffb0c1484f5738f59976ea59f5b8b2",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39298988741"
+      ]
+    },
+    {
+      "id": "TLM-042",
+      "phase": "P5",
+      "title": "Measured waveform and spectrogram views",
+      "depends_on": [
+        "TLM-041"
+      ],
+      "scope": "Derive visuals from actual audio samples",
+      "acceptance_criteria": [
+        "Visuals and narration agree with underlying signals",
+        "Reference signal tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 13,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/13",
+      "merged_commit": "b4b0e03e5b4e6b905a839f2a844b9bc4e13748bf",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39299413234"
+      ]
+    },
+    {
+      "id": "TLM-043",
+      "phase": "P5",
+      "title": "Pitch, rhythm and timbre feature extractors",
+      "depends_on": [
+        "TLM-041",
+        "TLM-042"
+      ],
+      "scope": "Compute musical characteristics with explicit algorithm limits",
+      "acceptance_criteria": [
+        "Controlled tones produce expected numerical features",
+        "Signal boundary and pitch/rhythm fixture tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 16,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/16",
+      "merged_commit": "2527ab8117897558a360696fafe07aa394925006",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39302593254"
+      ]
+    },
+    {
+      "id": "TLM-044",
+      "phase": "P5",
+      "title": "Trainable musical pattern classifier",
+      "depends_on": [
+        "TLM-027",
+        "TLM-043"
+      ],
+      "scope": "Train local classifier on original extracted musical features",
+      "acceptance_criteria": [
+        "Learner can test novel melodies with actual predicted results",
+        "Holdout musical classifier tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 40,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/40",
+      "merged_commit": "c375beafb7acc071b86ab92727ce0489c07f322a",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40652195915",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40652466146",
+        "https://github.com/neophilism/The-Learning-Machine/pull/40"
+      ]
+    },
+    {
+      "id": "TLM-045",
+      "phase": "P5",
+      "title": "Musical characteristics versus copied expression",
+      "depends_on": [
+        "TLM-043",
+        "TLM-044"
+      ],
+      "scope": "Compare generalized patterns, memorization and direct replays",
+      "acceptance_criteria": [
+        "Listeners can distinguish simulated copying from new compositions",
+        "Originality labeling and audio comparison tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 42,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/42",
+      "merged_commit": "db4b6d59f2cb778b9e6b866b73419ec207b50116",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40654595078",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40654932941",
+        "https://github.com/neophilism/The-Learning-Machine/pull/42"
+      ]
+    },
+    {
+      "id": "TLM-046",
+      "phase": "P5",
+      "title": "Live audio filtering and parallel processing tasks",
+      "depends_on": [
+        "TLM-041",
+        "TLM-043"
+      ],
+      "scope": "Provide bounded live sound filters and truthful real-time processing demonstration",
+      "acceptance_criteria": [
+        "Observed processing corresponds to actual signals and disclosed fallbacks",
+        "Measured-latency and denied-permission tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 43,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/43",
+      "merged_commit": "314706a47f292ec866206f08ebf97a844db2ffb1",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40657213535",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40657558401",
+        "https://github.com/neophilism/The-Learning-Machine/pull/43"
+      ]
+    },
+    {
+      "id": "TLM-047",
+      "phase": "P5",
+      "title": "Complete music-learning lesson",
+      "depends_on": [
+        "TLM-041",
+        "TLM-042",
+        "TLM-043",
+        "TLM-044",
+        "TLM-045",
+        "TLM-046",
+        "TLM-016"
+      ],
+      "scope": "Publish prediction-and-revision lesson using locally generated music",
+      "acceptance_criteria": [
+        "Learner can infer musical features without access to copyrighted recordings",
+        "Keyboard, audio and nonaudio E2E paths pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 44,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/44",
+      "merged_commit": "6e8a5511a7790065bd8cade10699723c41d5b1d0",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40659199997",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40659457816",
+        "https://github.com/neophilism/The-Learning-Machine/pull/44"
+      ]
+    },
+    {
+      "id": "TLM-048",
+      "phase": "P5",
+      "title": "Audio privacy, non-audio equivalents and mobile QA",
+      "depends_on": [
+        "TLM-041",
+        "TLM-042",
+        "TLM-047"
+      ],
+      "scope": "Implement user gesture, captions and alternatives when sound unavailable",
+      "acceptance_criteria": [
+        "Experience objectives remain achievable without hearing or microphone",
+        "Assistive and mobile-muted tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 45,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/45",
+      "merged_commit": "d54feb8526939a00b3dc2b60135c3f6233f21ed2",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40660664685",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40660970365",
+        "https://github.com/neophilism/The-Learning-Machine/pull/45"
+      ]
+    },
+    {
+      "id": "TLM-049",
+      "phase": "P6",
+      "title": "Dated U.S. statutes and precedent content pack",
+      "depends_on": [
+        "TLM-003"
+      ],
+      "scope": "Curate relevant federal copyright statutes and judicial holdings with source pointers",
+      "acceptance_criteria": [
+        "Every actual legal claim has authority, limitations and date",
+        "Citation and quote integrity checks pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 14,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/14",
+      "merged_commit": "2e55e483ef8f704fccf15d9927e1e8aa6b2c67db",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39383633656",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/39383847138"
+      ]
+    },
+    {
+      "id": "TLM-050",
+      "phase": "P6",
+      "title": "Versioned proposed-bill text and draft status",
+      "depends_on": [
+        "TLM-049"
+      ],
+      "scope": "Load approved bill version, or explicitly label incomplete draft placeholders",
+      "acceptance_criteria": [
+        "A proposed provision never appears as enacted law",
+        "Missing authoritative full-text guard tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 46,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/46",
+      "merged_commit": "85490341be1cddecea3eacae29c63a9a6a9b1015",
+      "verification_evidence": [
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40664051372",
+        "https://github.com/neophilism/The-Learning-Machine/actions/runs/40664388101"
+      ]
+    },
+    {
+      "id": "TLM-051",
+      "phase": "P6",
+      "title": "Typed legal scenarios and material/access facts",
+      "depends_on": [
+        "TLM-003",
+        "TLM-049"
+      ],
+      "scope": "Model actors, works, access, copying, retention, teaching and outputs",
+      "acceptance_criteria": [
+        "Scenarios cannot conceal missing material facts",
+        "Schema edge and invalid classification tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 47,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/47",
+      "merged_commit": "83a183341cad64112b78a2da13f512bfd22d40e5",
+      "verification_evidence": [
+        "Exact-head workspace-and-foundation run 40666580771 passed for ab818976d47386c96adaa52d29039245d7858dc3.",
+        "PR #47 squash-merged as 83a183341cad64112b78a2da13f512bfd22d40e5.",
+        "Merged-main workspace-and-foundation run 40666886072 passed."
+      ]
+    },
+    {
+      "id": "TLM-052",
+      "phase": "P6",
+      "title": "Bounded source-linked policy rule compiler",
+      "depends_on": [
+        "TLM-050",
+        "TLM-051"
+      ],
+      "scope": "Compile constrained permissions/exceptions without eval or code upload",
+      "acceptance_criteria": [
+        "Unsupported operations and unsourced operative rules fail closed",
+        "Nested-rule property and hostile input tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 49,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/49",
+      "merged_commit": "889126a66511e41fbdfe798a86081b643300d577",
+      "verification_evidence": [
+        "Initial implementation PR #48 exact head 0d942875860ded4a7886c177cccae8b1113a7305 passed run 40667899297 and squash-merged as cbe4ef95ac40d46150d958386a403f69ab8feb65.",
+        "Post-merge review found policy comparison values were not constrained to their TLM-051 fact domains.",
+        "Corrective PR #49 final zero-behind head ad9a38be4a101a5ad9d21c62792c00945e3045eb passed run 40669285762.",
+        "Corrective PR #49 squash-merged as 889126a66511e41fbdfe798a86081b643300d577.",
+        "Corrected merged-main workspace-and-foundation run 40669654433 passed."
+      ]
+    },
+    {
+      "id": "TLM-053",
+      "phase": "P6",
+      "title": "Current-law qualified evaluation",
+      "depends_on": [
+        "TLM-049",
+        "TLM-051",
+        "TLM-052"
+      ],
+      "scope": "Produce source-supported outcomes with unresolved/disputed states",
+      "acceptance_criteria": [
+        "No universal all-training-legal or illegal shortcut appears",
+        "Legal golden cases and unknown branches pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 50,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/50",
+      "merged_commit": "6b384bb5f1686ea2a640d47bed8fdb4cc62157ee",
+      "verification_evidence": [
+        "Draft PR #50 opened after 25 focused contract, compiler and evaluator tests plus syntax checks passed locally.",
+        "Final zero-behind head ff509bb408e07e7126f87b290b207b962fda9fc2 passed workspace-and-foundation run 40672822833, including frozen install, all foundation tests, strict type/build/content/boundary/secret/legal gates and the full desktop/mobile browser suite.",
+        "Review correction preserves declared-unknown facts as unresolved even when a rule tests exists false.",
+        "PR #50 squash-merged as 6b384bb5f1686ea2a640d47bed8fdb4cc62157ee.",
+        "Merged-main workspace-and-foundation run 40673057371 passed."
+      ]
+    },
+    {
+      "id": "TLM-054",
+      "phase": "P6",
+      "title": "Same-facts existing-versus-proposed comparison",
+      "depends_on": [
+        "TLM-050",
+        "TLM-052",
+        "TLM-053"
+      ],
+      "scope": "Replay identical situations under separately labeled legal frameworks",
+      "acceptance_criteria": [
+        "Changing law does not silently change actors, economics or access",
+        "Differential fixture tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 51,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/51",
+      "merged_commit": "8b7d733a29c9ab90de930ccaa186738319f8d781",
+      "verification_evidence": [
+        "Draft PR #51 opened from verified canonical main after 18 focused compiler, current-law evaluator, and framework-comparison tests passed locally.",
+        "Initial exact head ee597e8b598e01eaa13e203d5e9c569f2293c050 passed workspace-and-foundation run 40674472290.",
+        "Final review prevents an unavailable proposal from being mislabeled as a rule-driven differential.",
+        "Final zero-behind head 2457712af3cccc0c0d0f85cf9672c70360a26322 passed workspace-and-foundation run 40675022265, including frozen install, all repository checks, and the complete browser suite.",
+        "PR #51 squash-merged as 8b7d733a29c9ab90de930ccaa186738319f8d781.",
+        "Merged-main workspace-and-foundation run 40675283940 passed."
+      ]
+    },
+    {
+      "id": "TLM-055",
+      "phase": "P6",
+      "title": "First visitor rule editor",
+      "depends_on": [
+        "TLM-052",
+        "TLM-054",
+        "TLM-007"
+      ],
+      "scope": "Allow toggles and controlled scoped terms for hypothetical legislation",
+      "acceptance_criteria": [
+        "User can express alternative rules and see their precise effect",
+        "Editor serialization and negative tests pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 52,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/52",
+      "merged_commit": "b3de190b0952d3ce381816c9767a81f6992ed396",
+      "verification_evidence": [
+        "Final exact PR head ab8c9e89f68e778e5179e0778512a9bc59f59d32 passed workspace-and-foundation run 41336163840: frozen install, 202 foundation tests, TypeScript, production build, repository checks, and all 58 desktop/mobile browser cases.",
+        "PR #52 squash-merged as b3de190b0952d3ce381816c9767a81f6992ed396.",
+        "Merged-main workspace-and-foundation run 41336492516 passed.",
+        "PR #52 squash-merged as b3de190b0952d3ce381816c9767a81f6992ed396.",
+        "Merged-main workspace-and-foundation run 41336492516 passed."
+      ]
+    },
+    {
+      "id": "TLM-056",
+      "phase": "P6",
+      "title": "Conflicts, exceptions and legal golden oracles",
+      "depends_on": [
+        "TLM-052",
+        "TLM-053",
+        "TLM-054",
+        "TLM-055"
+      ],
+      "scope": "Respect nested exceptions, ambiguous rules and competing holdings",
+      "acceptance_criteria": [
+        "Unresolved law stays unresolved unless sourced precedence exists",
+        "Golden conflict and adversarial cases pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 53,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/53",
+      "merged_commit": "ac93d3fe70c9b57558e6f8a62687e37e4accd7b4",
+      "verification_evidence": [
+        "Behavior head 1bb8684a65b2cdef2c51154c2c34ec29301c0894 passed workspace-and-foundation run 41337051324 after final review added postdated-authority rejection.",
+        "Evidence-mapped exact head e10cbc483d6fca41d4daa3a30b95bf1f2e56c16b passed workspace-and-foundation run 41337250208.",
+        "PR #53 squash-merged as ac93d3fe70c9b57558e6f8a62687e37e4accd7b4.",
+        "Merged-main workspace-and-foundation run 41337455828 passed."
+      ]
+    },
+    {
+      "id": "TLM-057",
+      "phase": "P7",
+      "title": "Acquisition and lawful-access exercise",
+      "depends_on": [
+        "TLM-051",
+        "TLM-053",
+        "TLM-016"
+      ],
+      "scope": "Contrast lawful purchase, borrowing, streaming and pirated sources",
+      "acceptance_criteria": [
+        "Acquisition and learning remain independently evaluated",
+        "Source-provenance negative cases pass"
+      ],
+      "status": "merged",
+      "github_pr_number": 54,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/54",
+      "merged_commit": "bf2b4385ba8a3bed783e89ed9a6db1683b5a1d0a",
+      "verification_evidence": [
+        "Hardened behavior head 503ab2ad0a3f4e455cfa85065add8324c63e6573 passed workspace-and-foundation run 41338225166 after final review required curated source registration.",
+        "Evidence-mapped exact head 43ad79204af31fec0e19b18b35ac7e1e32ff00c4 passed workspace-and-foundation run 41338384303.",
+        "PR #54 squash-merged as bf2b4385ba8a3bed783e89ed9a6db1683b5a1d0a.",
+        "Merged-main workspace-and-foundation run 41338533420 passed."
+      ]
+    },
+    {
+      "id": "TLM-058",
+      "phase": "P7",
+      "title": "Fixation and temporary-copy legal lesson",
+      "depends_on": [
+        "TLM-049",
+        "TLM-051",
+        "TLM-053"
+      ],
+      "scope": "Explain §101, Cablevision and MAI without fictitious duration cutoff",
+      "acceptance_criteria": [
+        "No absolute 1.2-second immunity or all-RAM-infringing rule",
+        "Case-specific duration fixtures pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-059",
+      "phase": "P7",
+      "title": "Nonprofit school, private tutoring and for-profit teaching",
+      "depends_on": [
+        "TLM-049",
+        "TLM-051",
+        "TLM-053"
+      ],
+      "scope": "Teach §110(1), fair use, public performance and proposed educational expansion",
+      "acceptance_criteria": [
+        "Profit status does not silently rewrite present §110 law",
+        "Historical and live instruction scenario fixtures pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-060",
+      "phase": "P7",
+      "title": "Contract, security, privacy and confidentiality caveats",
+      "depends_on": [
+        "TLM-049",
+        "TLM-051",
+        "TLM-053"
+      ],
+      "scope": "Model independent limits including §1201, privacy and trade secrets",
+      "acceptance_criteria": [
+        "Computational copyright exceptions do not authorize hacking or interception",
+        "Cross-regime violation fixtures pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-061",
+      "phase": "P7",
+      "title": "Models, archives, output infringement and memorization",
+      "depends_on": [
+        "TLM-035",
+        "TLM-049",
+        "TLM-051",
+        "TLM-053"
+      ],
+      "scope": "Compare learned parameters, retrievable expression, permanent archive and output liability",
+      "acceptance_criteria": [
+        "Learning permission is not treated as distribution license",
+        "Negative output and archive cases pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-062",
+      "phase": "P7",
+      "title": "Eighteen-context adversarial legal case library",
+      "depends_on": [
+        "TLM-055",
+        "TLM-056",
+        "TLM-057",
+        "TLM-058",
+        "TLM-059",
+        "TLM-060",
+        "TLM-061"
+      ],
+      "scope": "Cover filtering, accessibility, caching, networks, search and other described cases",
+      "acceptance_criteria": [
+        "Each case distinguishes actual permission, fair use, license or uncertainty",
+        "18 complete source-linked scenario fixtures pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-063",
+      "phase": "P7",
+      "title": "Legal truth-layer and source inspector",
+      "depends_on": [
+        "TLM-049",
+        "TLM-050",
+        "TLM-054",
+        "TLM-062"
+      ],
+      "scope": "Separate present statutes, interpretations, hypothetical rules, proposed law and independent rights",
+      "acceptance_criteria": [
+        "Every claim supports inspectable citation or flagged uncertainty",
+        "Browser citation integrity and assistive tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-064",
+      "phase": "P7",
+      "title": "Complete education and acquisition lessons",
+      "depends_on": [
+        "TLM-057",
+        "TLM-058",
+        "TLM-059",
+        "TLM-060",
+        "TLM-061",
+        "TLM-062",
+        "TLM-063",
+        "TLM-016"
+      ],
+      "scope": "Publish Modules 4–5 with valid disagreement and alternative paths",
+      "acceptance_criteria": [
+        "Learner distinguishes learning rights from separate legal limits",
+        "E2E contradictory and accessible paths pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-065",
+      "phase": "P8",
+      "title": "Stakeholders and authorization/information graphs",
+      "depends_on": [
+        "TLM-051",
+        "TLM-063"
+      ],
+      "scope": "Model creator, publisher, learner, developer, user and regulator roles distinctly",
+      "acceptance_criteria": [
+        "Permission, information and money flows cannot be conflated",
+        "Graph type and actor consistency tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-066",
+      "phase": "P8",
+      "title": "Integer-money transaction model",
+      "depends_on": [
+        "TLM-065"
+      ],
+      "scope": "Use fixed-point minor units, explicit rounding and balanced events",
+      "acceptance_criteria": [
+        "Every monetary transfer conserves modeled balance",
+        "Overflow, conservation and rounding tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-067",
+      "phase": "P8",
+      "title": "Access/fees/licensing scenarios",
+      "depends_on": [
+        "TLM-065",
+        "TLM-066"
+      ],
+      "scope": "Simulate hypothetical lawful access and alternate license structures",
+      "acceptance_criteria": [
+        "Financial consequences follow only declared inputs",
+        "Deterministic transaction golden tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-068",
+      "phase": "P8",
+      "title": "Creator earnings and potential market substitution",
+      "depends_on": [
+        "TLM-066",
+        "TLM-067"
+      ],
+      "scope": "Explore plausible changes in sales, licensing and expressively substitutive demand",
+      "acceptance_criteria": [
+        "All estimates are visibly conditional, not factual verdicts",
+        "Sensitivity edge cases and uncertainty checks pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-069",
+      "phase": "P8",
+      "title": "Competition and entry-cost analysis",
+      "depends_on": [
+        "TLM-066",
+        "TLM-068"
+      ],
+      "scope": "Model startup entry costs, scale and various access-price assumptions",
+      "acceptance_criteria": [
+        "Alternative assumptions can reverse outcome honestly",
+        "Scenario comparison property tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-070",
+      "phase": "P8",
+      "title": "Assumption provenance and range propagation",
+      "depends_on": [
+        "TLM-065",
+        "TLM-066",
+        "TLM-068",
+        "TLM-069"
+      ],
+      "scope": "Store evidence classes, ranges and unsupported assumptions for every economic result",
+      "acceptance_criteria": [
+        "Missing evidence never silently becomes a precise forecast",
+        "Unknown-propagation and boundary tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-071",
+      "phase": "P8",
+      "title": "Switchable creator/teacher/developer viewpoints",
+      "depends_on": [
+        "TLM-065",
+        "TLM-068",
+        "TLM-070"
+      ],
+      "scope": "Show different interests without altering the factual core of a scenario",
+      "acceptance_criteria": [
+        "Each viewpoint can challenge premise and produce reasoned opposition",
+        "Role-switch and bias tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-072",
+      "phase": "P8",
+      "title": "Module 6: Creator, Student and Market",
+      "depends_on": [
+        "TLM-067",
+        "TLM-068",
+        "TLM-069",
+        "TLM-070",
+        "TLM-071",
+        "TLM-016"
+      ],
+      "scope": "Guide visitor through rights, incentives, money and tradeoffs",
+      "acceptance_criteria": [
+        "Learner revises decisions using explicit economic consequences",
+        "Accessible E2E multi-perspective cases pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-073",
+      "phase": "P9",
+      "title": "Compound visitor policy rules and validation",
+      "depends_on": [
+        "TLM-052",
+        "TLM-055",
+        "TLM-056"
+      ],
+      "scope": "Support nested conditions and annotations without arbitrary code",
+      "acceptance_criteria": [
+        "Rule meaning survives export, import and edited cases",
+        "Compiler and boundary tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-074",
+      "phase": "P9",
+      "title": "Accessible rule authoring interface",
+      "depends_on": [
+        "TLM-055",
+        "TLM-073"
+      ],
+      "scope": "Build terms, exclusions, carveouts, previews, undo and keyboard navigation",
+      "acceptance_criteria": [
+        "Visitor can create substantively different legislation",
+        "Multiple-policy UI golden cases pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-075",
+      "phase": "P9",
+      "title": "Multi-policy same-scenario comparison",
+      "depends_on": [
+        "TLM-054",
+        "TLM-073",
+        "TLM-074"
+      ],
+      "scope": "Run present law, proposal and visitor rules on identical facts",
+      "acceptance_criteria": [
+        "Results expose exactly which altered rule changed outcome",
+        "Deterministic differential runs pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-076",
+      "phase": "P9",
+      "title": "Tradeoff and uncertainty visualizations",
+      "depends_on": [
+        "TLM-070",
+        "TLM-075"
+      ],
+      "scope": "Show rights, burdens, exceptions, indeterminate outcomes and actor impact",
+      "acceptance_criteria": [
+        "No political morality or compliance score is fabricated",
+        "Assumption and accessible chart tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-077",
+      "phase": "P9",
+      "title": "Symmetric adversarial stress-test harness",
+      "depends_on": [
+        "TLM-015",
+        "TLM-062",
+        "TLM-075"
+      ],
+      "scope": "Challenge any policy with its concrete flaws and counterexamples",
+      "acceptance_criteria": [
+        "Rules aligned with proposed law receive no easier evaluation",
+        "Neutrality and corner-case fixtures pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-078",
+      "phase": "P9",
+      "title": "Rule history, alternate forks and portable exports",
+      "depends_on": [
+        "TLM-074",
+        "TLM-075",
+        "TLM-077"
+      ],
+      "scope": "Enable revision, comparisons and local export of original user hypotheses",
+      "acceptance_criteria": [
+        "Learner revises without losing older experiment evidence",
+        "History replay and local-only roundtrip tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-079",
+      "phase": "P9",
+      "title": "Module 7: Write the Law",
+      "depends_on": [
+        "TLM-073",
+        "TLM-074",
+        "TLM-075",
+        "TLM-076",
+        "TLM-077",
+        "TLM-078",
+        "TLM-016"
+      ],
+      "scope": "Create real proposed-law challenge and counterexample-driven revision",
+      "acceptance_criteria": [
+        "Multiple valid dissenting drafts can complete module",
+        "E2E authoring and disagreement paths pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-080",
+      "phase": "P9",
+      "title": "Module 8: Right to Learn capstone",
+      "depends_on": [
+        "TLM-064",
+        "TLM-072",
+        "TLM-079",
+        "TLM-016"
+      ],
+      "scope": "Integrate technical, legal and economic evidence in novel transfer exercises",
+      "acceptance_criteria": [
+        "Success requires reasoning, never support for sponsor's policy",
+        "Transfer-rubric and alternative-view acceptance pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-081",
+      "phase": "P10",
+      "title": "Private publisher authentication and roles",
+      "depends_on": [
+        "TLM-003"
+      ],
+      "scope": "Implement independent secure admin auth with MFA for privileged publication",
+      "acceptance_criteria": [
+        "Unauthorized editing, access and publishing fail closed",
+        "CSRF, role escalation and expiry tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-082",
+      "phase": "P10",
+      "title": "Curriculum authoring and preview environment",
+      "depends_on": [
+        "TLM-004",
+        "TLM-081"
+      ],
+      "scope": "Edit question graphs, media, accessibility routes and scenarios before release",
+      "acceptance_criteria": [
+        "Private drafts cannot modify immutable public releases",
+        "Invalid content and editing integration tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-083",
+      "phase": "P10",
+      "title": "Evidence integrity and source review workflow",
+      "depends_on": [
+        "TLM-049",
+        "TLM-050",
+        "TLM-082"
+      ],
+      "scope": "Review exact U.S. authorities, quoted spans, holdings and legal-status labels",
+      "acceptance_criteria": [
+        "A changed or missing source invalidates dependent public claims",
+        "Source-change and tampered citation tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-084",
+      "phase": "P10",
+      "title": "Media rights registry and secure import",
+      "depends_on": [
+        "TLM-041",
+        "TLM-082"
+      ],
+      "scope": "Track authorized original audio/video and bounded publisher uploads",
+      "acceptance_criteria": [
+        "Unreviewed assets and malicious formats cannot publish",
+        "Asset signature and unsafe upload tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-085",
+      "phase": "P10",
+      "title": "Immutable content packaging, publication and rollback",
+      "depends_on": [
+        "TLM-082",
+        "TLM-083",
+        "TLM-084"
+      ],
+      "scope": "Publish hash-bound release bundles atomically with rollback",
+      "acceptance_criteria": [
+        "In-flight release failure leaves prior valid release available",
+        "Atomic release and CDN consistency tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-086",
+      "phase": "P10",
+      "title": "Optional provider-neutral Socratic AI tutor",
+      "depends_on": [
+        "TLM-013",
+        "TLM-083"
+      ],
+      "scope": "Offer constrained voluntary question help backed by offline deterministic fallback",
+      "acceptance_criteria": [
+        "Core lessons remain functional with provider missing or disabled",
+        "Outage and no-API complete journey tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-087",
+      "phase": "P10",
+      "title": "Evidence-grounded tutor and bias controls",
+      "depends_on": [
+        "TLM-083",
+        "TLM-086"
+      ],
+      "scope": "Validate AI output format, lesson evidence, uncertainty and permitted question roles",
+      "acceptance_criteria": [
+        "Invented citations, legal decisions and political steering are rejected",
+        "Red-team prompt and contradiction evaluation passes"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-088",
+      "phase": "P10",
+      "title": "Tutor consent, limits and privacy isolation",
+      "depends_on": [
+        "TLM-006",
+        "TLM-086",
+        "TLM-087"
+      ],
+      "scope": "Minimize optional data sharing, rate-limit, timeout and cancel safely",
+      "acceptance_criteria": [
+        "Raw browser media never leaves automatically and provider failure does not block learning",
+        "Privacy and usage budget enforcement tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-089",
+      "phase": "P11",
+      "title": "Optional local progress, export and deletion",
+      "depends_on": [
+        "TLM-006",
+        "TLM-016",
+        "TLM-085"
+      ],
+      "scope": "Support local restore, explicit clear and portable learning journey",
+      "acceptance_criteria": [
+        "No account is required and removed application state is not silently restored",
+        "Import/export, corruption and deletion tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-090",
+      "phase": "P11",
+      "title": "Plain-language and localization-ready text",
+      "depends_on": [
+        "TLM-080",
+        "TLM-082"
+      ],
+      "scope": "Author simpler explanations, translation catalog and original-source distinctions",
+      "acceptance_criteria": [
+        "Translations never silently replace official legal authority",
+        "Missing-locale and source-equivalence tests pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-091",
+      "phase": "P11",
+      "title": "WCAG 2.2 AA whole-platform accessible parity",
+      "depends_on": [
+        "TLM-024",
+        "TLM-032",
+        "TLM-040",
+        "TLM-048",
+        "TLM-064",
+        "TLM-072",
+        "TLM-080"
+      ],
+      "scope": "Verify equivalent nonvisual, keyboard, reduced-motion and no-audio routes",
+      "acceptance_criteria": [
+        "All eight concepts reachable through equivalent accessible interactions",
+        "Automated and manual assistive matrix passes"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-092",
+      "phase": "P11",
+      "title": "Device performance, fallback and offline operation",
+      "depends_on": [
+        "TLM-040",
+        "TLM-048",
+        "TLM-085"
+      ],
+      "scope": "Optimize loading, cancel heavy tasks, route around unsupported GPU/audio",
+      "acceptance_criteria": [
+        "Core experiences work in low-power and optional-service-offline modes",
+        "Reference browsers and performance budgets pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-093",
+      "phase": "P11",
+      "title": "Threat model, secure publishing and privacy audit",
+      "depends_on": [
+        "TLM-081",
+        "TLM-084",
+        "TLM-085",
+        "TLM-088"
+      ],
+      "scope": "Harden CSP, upload handling, workers, credentials, auth and media defaults",
+      "acceptance_criteria": [
+        "No unresolved serious release-scope vulnerability remains",
+        "Automated negative security and privacy evidence passes"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-094",
+      "phase": "P11",
+      "title": "Independent hosting, deploy and recovery drills",
+      "depends_on": [
+        "TLM-085",
+        "TLM-092",
+        "TLM-093"
+      ],
+      "scope": "Provision this project's CDN/static site, optional API, staging and rollback",
+      "acceptance_criteria": [
+        "Staging deploy and restored previous release work without other products",
+        "Deployment and rollback smoke against actual origin passes"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-095",
+      "phase": "P11",
+      "title": "Eight-module pedagogy, source and narrative acceptance",
+      "depends_on": [
+        "TLM-024",
+        "TLM-032",
+        "TLM-039",
+        "TLM-047",
+        "TLM-064",
+        "TLM-072",
+        "TLM-079",
+        "TLM-080",
+        "TLM-083",
+        "TLM-091"
+      ],
+      "scope": "Verify every lesson, source caveat, question route and alternate answer",
+      "acceptance_criteria": [
+        "All 8 modules and every accessible route meet learning objectives",
+        "Full curriculum acceptance ledger and browser replay pass"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    },
+    {
+      "id": "TLM-096",
+      "phase": "P11",
+      "title": "Live production acceptance and release proof",
+      "depends_on": [
+        "TLM-008",
+        "TLM-089",
+        "TLM-090",
+        "TLM-091",
+        "TLM-092",
+        "TLM-093",
+        "TLM-094",
+        "TLM-095"
+      ],
+      "scope": "Verify production origin, complete lesson journey, security, performance and rollback",
+      "acceptance_criteria": [
+        "No launched claim without live deployment URL and exact release evidence",
+        "Production acceptance log contains tests, revisions and rollback drill"
+      ],
+      "status": "planned",
+      "github_pr_number": null,
+      "github_pr_url": null,
+      "merged_commit": null,
+      "verification_evidence": []
+    }
+  ]
+}
