@@ -40,7 +40,7 @@ const deepFreeze = (value) => {
   return value;
 };
 
-function assessAcquisition(acquisition) {
+function assessAcquisition(acquisition, allowedSourceIds) {
   exactKeys(acquisition, ["method", "evidence"], "acquisition");
   assert(METHODS.has(acquisition.method), "Unsupported acquisition method");
   const evidence = acquisition.evidence;
@@ -48,6 +48,7 @@ function assessAcquisition(acquisition) {
     "acquisition evidence");
   identifier(evidence.id, "evidence ID");
   identifier(evidence.sourceId, "evidence source ID");
+  assert(allowedSourceIds.has(evidence.sourceId), "Unregistered acquisition evidence source");
   boundedText(evidence.description, "evidence description", 1000);
   assert(evidence.kind === METHODS.get(acquisition.method),
     "Evidence kind does not match acquisition method");
@@ -92,14 +93,21 @@ function preserveLearningEvaluation(evaluation) {
  * legal learning-use evaluation, and the learning-use result never rewrites
  * how the material was obtained.
  */
-export function evaluateAcquisitionExercise(input) {
+export function evaluateAcquisitionExercise(input, options) {
+  exactKeys(options, ["allowedSourceIds"], "acquisition source options");
+  assert(Array.isArray(options.allowedSourceIds) && options.allowedSourceIds.length > 0 &&
+    options.allowedSourceIds.length <= 1000, "Acquisition source allowlist required");
+  const allowedSourceIds = new Set(options.allowedSourceIds.map((id) =>
+    identifier(id, "allowed acquisition source ID")));
+  assert(allowedSourceIds.size === options.allowedSourceIds.length,
+    "Duplicate allowed acquisition source ID");
   exactKeys(input, ["schemaVersion", "id", "acquisition", "learningEvaluation"],
     "acquisition exercise");
   assert(input.schemaVersion === "1.0.0", "Unsupported acquisition exercise version");
   const result = {
     schemaVersion: "1.0.0",
     id: identifier(input.id, "exercise ID"),
-    acquisition: assessAcquisition(input.acquisition),
+    acquisition: assessAcquisition(input.acquisition, allowedSourceIds),
     learningUse: preserveLearningEvaluation(input.learningEvaluation),
     axesIndependent: true,
   };
