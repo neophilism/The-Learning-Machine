@@ -1323,14 +1323,15 @@
         "Unresolved law stays unresolved unless sourced precedence exists",
         "Golden conflict and adversarial cases pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 53,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/53",
-      "merged_commit": null,
+      "merged_commit": "ac93d3fe70c9b57558e6f8a62687e37e4accd7b4",
       "verification_evidence": [
-        "Draft PR #53 adds a fail-closed legal conflict resolver that accepts only acyclic precedence backed by authority IDs already cited in the evaluated scenario.",
-        "Local isolated Node syntax checks and the focused conflict-oracle suite passed 5/5.",
-        "Behavior head 1bb8684a65b2cdef2c51154c2c34ec29301c0894 passed workspace-and-foundation run 41337051324, including frozen install, all foundation tests, TypeScript, production build, repository checks, and the complete desktop/mobile browser suite."
+        "Behavior head 1bb8684a65b2cdef2c51154c2c34ec29301c0894 passed workspace-and-foundation run 41337051324 after final review added postdated-authority rejection.",
+        "Evidence-mapped exact head e10cbc483d6fca41d4daa3a30b95bf1f2e56c16b passed workspace-and-foundation run 41337250208.",
+        "PR #53 squash-merged as ac93d3fe70c9b57558e6f8a62687e37e4accd7b4.",
+        "Merged-main workspace-and-foundation run 41337455828 passed."
       ]
     },
     {
