@@ -19,6 +19,10 @@
     "./editor": {
       "types": "./src/editor.d.mts",
       "default": "./src/editor.mjs"
+    },
+    "./conflicts": {
+      "types": "./src/conflicts.d.mts",
+      "default": "./src/conflicts.mjs"
     }
   },
   "dependencies": {
