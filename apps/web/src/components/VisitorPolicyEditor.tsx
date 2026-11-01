@@ -1,4 +1,4 @@
-import {useMemo,useState} from 'react';
+import {useEffect,useMemo,useState} from 'react';
 import {
  createVisitorPolicyRuleSet,
  previewVisitorPolicyRuleSet,
@@ -25,6 +25,8 @@ const labels:Record<string,string>={
 const show=(value:string|number|boolean|null)=>value===null?'unknown':String(value);
 
 export default function VisitorPolicyEditor(){
+ const [hydrated,setHydrated]=useState(false);
+ useEffect(()=>setHydrated(true),[]);
  const [effect,setEffect]=useState<PolicyEffect>('permit');
  const [accessMethod,setAccessMethod]=useState('license');
  const [lawfulAccess,setLawfulAccess]=useState(true);
@@ -44,17 +46,17 @@ export default function VisitorPolicyEditor(){
   <p>This local editor creates a hypothetical rule. It is not current law, proposed-bill text, or legal advice.</p>
   <div className="policy-grid">
    <fieldset><legend>Rule effect and controlled terms</legend>
-    <label htmlFor="policy-effect">Effect when every term matches<select id="policy-effect" value={effect} onChange={event=>setEffect(event.target.value as PolicyEffect)}>
+    <label htmlFor="policy-effect">Effect when every term matches<select id="policy-effect" disabled={!hydrated} value={effect} onChange={event=>setEffect(event.target.value as PolicyEffect)}>
      <option value="permit">Permit</option><option value="restrict">Restrict</option><option value="conditional">Conditional</option><option value="unresolved">Unresolved</option>
     </select></label>
-    <label htmlFor="access-method">Access method<select id="access-method" value={accessMethod} onChange={event=>setAccessMethod(event.target.value)}>
+    <label htmlFor="access-method">Access method<select id="access-method" disabled={!hydrated} value={accessMethod} onChange={event=>setAccessMethod(event.target.value)}>
      <option value="purchase">Purchase</option><option value="license">License</option><option value="borrow">Borrow</option><option value="stream">Stream</option><option value="public-source">Public source</option><option value="unauthorized">Unauthorized</option><option value="unknown">Unknown</option>
     </select></label>
-    <label htmlFor="retention-days">Exact retention duration in days<input id="retention-days" type="number" min="0" max="36500" step="1" value={retentionDurationDays} onChange={event=>setRetentionDurationDays(Math.max(0,Math.min(36500,Number.parseInt(event.target.value||'0',10))))}/></label>
-    <label className="check-term"><input type="checkbox" checked={lawfulAccess} onChange={event=>setLawfulAccess(event.target.checked)}/> Access is lawful</label>
-    <label className="check-term"><input type="checkbox" checked={intermediateCopies} onChange={event=>setIntermediateCopies(event.target.checked)}/> Intermediate copies are made</label>
-    <label className="check-term"><input type="checkbox" checked={teaching} onChange={event=>setTeaching(event.target.checked)}/> Teaching is performed</label>
-    <label className="check-term"><input type="checkbox" checked={distributedOutput} onChange={event=>setDistributedOutput(event.target.checked)}/> Output is distributed</label>
+    <label htmlFor="retention-days">Exact retention duration in days<input id="retention-days" disabled={!hydrated} type="number" min="0" max="36500" step="1" value={retentionDurationDays} onChange={event=>setRetentionDurationDays(Math.max(0,Math.min(36500,Number.parseInt(event.target.value||'0',10))))}/></label>
+    <label className="check-term"><input type="checkbox" disabled={!hydrated} checked={lawfulAccess} onChange={event=>setLawfulAccess(event.target.checked)}/> Access is lawful</label>
+    <label className="check-term"><input type="checkbox" disabled={!hydrated} checked={intermediateCopies} onChange={event=>setIntermediateCopies(event.target.checked)}/> Intermediate copies are made</label>
+    <label className="check-term"><input type="checkbox" disabled={!hydrated} checked={teaching} onChange={event=>setTeaching(event.target.checked)}/> Teaching is performed</label>
+    <label className="check-term"><input type="checkbox" disabled={!hydrated} checked={distributedOutput} onChange={event=>setDistributedOutput(event.target.checked)}/> Output is distributed</label>
    </fieldset>
    <section className="policy-preview" aria-labelledby="preview-title"><h3 id="preview-title">Same-facts preview</h3>
     <p>The example uses licensed, lawful access; intermediate copies; one day of retention; teaching; and no distributed output.</p>
