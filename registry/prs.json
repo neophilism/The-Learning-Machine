@@ -1303,6 +1303,8 @@
       "verification_evidence": [
         "Final exact PR head ab8c9e89f68e778e5179e0778512a9bc59f59d32 passed workspace-and-foundation run 41336163840: frozen install, 202 foundation tests, TypeScript, production build, repository checks, and all 58 desktop/mobile browser cases.",
         "PR #52 squash-merged as b3de190b0952d3ce381816c9767a81f6992ed396.",
+        "Merged-main workspace-and-foundation run 41336492516 passed.",
+        "PR #52 squash-merged as b3de190b0952d3ce381816c9767a81f6992ed396.",
         "Merged-main workspace-and-foundation run 41336492516 passed."
       ]
     },
