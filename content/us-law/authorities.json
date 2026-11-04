@@ -7,7 +7,7 @@
     "asOf": "2026-10-19",
     "note": "A learning reference pack, not a certified current-law database or a complete bill."
   },
-  "scope": "Dated, source-linked American copyright and computational learning precedents; no non-U.S. laws.",
+  "scope": "Dated, source-linked American copyright, computational learning, access, communications-privacy and trade-secret authorities; no non-U.S. laws.",
   "authorities": [
     {
       "id": "constitution-copyright-clause",
@@ -522,7 +522,57 @@
         "market-substitution",
         "fair-use"
       ]
+    },
+    {
+      "id": "usc18-1030",
+      "kind": "statute",
+      "citation": "18 U.S.C. § 1030",
+      "title": "Fraud and related activity in connection with computers",
+      "forum": "United States Congress",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/18/1030",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Federal computer-access provisions address specified unauthorized access and related conduct independently of copyright permission.",
+      "scopeLimitations": "The statutory elements, authorization boundary, jurisdiction, exceptions and remedies require separate analysis; the statute does not make every terms violation a federal offense.",
+      "topics": [
+        "unauthorized-access",
+        "security"
+      ]
+    },
+    {
+      "id": "usc18-2511",
+      "kind": "statute",
+      "citation": "18 U.S.C. § 2511",
+      "title": "Interception and disclosure of wire, oral, or electronic communications",
+      "forum": "United States Congress",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/18/2511",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Federal communications-privacy provisions regulate specified interceptions, uses and disclosures independently of copyright permission.",
+      "scopeLimitations": "Definitions, intent, contemporaneous interception, consent, provider conduct, exceptions and remedies require separate analysis.",
+      "topics": [
+        "communications-privacy",
+        "privacy"
+      ]
+    },
+    {
+      "id": "usc18-1836",
+      "kind": "statute",
+      "citation": "18 U.S.C. § 1836",
+      "title": "Civil proceedings for trade-secret misappropriation",
+      "forum": "United States Congress",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/18/1836",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "The federal civil trade-secret remedy can apply to qualifying misappropriation independently of copyright permissions or exceptions.",
+      "scopeLimitations": "Trade-secret status, interstate-commerce connection, acquisition, use, disclosure, defenses and remedies require their own evidence and legal analysis.",
+      "topics": [
+        "trade-secrets",
+        "confidentiality"
+      ]
     }
   ]
 }
-
