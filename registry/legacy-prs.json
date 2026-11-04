@@ -1434,7 +1434,8 @@
         "Draft PR #60 opened from fully verified canonical main 63a526fad0788f880b0ed1fef109e28990e5e00d.",
         "Focused independent-limits tests passed locally: 6/6 cross-regime, unknown-fact, source-integrity and malformed-input fixtures.",
         "Behavior commit b210276dae1714adc87e6d576f9c05d602c0dd0c adds the typed evaluator, scoped federal sources, catalog validation and documentation.",
-        "Concurrent duplicate PR #59 was reviewed and closed unmerged; canonical PR #60 includes §1030 unauthorized-access coverage and exact-object validation."
+        "Concurrent duplicate PR #59 was reviewed and closed unmerged; canonical PR #60 includes §1030 unauthorized-access coverage and exact-object validation.",
+        "Replacement exact head e74099d094274827234aeac377c416a8cb6e9c54 passed workspace-and-foundation run 41916332776, including frozen install, full pnpm check and desktop/mobile browser tests."
       ]
     },
     {
