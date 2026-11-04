@@ -1373,14 +1373,16 @@
         "No absolute 1.2-second immunity or all-RAM-infringing rule",
         "Case-specific duration fixtures pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 56,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/56",
-      "merged_commit": null,
+      "merged_commit": "717d2c43471862e8c5409a919de6fac49a70bf4e",
       "verification_evidence": [
         "Draft PR #56 opened from canonical main 6419266f1148af1098f6af7c767f55d04bc718ff.",
         "Focused fixation lesson tests passed locally: 5/5 case-specific and negative fixtures.",
-        "Exact behavior head bc30312f29b92b0b1a07a8ce551db8a7317f5eeb passed workspace-and-foundation run 41909598132, including full pnpm check and browser stages."
+        "Exact behavior head bc30312f29b92b0b1a07a8ce551db8a7317f5eeb passed workspace-and-foundation run 41909598132, including full pnpm check and browser stages.",
+        "Evidence-mapped exact head 56c944049b20ae8da91d4416941f8192a7b9214f passed workspace-and-foundation run 41909984567.",
+        "PR #56 squash-merged as 717d2c43471862e8c5409a919de6fac49a70bf4e; merged-main workspace-and-foundation run 41910675046 passed."
       ]
     },
     {
