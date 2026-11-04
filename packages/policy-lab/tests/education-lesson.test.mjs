@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { evaluateEducationLesson } from "./education-lesson.mjs";
+import { evaluateEducationLesson } from "../src/education-lesson.mjs";
 
 const authority = (id) => ({
   id, citation: id, issuedOn: null, sourceUrl: "https://example.test/" + id,
@@ -13,7 +13,7 @@ const bill = { schemaVersion: "1.0.0", documentKind: "proposed-bill",
 const facts = {
   instructionMode: "face-to-face", workUse: "performance", institutionNonprofit: true,
   instructorOrPupil: true, classroomOrSimilarPlace: true, audiovisualWork: true,
-  copyLawfullyMade: true, responsiblePersonKnewCopyUnlawful: false,
+  copyLawfullyMade: true, responsiblePersonKnewOrHadReasonCopyUnlawful: false,
   publicAudience: true, commercialPurpose: false,
 };
 const scenario = (setting, overrides = {}) => ({ schemaVersion: "1.0.0",
@@ -60,11 +60,11 @@ test("distinguishes face-to-face history from live transmission and unknown fact
 
 test("models the audiovisual-copy knowledge condition without inventing knowledge", () => {
   const noKnowledge = evaluateEducationLesson(scenario("nonprofit-school", {
-    copyLawfullyMade: false, responsiblePersonKnewCopyUnlawful: false,
+    copyLawfullyMade: false, responsiblePersonKnewOrHadReasonCopyUnlawful: false,
   }), catalog, bill);
   assert.equal(noKnowledge.section110Outcome, "exempt-on-cited-facts");
   const unknownKnowledge = evaluateEducationLesson(scenario("nonprofit-school", {
-    copyLawfullyMade: false, responsiblePersonKnewCopyUnlawful: null,
+    copyLawfullyMade: false, responsiblePersonKnewOrHadReasonCopyUnlawful: null,
   }), catalog, bill);
   assert.equal(unknownKnowledge.section110Outcome, "unresolved-material-facts");
 });
