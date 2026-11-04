@@ -12,7 +12,7 @@ export interface EducationLessonInput {
     classroomOrSimilarPlace: boolean | null;
     audiovisualWork: boolean | null;
     copyLawfullyMade: boolean | null;
-    responsiblePersonKnewCopyUnlawful: boolean | null;
+    responsiblePersonKnewOrHadReasonCopyUnlawful: boolean | null;
     publicAudience: boolean | null;
     commercialPurpose: boolean | null;
   };
