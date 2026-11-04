@@ -1399,15 +1399,17 @@
         "Profit status does not silently rewrite present §110 law",
         "Historical and live instruction scenario fixtures pass"
       ],
-      "status": "in_review",
+      "status": "merged",
       "github_pr_number": 58,
       "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/58",
-      "merged_commit": null,
+      "merged_commit": "2c0a0e87f6153ca7f4363fa039e9132fc58aaba6",
       "verification_evidence": [
         "Draft PR #58 opened from verified canonical main d1dee7650e87f0b67ba6432a2ac6d3d2d14fb63a.",
         "Focused education lesson tests passed locally: 7/7 statutory-boundary, live-instruction, unknown-fact and proposal fixtures.",
         "Initial hosted run 41912458690 exposed an attributable test import-path error; the import was corrected without weakening coverage.",
-        "Exact behavior head fc6bd377984bce2dccf5bd26e5bb030822184e17 passed workspace-and-foundation run 41912990041, including full pnpm check and browser stages."
+        "Exact behavior head fc6bd377984bce2dccf5bd26e5bb030822184e17 passed workspace-and-foundation run 41912990041, including full pnpm check and browser stages.",
+        "Registry-mapped exact head 6f47353983030fb3ead7aa9d0d54fe7f8ec808b0 passed workspace-and-foundation run 41913334706.",
+        "PR #58 squash-merged as 2c0a0e87f6153ca7f4363fa039e9132fc58aaba6; merged-main workspace-and-foundation run 41913914873 passed."
       ]
     },
     {
