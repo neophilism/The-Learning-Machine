@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "repository": "neophilism/The-Learning-Machine",
   "roadmapVersion": 1,
-  "observedAt": "2026-11-04T21:09:00Z",
+  "observedAt": "2026-11-04T21:14:00Z",
   "planVerified": true,
   "plannedPrCount": 96,
   "legacyPlanFile": "registry/legacy-prs.json",
@@ -1315,12 +1315,14 @@
       "scope": [
         "Teach §110(1), fair use, public performance and proposed educational expansion"
       ],
-      "legacyStatus": "in_review",
+      "legacyStatus": "merged",
       "legacyEvidence": [
         "Draft PR #58 opened from verified canonical main d1dee7650e87f0b67ba6432a2ac6d3d2d14fb63a.",
         "Focused education lesson tests passed locally: 7/7 statutory-boundary, live-instruction, unknown-fact and proposal fixtures.",
         "Initial hosted run 41912458690 exposed an attributable test import-path error; the import was corrected without weakening coverage.",
-        "Exact behavior head fc6bd377984bce2dccf5bd26e5bb030822184e17 passed workspace-and-foundation run 41912990041, including full pnpm check and browser stages."
+        "Exact behavior head fc6bd377984bce2dccf5bd26e5bb030822184e17 passed workspace-and-foundation run 41912990041, including full pnpm check and browser stages.",
+        "Registry-mapped exact head 6f47353983030fb3ead7aa9d0d54fe7f8ec808b0 passed workspace-and-foundation run 41913334706.",
+        "PR #58 squash-merged as 2c0a0e87f6153ca7f4363fa039e9132fc58aaba6; merged-main workspace-and-foundation run 41913914873 passed."
       ]
     },
     {
@@ -2617,13 +2619,13 @@
       "id": 5161585639,
       "number": 58,
       "title": "TLM-059: Add bounded teaching-settings legal lesson",
-      "state": "open",
+      "state": "closed",
       "url": "https://github.com/neophilism/The-Learning-Machine/pull/58",
       "createdAt": "2026-11-04T21:03:31Z",
-      "updatedAt": "2026-11-04T21:03:31Z",
-      "mergedAt": null,
-      "closedAt": null,
-      "draft": true
+      "updatedAt": "2026-11-04T21:12:58Z",
+      "mergedAt": "2026-11-04T21:12:32Z",
+      "closedAt": "2026-11-04T21:12:32Z",
+      "draft": false
     }
   ]
 }
