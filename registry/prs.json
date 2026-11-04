@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "repository": "neophilism/The-Learning-Machine",
   "roadmapVersion": 1,
-  "observedAt": "2026-11-04T21:28:00Z",
+  "observedAt": "2026-11-04T21:34:00Z",
   "planVerified": true,
   "plannedPrCount": 96,
   "legacyPlanFile": "registry/legacy-prs.json",
@@ -1342,12 +1342,14 @@
       "scope": [
         "Model independent limits including §1201, privacy and trade secrets"
       ],
-      "legacyStatus": "in_review",
+      "legacyStatus": "merged",
       "legacyEvidence": [
         "Draft PR #60 opened from fully verified canonical main 63a526fad0788f880b0ed1fef109e28990e5e00d.",
         "Focused independent-limits tests passed locally: 6/6 cross-regime, unknown-fact, source-integrity and malformed-input fixtures.",
         "Behavior commit b210276dae1714adc87e6d576f9c05d602c0dd0c adds the typed evaluator, scoped federal sources, catalog validation and documentation.",
-        "Concurrent duplicate PR #59 was reviewed and closed unmerged; canonical PR #60 includes §1030 unauthorized-access coverage and exact-object validation."
+        "Concurrent duplicate PR #59 was reviewed and closed unmerged; canonical PR #60 includes §1030 unauthorized-access coverage and exact-object validation.",
+        "Exact canonical head e74099d094274827234aeac377c416a8cb6e9c54 passed workspace-and-foundation run 41916332776.",
+        "PR #60 squash-merged as 29a51fc4a83f7e800f84e5db5aae05556e910fab; merged-main workspace-and-foundation run 41916813766 passed."
       ]
     },
     {
@@ -2638,13 +2640,13 @@
       "id": 5161830686,
       "number": 60,
       "title": "TLM-060: Add independent legal-limits caveats",
-      "state": "open",
+      "state": "closed",
       "url": "https://github.com/neophilism/The-Learning-Machine/pull/60",
       "createdAt": "2026-11-04T21:22:49Z",
-      "updatedAt": "2026-11-04T21:22:49Z",
-      "mergedAt": null,
-      "closedAt": null,
-      "draft": true
+      "updatedAt": "2026-11-04T21:30:59Z",
+      "mergedAt": "2026-11-04T21:30:59Z",
+      "closedAt": "2026-11-04T21:30:59Z",
+      "draft": false
     }
   ]
 }
