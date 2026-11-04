@@ -2637,10 +2637,12 @@
       "title": "TLM-060: Separate copyright from security and confidentiality limits",
       "state": "open",
       "createdAt": "2026-11-04T21:22:47Z",
-      "updatedAt": "2026-11-04T21:22:47Z",
+      "updatedAt": "2026-11-04T21:23:40Z",
       "mergedAt": null,
       "closedAt": null,
-      "draft": true
+      "draft": true,
+      "id": 5161830249,
+      "url": "https://github.com/neophilism/The-Learning-Machine/pull/59"
     }
   ]
 }
