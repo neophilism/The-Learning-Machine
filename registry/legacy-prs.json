@@ -1380,7 +1380,7 @@
       "verification_evidence": [
         "Draft PR #56 opened from canonical main 6419266f1148af1098f6af7c767f55d04bc718ff.",
         "Focused fixation lesson tests passed locally: 5/5 case-specific and negative fixtures.",
-        "Full exact-head workspace-and-foundation verification is pending."
+        "Exact behavior head bc30312f29b92b0b1a07a8ce551db8a7317f5eeb passed workspace-and-foundation run 41909598132, including full pnpm check and browser stages."
       ]
     },
     {
