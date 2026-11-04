@@ -1426,11 +1426,14 @@
         "Computational copyright exceptions do not authorize hacking or interception",
         "Cross-regime violation fixtures pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 59,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/59",
       "merged_commit": null,
-      "verification_evidence": []
+      "verification_evidence": [
+        "Draft PR #59 opened from fully verified canonical main 63a526fad0788f880b0ed1fef109e28990e5e00d.",
+        "Focused independent-caveats syntax validation and 6/6 cross-regime tests passed locally."
+      ]
     },
     {
       "id": "TLM-061",
