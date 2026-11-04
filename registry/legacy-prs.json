@@ -1405,7 +1405,9 @@
       "merged_commit": null,
       "verification_evidence": [
         "Draft PR #58 opened from verified canonical main d1dee7650e87f0b67ba6432a2ac6d3d2d14fb63a.",
-        "Focused education lesson tests passed locally: 7/7 statutory-boundary, live-instruction, unknown-fact and proposal fixtures."
+        "Focused education lesson tests passed locally: 7/7 statutory-boundary, live-instruction, unknown-fact and proposal fixtures.",
+        "Initial hosted run 41912458690 exposed an attributable test import-path error; the import was corrected without weakening coverage.",
+        "Exact behavior head fc6bd377984bce2dccf5bd26e5bb030822184e17 passed workspace-and-foundation run 41912990041, including full pnpm check and browser stages."
       ]
     },
     {
