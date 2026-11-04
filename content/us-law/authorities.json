@@ -337,6 +337,25 @@
       ]
     },
     {
+      "id": "mai-peak",
+      "kind": "precedent",
+      "citation": "991 F.2d 511 (9th Cir. 1993)",
+      "title": "MAI Systems Corp. v. Peak Computer, Inc.",
+      "forum": "U.S. Court of Appeals, Ninth Circuit",
+      "issuedOn": "1993-04-07",
+      "sourceUrl": "https://law.justia.com/cases/federal/appellate-courts/F2/991/511/170594/",
+      "sourceType": "secondary-opinion",
+      "researchStatus": "opinion_reviewed",
+      "stance": "limiting",
+      "relevance": "Loading the licensed operating software into RAM for third-party maintenance produced a representation sufficiently stable to be perceived, reproduced or communicated on that record.",
+      "scopeLimitations": "The holding concerned identified software loaded for maintenance in the Ninth Circuit; it did not hold that every RAM, cache or fleeting buffer embodiment is fixed or infringing.",
+      "topics": [
+        "temporary-processing",
+        "fixation",
+        "software"
+      ]
+    },
+    {
       "id": "cablevision",
       "kind": "precedent",
       "citation": "536 F.3d 121 (2d Cir. 2008)",
@@ -506,3 +525,4 @@
     }
   ]
 }
+

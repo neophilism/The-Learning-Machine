@@ -17,6 +17,7 @@ The machine-readable U.S. source catalog is `content/us-law/authorities.json`. I
 - **17 U.S.C. §101** includes the transitory-duration criterion. This does not give every RAM buffer automatic immunity.
 - **17 U.S.C. §110(1)** specifically refers to face-to-face teaching at a nonprofit educational institution. A for-profit classroom is not automatically within that exception.
 - **Cablevision (2d Cir. 2008)** treated the specific fleeting buffers before it as nonfixed; no universal 1.2-second safe harbor exists.
+- **MAI Systems v. Peak (9th Cir. 1993)** treated the maintenance loading of identified software into usable RAM as fixed on that record; it is not an all-RAM rule or a complete infringement analysis.
 - **Authors Guild v. Google (2d Cir. 2015)** protected the indexing/search/snippet use as fair use under its non-substitutive conditions.
 - **Sony v. Connectix (9th Cir. 2000)** involved intermediate reverse-engineering copies needed to develop a separate emulator.
 - **TVEyes (2d Cir. 2018)** illustrates why commercial redistribution of accessible broadcast clips can fail fair-use analysis.
@@ -28,3 +29,4 @@ The machine-readable U.S. source catalog is `content/us-law/authorities.json`. I
 Run `pnpm legal:check` and `pnpm check`. CI enforces unique citations, HTTPS source allowlists, U.S. jurisdiction, dates, required scope caveats, substantial supporting and adverse precedents, and a complete typed source list.
 
 TLM-050 will attach actual version-controlled proposed statutory text when available. TLM-051–056 will represent scenario facts, operative rule language, rule evaluation, side-by-side comparisons and conflicts. This catalog alone does **not** implement legal rules or deliver legally authoritative individualized conclusions.
+

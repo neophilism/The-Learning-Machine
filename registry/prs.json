@@ -1277,7 +1277,9 @@
       "title": "Fixation and temporary-copy legal lesson",
       "phase": "P7",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        56
+      ],
       "dependsOn": [
         "TLM-049",
         "TLM-051",
@@ -1287,8 +1289,12 @@
       "scope": [
         "Explain §101, Cablevision and MAI without fictitious duration cutoff"
       ],
-      "legacyStatus": "planned",
-      "legacyEvidence": []
+      "legacyStatus": "in_review",
+      "legacyEvidence": [
+        "Draft PR #56 opened from canonical main 6419266f1148af1098f6af7c767f55d04bc718ff.",
+        "Focused fixation lesson tests passed locally: 5/5 case-specific and negative fixtures.",
+        "Exact behavior head bc30312f29b92b0b1a07a8ce551db8a7317f5eeb passed workspace-and-foundation run 41909598132, including full pnpm check and browser stages."
+      ]
     },
     {
       "id": "TLM-059",
@@ -2585,6 +2591,19 @@
       "mergedAt": "2026-11-01T18:48:55Z",
       "closedAt": "2026-11-01T18:48:55Z",
       "draft": false
+    },
+    {
+      "id": 5161251798,
+      "number": 56,
+      "title": "TLM-058: Add case-specific fixation and temporary-copy lesson",
+      "state": "open",
+      "url": "https://github.com/neophilism/The-Learning-Machine/pull/56",
+      "createdAt": "2026-11-04T20:38:56Z",
+      "updatedAt": "2026-11-04T20:38:56Z",
+      "mergedAt": null,
+      "closedAt": null,
+      "draft": true
     }
   ]
 }
+
