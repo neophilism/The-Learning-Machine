@@ -27,6 +27,10 @@
     "./acquisition": {
       "types": "./src/acquisition.d.mts",
       "default": "./src/acquisition.mjs"
+    },
+    "./fixation-lesson": {
+      "types": "./src/fixation-lesson.d.mts",
+      "default": "./src/fixation-lesson.mjs"
     }
   },
   "dependencies": {
@@ -34,3 +38,4 @@
     "@learning-machine/evidence": "workspace:*"
   }
 }
+
