@@ -35,6 +35,10 @@
     "./education-lesson": {
       "types": "./src/education-lesson.d.mts",
       "default": "./src/education-lesson.mjs"
+    },
+    "./independent-caveats": {
+      "types": "./src/independent-caveats.d.mts",
+      "default": "./src/independent-caveats.mjs"
     }
   },
   "dependencies": {

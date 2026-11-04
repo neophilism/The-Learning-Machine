@@ -522,7 +522,57 @@
         "market-substitution",
         "fair-use"
       ]
+    },
+    {
+      "id": "usc18-2511",
+      "kind": "statute",
+      "citation": "18 U.S.C. § 2511",
+      "title": "Interception and disclosure of wire, oral, or electronic communications prohibited",
+      "forum": "United States Code",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/18/2511",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Supplies the federal interception prohibition and consent-sensitive exceptions used to identify a separate privacy review.",
+      "scopeLimitations": "The statute contains detailed definitions, exceptions, intent requirements, and remedies; the fixture does not decide a violation.",
+      "topics": [
+        "privacy",
+        "security"
+      ]
+    },
+    {
+      "id": "usc18-1836",
+      "kind": "statute",
+      "citation": "18 U.S.C. § 1836",
+      "title": "Civil proceedings for trade secret misappropriation",
+      "forum": "United States Code",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/18/1836",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Supplies the federal civil-remedy framework for qualifying trade-secret misappropriation in interstate or foreign commerce.",
+      "scopeLimitations": "A remedy depends on statutory coverage, proof, defenses, and a complete record; issue spotting is not a finding of liability.",
+      "topics": [
+        "trade-secrets",
+        "lawful-acquisition"
+      ]
+    },
+    {
+      "id": "usc18-1839",
+      "kind": "statute",
+      "citation": "18 U.S.C. § 1839",
+      "title": "Trade secret and misappropriation definitions",
+      "forum": "United States Code",
+      "issuedOn": null,
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/18/1839",
+      "sourceType": "statutory-text",
+      "researchStatus": "source_link_identified",
+      "relevance": "Defines trade secret, reasonable secrecy measures, improper means, and misappropriation for the bounded confidentiality fixture.",
+      "scopeLimitations": "The statutory definitions require fact-specific proof and do not convert every confidential item or contract dispute into a trade secret claim.",
+      "topics": [
+        "trade-secrets",
+        "confidentiality"
+      ]
     }
   ]
 }
-
