@@ -1399,11 +1399,14 @@
         "Profit status does not silently rewrite present §110 law",
         "Historical and live instruction scenario fixtures pass"
       ],
-      "status": "planned",
-      "github_pr_number": null,
-      "github_pr_url": null,
+      "status": "in_review",
+      "github_pr_number": 58,
+      "github_pr_url": "https://github.com/neophilism/The-Learning-Machine/pull/58",
       "merged_commit": null,
-      "verification_evidence": []
+      "verification_evidence": [
+        "Draft PR #58 opened from verified canonical main d1dee7650e87f0b67ba6432a2ac6d3d2d14fb63a.",
+        "Focused education lesson tests passed locally: 7/7 statutory-boundary, live-instruction, unknown-fact and proposal fixtures."
+      ]
     },
     {
       "id": "TLM-060",
@@ -2169,4 +2172,3 @@
     }
   ]
 }
-

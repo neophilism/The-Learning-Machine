@@ -1303,7 +1303,9 @@
       "title": "Nonprofit school, private tutoring and for-profit teaching",
       "phase": "P7",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        58
+      ],
       "dependsOn": [
         "TLM-049",
         "TLM-051",
@@ -1313,8 +1315,11 @@
       "scope": [
         "Teach §110(1), fair use, public performance and proposed educational expansion"
       ],
-      "legacyStatus": "planned",
-      "legacyEvidence": []
+      "legacyStatus": "in_review",
+      "legacyEvidence": [
+        "Draft PR #58 opened from verified canonical main d1dee7650e87f0b67ba6432a2ac6d3d2d14fb63a.",
+        "Focused education lesson tests passed locally: 7/7 statutory-boundary, live-instruction, unknown-fact and proposal fixtures."
+      ]
     },
     {
       "id": "TLM-060",
@@ -2605,6 +2610,18 @@
       "mergedAt": "2026-11-04T20:52:09Z",
       "closedAt": "2026-11-04T20:52:09Z",
       "draft": false
+    },
+    {
+      "id": 5161585639,
+      "number": 58,
+      "title": "TLM-059: Add bounded teaching-settings legal lesson",
+      "state": "open",
+      "url": "https://github.com/neophilism/The-Learning-Machine/pull/58",
+      "createdAt": "2026-11-04T21:03:31Z",
+      "updatedAt": "2026-11-04T21:03:31Z",
+      "mergedAt": null,
+      "closedAt": null,
+      "draft": true
     }
   ]
 }
