@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "repository": "neophilism/The-Learning-Machine",
   "roadmapVersion": 1,
-  "observedAt": "2026-11-04T20:56:00Z",
+  "observedAt": "2026-11-04T21:03:06Z",
   "planVerified": true,
   "plannedPrCount": 96,
   "legacyPlanFile": "registry/legacy-prs.json",
@@ -1303,7 +1303,9 @@
       "title": "Nonprofit school, private tutoring and for-profit teaching",
       "phase": "P7",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        57
+      ],
       "dependsOn": [
         "TLM-049",
         "TLM-051",
@@ -1313,8 +1315,12 @@
       "scope": [
         "Teach §110(1), fair use, public performance and proposed educational expansion"
       ],
-      "legacyStatus": "planned",
-      "legacyEvidence": []
+      "legacyStatus": "in_review",
+      "legacyEvidence": [
+        "Draft PR #57 opened from canonical main d1dee7650e87f0b67ba6432a2ac6d3d2d14fb63a.",
+        "Historical and live instruction fixtures cover nonprofit classroom, private tutoring, for-profit teaching, audience scope, unlawful audiovisual copies and incomplete proposed text.",
+        "Hosted workspace-and-foundation verification is pending."
+      ]
     },
     {
       "id": "TLM-060",
@@ -2605,6 +2611,18 @@
       "mergedAt": "2026-11-04T20:52:09Z",
       "closedAt": "2026-11-04T20:52:09Z",
       "draft": false
+    },
+    {
+      "id": 5161580252,
+      "number": 57,
+      "title": "TLM-059: teach nonprofit, tutoring, and for-profit instruction",
+      "state": "open",
+      "url": "https://github.com/neophilism/The-Learning-Machine/pull/57",
+      "createdAt": "2026-11-04T21:03:06Z",
+      "updatedAt": "2026-11-04T21:03:06Z",
+      "mergedAt": null,
+      "closedAt": null,
+      "draft": true
     }
   ]
 }
