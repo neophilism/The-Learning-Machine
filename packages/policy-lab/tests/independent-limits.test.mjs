@@ -33,8 +33,10 @@ const facts = {
   interceptionAuthorized: true,
   personalDataProcessed: false,
   privacyAuthorizationOrLegalBasisEstablished: true,
-  contractRestrictionBreached: false,
-  confidentialityDutyBreached: false,
+  contractRestrictionApplies: false,
+  plannedUseCompliesWithContract: true,
+  confidentialityDutyApplies: false,
+  plannedUseCompliesWithConfidentialityDuty: true,
   tradeSecretClaimed: false,
   improperAcquisitionUseOrDisclosure: false,
 };
@@ -65,8 +67,10 @@ test("contract, confidentiality, privacy, and trade-secret facts remain independ
   const result = evaluateIndependentLimits(scenario({
     personalDataProcessed: true,
     privacyAuthorizationOrLegalBasisEstablished: false,
-    contractRestrictionBreached: true,
-    confidentialityDutyBreached: true,
+    contractRestrictionApplies: true,
+    plannedUseCompliesWithContract: false,
+    confidentialityDutyApplies: true,
+    plannedUseCompliesWithConfidentialityDuty: false,
     tradeSecretClaimed: true,
     improperAcquisitionUseOrDisclosure: true,
   }, {...copyrightEvaluation, outcome: "restrict"}), catalog);
@@ -86,6 +90,16 @@ test("unknown facts and claimed Section 1201 exceptions do not become permission
   assert.equal(result.overall, "independent-limits-unresolved");
   assert.deepEqual(result.unresolvedRegimes, ["access-control", "unauthorized-access"]);
   assert.equal(result.assessments[0].status, "exception-facts-require-separate-review");
+});
+
+test("unknown contract and confidentiality compliance stays unresolved", () => {
+  const result = evaluateIndependentLimits(scenario({
+    contractRestrictionApplies: true,
+    plannedUseCompliesWithContract: null,
+    confidentialityDutyApplies: true,
+    plannedUseCompliesWithConfidentialityDuty: null,
+  }), catalog);
+  assert.deepEqual(result.unresolvedRegimes, ["contract", "confidentiality"]);
 });
 
 test("complete negative facts report only that the fixture indicates no independent limit", () => {

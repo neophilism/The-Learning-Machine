@@ -68,9 +68,6 @@ function sources(catalog, evaluationDate) {
   }));
 }
 
-const direct = (value) => value === null
-  ? "unresolved-material-facts"
-  : value ? "restriction-indicated" : "not-indicated-by-fixture";
 const paired = (activity, authorization) => {
   if (activity === false) return "not-indicated-by-fixture";
   if (activity === null || authorization === null) return "unresolved-material-facts";
@@ -107,7 +104,8 @@ export function evaluateIndependentLimits(input, catalog) {
     "protectedComputerAccessed", "accessAuthorized",
     "communicationIntercepted", "interceptionAuthorized",
     "personalDataProcessed", "privacyAuthorizationOrLegalBasisEstablished",
-    "contractRestrictionBreached", "confidentialityDutyBreached",
+    "contractRestrictionApplies", "plannedUseCompliesWithContract",
+    "confidentialityDutyApplies", "plannedUseCompliesWithConfidentialityDuty",
     "tradeSecretClaimed", "improperAcquisitionUseOrDisclosure",
   ];
   exact(input.facts, factNames, "independent-limit facts");
@@ -153,13 +151,15 @@ export function evaluateIndependentLimits(input, catalog) {
     },
     {
       regime: "contract",
-      status: direct(facts.contractRestrictionBreached),
+      status: paired(facts.contractRestrictionApplies,
+        facts.plannedUseCompliesWithContract),
       source: null,
       caveat: "Contract scope, enforceability and remedies require separate governing-law and terms review.",
     },
     {
       regime: "confidentiality",
-      status: direct(facts.confidentialityDutyBreached),
+      status: paired(facts.confidentialityDutyApplies,
+        facts.plannedUseCompliesWithConfidentialityDuty),
       source: null,
       caveat: "Confidentiality duties and remedies are independent of the copyright result and require separate evidence.",
     },

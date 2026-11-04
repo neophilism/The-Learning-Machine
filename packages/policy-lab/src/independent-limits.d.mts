@@ -22,8 +22,10 @@ export interface IndependentLimitsInput {
     interceptionAuthorized: boolean | null;
     personalDataProcessed: boolean | null;
     privacyAuthorizationOrLegalBasisEstablished: boolean | null;
-    contractRestrictionBreached: boolean | null;
-    confidentialityDutyBreached: boolean | null;
+    contractRestrictionApplies: boolean | null;
+    plannedUseCompliesWithContract: boolean | null;
+    confidentialityDutyApplies: boolean | null;
+    plannedUseCompliesWithConfidentialityDuty: boolean | null;
     tradeSecretClaimed: boolean | null;
     improperAcquisitionUseOrDisclosure: boolean | null;
   };
