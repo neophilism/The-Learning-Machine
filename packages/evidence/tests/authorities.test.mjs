@@ -9,3 +9,5 @@ test('duplicates, missing scope caveats and unsourced entries are rejected',()=>
 test('international entries and future decisions fail closed',()=>{const a=clone();a.jurisdiction='European Union';assert.throws(()=>validateUsLawPack(a),/non-U.S./);const b=clone();b.authorities.find(x=>x.id==='thomson-ross').issuedOn='2027-01-01';assert.throws(()=>validateUsLawPack(b),/decision date/);});
 test('sources are review-classified, not silently treated as certified 2026 code',()=>{const x=getAuthority(source,'usc17-110');assert.match(source.sourceBaseline.edition,/2024/);assert.equal(x.researchStatus,'source_link_identified');assert.match(x.scopeLimitations,/nonprofit/);});
 test('appellate metadata uses the official opinion filing date',()=>{const x=getAuthority(source,'thomson-ross');assert.equal(x.issuedOn,'2026-09-29');assert.match(x.citation,/Sept\. 29, 2026/);});
+
+test('independent-limit statutes remain scoped and source linked',()=>{for(const id of ['usc18-1030','usc18-2511','usc18-1836']){const x=getAuthority(source,id);assert.equal(x.kind,'statute');assert.match(x.scopeLimitations,/separate|own evidence/);}});

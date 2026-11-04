@@ -30,3 +30,7 @@ Run `pnpm legal:check` and `pnpm check`. CI enforces unique citations, HTTPS sou
 
 TLM-050 will attach actual version-controlled proposed statutory text when available. TLM-051–056 will represent scenario facts, operative rule language, rule evaluation, side-by-side comparisons and conflicts. This catalog alone does **not** implement legal rules or deliver legally authoritative individualized conclusions.
 
+
+## Independent legal limits added for TLM-060
+
+The catalog also includes scoped statutory references for 18 U.S.C. § 1030, § 2511 and § 1836. They support a bounded lesson that keeps computer access, communications privacy and trade-secret questions separate from copyright. The entries do not certify liability, nationwide privacy compliance, contract enforceability or all current amendments; each regime requires its own elements, exceptions, jurisdiction and evidence.

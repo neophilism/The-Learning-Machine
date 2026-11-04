@@ -35,6 +35,10 @@
     "./education-lesson": {
       "types": "./src/education-lesson.d.mts",
       "default": "./src/education-lesson.mjs"
+    },
+    "./independent-limits": {
+      "types": "./src/independent-limits.d.mts",
+      "default": "./src/independent-limits.mjs"
     }
   },
   "dependencies": {
