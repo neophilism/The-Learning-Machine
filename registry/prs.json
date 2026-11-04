@@ -1289,11 +1289,13 @@
       "scope": [
         "Explain §101, Cablevision and MAI without fictitious duration cutoff"
       ],
-      "legacyStatus": "in_review",
+      "legacyStatus": "merged",
       "legacyEvidence": [
         "Draft PR #56 opened from canonical main 6419266f1148af1098f6af7c767f55d04bc718ff.",
         "Focused fixation lesson tests passed locally: 5/5 case-specific and negative fixtures.",
-        "Exact behavior head bc30312f29b92b0b1a07a8ce551db8a7317f5eeb passed workspace-and-foundation run 41909598132, including full pnpm check and browser stages."
+        "Exact behavior head bc30312f29b92b0b1a07a8ce551db8a7317f5eeb passed workspace-and-foundation run 41909598132, including full pnpm check and browser stages.",
+        "Evidence-mapped exact head 56c944049b20ae8da91d4416941f8192a7b9214f passed workspace-and-foundation run 41909984567.",
+        "PR #56 squash-merged as 717d2c43471862e8c5409a919de6fac49a70bf4e; merged-main workspace-and-foundation run 41910675046 passed."
       ]
     },
     {
@@ -2596,13 +2598,13 @@
       "id": 5161251798,
       "number": 56,
       "title": "TLM-058: Add case-specific fixation and temporary-copy lesson",
-      "state": "open",
+      "state": "closed",
       "url": "https://github.com/neophilism/The-Learning-Machine/pull/56",
       "createdAt": "2026-11-04T20:38:56Z",
-      "updatedAt": "2026-11-04T20:38:56Z",
-      "mergedAt": null,
-      "closedAt": null,
-      "draft": true
+      "updatedAt": "2026-11-04T20:52:09Z",
+      "mergedAt": "2026-11-04T20:52:09Z",
+      "closedAt": "2026-11-04T20:52:09Z",
+      "draft": false
     }
   ]
 }
