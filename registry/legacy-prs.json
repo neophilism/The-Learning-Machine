@@ -1432,7 +1432,8 @@
       "merged_commit": null,
       "verification_evidence": [
         "Draft PR #59 opened from fully verified canonical main 63a526fad0788f880b0ed1fef109e28990e5e00d.",
-        "Focused independent-caveats syntax validation and 6/6 cross-regime tests passed locally."
+        "Focused independent-caveats syntax validation and 6/6 cross-regime tests passed locally.",
+        "Corrected registry head 1590b9e807df3321e09703c8363c4ee408a53fa0 passed workspace-and-foundation run 41915789607, including frozen install, full pnpm check and desktop/mobile browser tests; behavior-only head 6aa7e49b0dfbb4853bb48cd1903f070f52bcc1f2 also passed run 41915553889."
       ]
     },
     {
