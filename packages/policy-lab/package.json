@@ -31,6 +31,10 @@
     "./fixation-lesson": {
       "types": "./src/fixation-lesson.d.mts",
       "default": "./src/fixation-lesson.mjs"
+    },
+    "./education-lesson": {
+      "types": "./src/education-lesson.d.mts",
+      "default": "./src/education-lesson.mjs"
     }
   },
   "dependencies": {
@@ -38,4 +42,3 @@
     "@learning-machine/evidence": "workspace:*"
   }
 }
-
