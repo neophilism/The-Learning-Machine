@@ -61,7 +61,7 @@ function validateScenario(input) {
   assert(USES.has(facts.workUse), "Invalid work use");
   for (const key of [
     "institutionNonprofit", "instructorOrPupil", "classroomOrSimilarPlace",
-    "audiovisualWork", "copyLawfullyMade", "responsiblePersonKnewCopyUnlawful",
+    "audiovisualWork", "copyLawfullyMade", "responsiblePersonKnewOrHadReasonCopyUnlawful",
     "publicAudience", "commercialPurpose",
   ]) {
     assert(facts[key] === null || typeof facts[key] === "boolean", "Invalid " + key + " evidence");
@@ -94,11 +94,11 @@ export function evaluateEducationLesson(input, catalog, billInput) {
 
   const relevantUse = facts.workUse === "performance" || facts.workUse === "display";
   const audiovisualCopyAllowed = facts.audiovisualWork === false || facts.copyLawfullyMade === true ||
-    (facts.copyLawfullyMade === false && facts.responsiblePersonKnewCopyUnlawful === false);
+    (facts.copyLawfullyMade === false && facts.responsiblePersonKnewOrHadReasonCopyUnlawful === false);
   const unknownSection110Fact = [facts.institutionNonprofit, facts.instructorOrPupil,
     facts.classroomOrSimilarPlace, facts.audiovisualWork].includes(null) ||
     (facts.audiovisualWork === true && (facts.copyLawfullyMade === null ||
-      (facts.copyLawfullyMade === false && facts.responsiblePersonKnewCopyUnlawful === null)));
+      (facts.copyLawfullyMade === false && facts.responsiblePersonKnewOrHadReasonCopyUnlawful === null)));
   const exactSection110Record = relevantUse && facts.instructionMode === "face-to-face" &&
     facts.institutionNonprofit === true && facts.instructorOrPupil === true &&
     facts.classroomOrSimilarPlace === true && audiovisualCopyAllowed;
