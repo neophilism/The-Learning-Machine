@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "repository": "neophilism/The-Learning-Machine",
   "roadmapVersion": 1,
-  "observedAt": "2026-11-01T20:55:00Z",
+  "observedAt": "2026-11-04T20:56:00Z",
   "planVerified": true,
   "plannedPrCount": 96,
   "legacyPlanFile": "registry/legacy-prs.json",
@@ -2608,4 +2608,3 @@
     }
   ]
 }
-
